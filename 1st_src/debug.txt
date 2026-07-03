@@ -1,0 +1,61 @@
+Failed to load sound: assets/audio/jump.wav
+Failed to load sound: assets/audio/stomp.wav
+Failed to load sound: assets/audio/coin.wav
+Failed to load sound: assets/audio/hurt.wav
+Failed to load sound: assets/audio/die.wav
+Failed to load sound: assets/audio/break.wav
+Failed to load texture: assets/textures/mario.png
+Failed to load texture: assets/textures/goomba.png
+Failed to load texture: assets/textures/koopa.png
+Failed to load texture: assets/textures/piranha.png
+Failed to load texture: assets/textures/thwomp.png
+Failed to load texture: assets/textures/brick.png
+Failed to load texture: assets/textures/solid.png
+Failed to load texture: assets/textures/question.png
+Failed to load texture: assets/textures/mushroom.png
+Failed to load texture: assets/textures/flower.png
+Failed to load texture: assets/textures/star.png
+Failed to load texture: assets/textures/coin.png
+Failed to load texture: assets/textures/fireball.png
+Level file not found: assets/levels/level1.txt. Loading fallback level.
+Level file not found: assets/levels/level1.txt. Loading fallback level.
+orted
+INFO: GL: ETC2/EAC compressed textures supported
+INFO: PLATFORM: DESKTOP (GLFW): Initialized successfully
+INFO: TEXTURE: [ID 1] Texture loaded successfully (1x1 | R8G8B8A8 | 1 mipmaps)
+INFO: TEXTURE: [ID 1] Default texture loaded successfully
+INFO: SHADER: [ID 1] Vertex shader compiled successfully
+INFO: SHADER: [ID 2] Fragment shader compiled successfully
+INFO: SHADER: [ID 3] Program shader loaded successfully
+INFO: SHADER: [ID 3] Default shader loaded successfully
+INFO: RLGL: Render batch vertex buffers loaded successfully in RAM (CPU)
+INFO: RLGL: Render batch vertex buffers loaded successfully in VRAM (GPU)
+INFO: RLGL: Default OpenGL state initialized successfully
+INFO: TEXTURE: [ID 2] Texture loaded successfully (128x128 | GRAY_ALPHA | 1 mipmaps)
+INFO: FONT: Default font loaded successfully (224 glyphs)
+INFO: TIMER: Target time per frame: 16.667 milliseconds
+INFO: AUDIO: Device initialized successfully
+INFO:     > Backend:       miniaudio / WASAPI
+INFO:     > Format:        32-bit IEEE Floating Point -> 32-bit IEEE Floating Point
+INFO:     > Channels:      2 -> 2
+INFO:     > Sample rate:   48000 -> 48000
+INFO:     > Periods size:  1440
+WARNING: FILEIO: [assets/audio/jump.wav] Failed to open file
+WARNING: FILEIO: [assets/audio/stomp.wav] Failed to open file
+WARNING: FILEIO: [assets/audio/coin.wav] Failed to open file
+WARNING: FILEIO: [assets/audio/hurt.wav] Failed to open file
+WARNING: FILEIO: [assets/audio/die.wav] Failed to open file
+WARNING: FILEIO: [assets/audio/break.wav] Failed to open file
+WARNING: FILEIO: [assets/textures/mario.png] Failed to open file
+WARNING: FILEIO: [assets/textures/goomba.png] Failed to open file
+WARNING: FILEIO: [assets/textures/koopa.png] Failed to open file
+WARNING: FILEIO: [assets/textures/piranha.png] Failed to open file
+WARNING: FILEIO: [assets/textures/thwomp.png] Failed to open file
+WARNING: FILEIO: [assets/textures/brick.png] Failed to open file
+WARNING: FILEIO: [assets/textures/solid.png] Failed to open file
+WARNING: FILEIO: [assets/textures/question.png] Failed to open file
+WARNING: FILEIO: [assets/textures/mushroom.png] Failed to open file
+WARNING: FILEIO: [assets/textures/flower.png] Failed to open file
+WARNING: FILEIO: [assets/textures/star.png] Failed to open file
+WARNING: FILEIO: [assets/textures/coin.png] Failed to open file
+WARNING: FILEIO: [assets/textures/fireball.png] Failed to open file

@@ -1,0 +1,3 @@
+C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir
+C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-subbuild/CMakeFiles/rebuild_cache.dir

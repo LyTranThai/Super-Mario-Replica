@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/Admin/Desktop/Mario/1st_src/build/cmake_install.cmake",
+		"C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-build/cmake_install.cmake",
+		"C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-build/raylib/cmake_install.cmake",
+		"C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-build/raylib/external/glfw/cmake_install.cmake",
+		"C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-build/raylib/external/glfw/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

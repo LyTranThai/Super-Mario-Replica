@@ -1,0 +1,13 @@
+TestUser2
+ea41e1ea8fe97c1c
+1
+0
+KEY Crouch 83
+KEY Jump 87
+KEY MenuDown 264
+KEY MenuUp 265
+KEY MoveLeft 65
+KEY MoveRight 68
+KEY Pause 80
+KEY Run 340
+KEY Shoot 74
