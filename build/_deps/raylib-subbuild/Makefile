@@ -56,10 +56,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-subbuild
+CMAKE_SOURCE_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-subbuild"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-subbuild
+CMAKE_BINARY_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-subbuild"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,16 +86,16 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-subbuild\CMakeFiles C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-subbuild\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-subbuild\CMakeFiles" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-subbuild\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-subbuild\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-subbuild\CMakeFiles" 0
 .PHONY : all
 
 # The main codegen target
 codegen: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-subbuild\CMakeFiles C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-subbuild\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-subbuild\CMakeFiles" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-subbuild\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 codegen
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-subbuild\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-subbuild\CMakeFiles" 0
 .PHONY : codegen
 
 # The main clean target

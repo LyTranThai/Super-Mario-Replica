@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Admin\Desktop\Mario\1st_src
+CMAKE_SOURCE_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Admin\Desktop\Mario\1st_src\build
+CMAKE_BINARY_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build"
 
 # Utility rule file for update_mappings.
 
@@ -66,8 +66,8 @@ include _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.d
 include _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/progress.make
 
 _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Updating gamepad mappings from upstream repository"
-	cd /d C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-src\src\external\glfw\src && "C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-src/src/external/glfw/CMake/GenerateMappings.cmake mappings.h.in mappings.h
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Updating gamepad mappings from upstream repository"
+	cd /d C:\Users\Admin\Desktop\Mario\SUPERM~1\build\_deps\RAYLIB~2\src\external\glfw\src && "C:\Program Files\CMake\bin\cmake.exe" -P "C:/Users/Admin/Desktop/Mario/Super Mario Replica/build/_deps/raylib-src/src/external/glfw/CMake/GenerateMappings.cmake" mappings.h.in mappings.h
 
 _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/codegen:
 .PHONY : _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/codegen
@@ -81,10 +81,10 @@ _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build
 .PHONY : _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build
 
 _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/clean:
-	cd /d C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-build\raylib\external\glfw\src && $(CMAKE_COMMAND) -P CMakeFiles\update_mappings.dir\cmake_clean.cmake
+	cd /d C:\Users\Admin\Desktop\Mario\SUPERM~1\build\_deps\RAYLIB~3\raylib\external\glfw\src && $(CMAKE_COMMAND) -P CMakeFiles\update_mappings.dir\cmake_clean.cmake
 .PHONY : _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/clean
 
 _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Admin\Desktop\Mario\1st_src C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-src\src\external\glfw\src C:\Users\Admin\Desktop\Mario\1st_src\build C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-build\raylib\external\glfw\src C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-build\raylib\external\glfw\src\CMakeFiles\update_mappings.dir\DependInfo.cmake "--color=$(COLOR)" update_mappings
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\Admin\Desktop\Mario\Super Mario Replica" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-src\src\external\glfw\src" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-build\raylib\external\glfw\src" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-build\raylib\external\glfw\src\CMakeFiles\update_mappings.dir\DependInfo.cmake" "--color=$(COLOR)" update_mappings
 .PHONY : _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/depend
 

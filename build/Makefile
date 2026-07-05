@@ -56,10 +56,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Admin\Desktop\Mario\1st_src
+CMAKE_SOURCE_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Admin\Desktop\Mario\1st_src\build
+CMAKE_BINARY_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -151,9 +151,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles C:\Users\Admin\Desktop\Mario\1st_src\build\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -192,19 +192,6 @@ MarioGame: cmake_check_build_system
 MarioGame/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/build
 .PHONY : MarioGame/fast
-
-#=============================================================================
-# Target rules for targets named TestMario
-
-# Build rule for target.
-TestMario: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 TestMario
-.PHONY : TestMario
-
-# fast build rule for target.
-TestMario/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/build
-.PHONY : TestMario/fast
 
 #=============================================================================
 # Target rules for targets named uninstall
@@ -288,7 +275,6 @@ src/Core/AssetManager.obj: src/Core/AssetManager.cpp.obj
 # target to build an object file
 src/Core/AssetManager.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/AssetManager.cpp.obj
 .PHONY : src/Core/AssetManager.cpp.obj
 
 src/Core/AssetManager.i: src/Core/AssetManager.cpp.i
@@ -297,7 +283,6 @@ src/Core/AssetManager.i: src/Core/AssetManager.cpp.i
 # target to preprocess a source file
 src/Core/AssetManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/AssetManager.cpp.i
 .PHONY : src/Core/AssetManager.cpp.i
 
 src/Core/AssetManager.s: src/Core/AssetManager.cpp.s
@@ -306,7 +291,6 @@ src/Core/AssetManager.s: src/Core/AssetManager.cpp.s
 # target to generate assembly for a file
 src/Core/AssetManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/AssetManager.cpp.s
 .PHONY : src/Core/AssetManager.cpp.s
 
 src/Core/GameEngine.obj: src/Core/GameEngine.cpp.obj
@@ -315,7 +299,6 @@ src/Core/GameEngine.obj: src/Core/GameEngine.cpp.obj
 # target to build an object file
 src/Core/GameEngine.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/GameEngine.cpp.obj
 .PHONY : src/Core/GameEngine.cpp.obj
 
 src/Core/GameEngine.i: src/Core/GameEngine.cpp.i
@@ -324,7 +307,6 @@ src/Core/GameEngine.i: src/Core/GameEngine.cpp.i
 # target to preprocess a source file
 src/Core/GameEngine.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/GameEngine.cpp.i
 .PHONY : src/Core/GameEngine.cpp.i
 
 src/Core/GameEngine.s: src/Core/GameEngine.cpp.s
@@ -333,7 +315,6 @@ src/Core/GameEngine.s: src/Core/GameEngine.cpp.s
 # target to generate assembly for a file
 src/Core/GameEngine.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/GameEngine.cpp.s
 .PHONY : src/Core/GameEngine.cpp.s
 
 src/Core/GameStateManager.obj: src/Core/GameStateManager.cpp.obj
@@ -342,7 +323,6 @@ src/Core/GameStateManager.obj: src/Core/GameStateManager.cpp.obj
 # target to build an object file
 src/Core/GameStateManager.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/GameStateManager.cpp.obj
 .PHONY : src/Core/GameStateManager.cpp.obj
 
 src/Core/GameStateManager.i: src/Core/GameStateManager.cpp.i
@@ -351,7 +331,6 @@ src/Core/GameStateManager.i: src/Core/GameStateManager.cpp.i
 # target to preprocess a source file
 src/Core/GameStateManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/GameStateManager.cpp.i
 .PHONY : src/Core/GameStateManager.cpp.i
 
 src/Core/GameStateManager.s: src/Core/GameStateManager.cpp.s
@@ -360,7 +339,6 @@ src/Core/GameStateManager.s: src/Core/GameStateManager.cpp.s
 # target to generate assembly for a file
 src/Core/GameStateManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/GameStateManager.cpp.s
 .PHONY : src/Core/GameStateManager.cpp.s
 
 src/Core/InputManager.obj: src/Core/InputManager.cpp.obj
@@ -369,7 +347,6 @@ src/Core/InputManager.obj: src/Core/InputManager.cpp.obj
 # target to build an object file
 src/Core/InputManager.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/InputManager.cpp.obj
 .PHONY : src/Core/InputManager.cpp.obj
 
 src/Core/InputManager.i: src/Core/InputManager.cpp.i
@@ -378,7 +355,6 @@ src/Core/InputManager.i: src/Core/InputManager.cpp.i
 # target to preprocess a source file
 src/Core/InputManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/InputManager.cpp.i
 .PHONY : src/Core/InputManager.cpp.i
 
 src/Core/InputManager.s: src/Core/InputManager.cpp.s
@@ -387,7 +363,6 @@ src/Core/InputManager.s: src/Core/InputManager.cpp.s
 # target to generate assembly for a file
 src/Core/InputManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/InputManager.cpp.s
 .PHONY : src/Core/InputManager.cpp.s
 
 src/Core/SoundManager.obj: src/Core/SoundManager.cpp.obj
@@ -396,7 +371,6 @@ src/Core/SoundManager.obj: src/Core/SoundManager.cpp.obj
 # target to build an object file
 src/Core/SoundManager.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/SoundManager.cpp.obj
 .PHONY : src/Core/SoundManager.cpp.obj
 
 src/Core/SoundManager.i: src/Core/SoundManager.cpp.i
@@ -405,7 +379,6 @@ src/Core/SoundManager.i: src/Core/SoundManager.cpp.i
 # target to preprocess a source file
 src/Core/SoundManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/SoundManager.cpp.i
 .PHONY : src/Core/SoundManager.cpp.i
 
 src/Core/SoundManager.s: src/Core/SoundManager.cpp.s
@@ -414,7 +387,6 @@ src/Core/SoundManager.s: src/Core/SoundManager.cpp.s
 # target to generate assembly for a file
 src/Core/SoundManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Core/SoundManager.cpp.s
 .PHONY : src/Core/SoundManager.cpp.s
 
 src/Entities/Block.obj: src/Entities/Block.cpp.obj
@@ -423,7 +395,6 @@ src/Entities/Block.obj: src/Entities/Block.cpp.obj
 # target to build an object file
 src/Entities/Block.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Block.cpp.obj
 .PHONY : src/Entities/Block.cpp.obj
 
 src/Entities/Block.i: src/Entities/Block.cpp.i
@@ -432,7 +403,6 @@ src/Entities/Block.i: src/Entities/Block.cpp.i
 # target to preprocess a source file
 src/Entities/Block.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Block.cpp.i
 .PHONY : src/Entities/Block.cpp.i
 
 src/Entities/Block.s: src/Entities/Block.cpp.s
@@ -441,7 +411,6 @@ src/Entities/Block.s: src/Entities/Block.cpp.s
 # target to generate assembly for a file
 src/Entities/Block.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Block.cpp.s
 .PHONY : src/Entities/Block.cpp.s
 
 src/Entities/DynamicEntity.obj: src/Entities/DynamicEntity.cpp.obj
@@ -450,7 +419,6 @@ src/Entities/DynamicEntity.obj: src/Entities/DynamicEntity.cpp.obj
 # target to build an object file
 src/Entities/DynamicEntity.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/DynamicEntity.cpp.obj
 .PHONY : src/Entities/DynamicEntity.cpp.obj
 
 src/Entities/DynamicEntity.i: src/Entities/DynamicEntity.cpp.i
@@ -459,7 +427,6 @@ src/Entities/DynamicEntity.i: src/Entities/DynamicEntity.cpp.i
 # target to preprocess a source file
 src/Entities/DynamicEntity.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/DynamicEntity.cpp.i
 .PHONY : src/Entities/DynamicEntity.cpp.i
 
 src/Entities/DynamicEntity.s: src/Entities/DynamicEntity.cpp.s
@@ -468,7 +435,6 @@ src/Entities/DynamicEntity.s: src/Entities/DynamicEntity.cpp.s
 # target to generate assembly for a file
 src/Entities/DynamicEntity.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/DynamicEntity.cpp.s
 .PHONY : src/Entities/DynamicEntity.cpp.s
 
 src/Entities/Enemy.obj: src/Entities/Enemy.cpp.obj
@@ -477,7 +443,6 @@ src/Entities/Enemy.obj: src/Entities/Enemy.cpp.obj
 # target to build an object file
 src/Entities/Enemy.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Enemy.cpp.obj
 .PHONY : src/Entities/Enemy.cpp.obj
 
 src/Entities/Enemy.i: src/Entities/Enemy.cpp.i
@@ -486,7 +451,6 @@ src/Entities/Enemy.i: src/Entities/Enemy.cpp.i
 # target to preprocess a source file
 src/Entities/Enemy.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Enemy.cpp.i
 .PHONY : src/Entities/Enemy.cpp.i
 
 src/Entities/Enemy.s: src/Entities/Enemy.cpp.s
@@ -495,7 +459,6 @@ src/Entities/Enemy.s: src/Entities/Enemy.cpp.s
 # target to generate assembly for a file
 src/Entities/Enemy.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Enemy.cpp.s
 .PHONY : src/Entities/Enemy.cpp.s
 
 src/Entities/Entity.obj: src/Entities/Entity.cpp.obj
@@ -504,7 +467,6 @@ src/Entities/Entity.obj: src/Entities/Entity.cpp.obj
 # target to build an object file
 src/Entities/Entity.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Entity.cpp.obj
 .PHONY : src/Entities/Entity.cpp.obj
 
 src/Entities/Entity.i: src/Entities/Entity.cpp.i
@@ -513,7 +475,6 @@ src/Entities/Entity.i: src/Entities/Entity.cpp.i
 # target to preprocess a source file
 src/Entities/Entity.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Entity.cpp.i
 .PHONY : src/Entities/Entity.cpp.i
 
 src/Entities/Entity.s: src/Entities/Entity.cpp.s
@@ -522,7 +483,6 @@ src/Entities/Entity.s: src/Entities/Entity.cpp.s
 # target to generate assembly for a file
 src/Entities/Entity.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Entity.cpp.s
 .PHONY : src/Entities/Entity.cpp.s
 
 src/Entities/Fireball.obj: src/Entities/Fireball.cpp.obj
@@ -531,7 +491,6 @@ src/Entities/Fireball.obj: src/Entities/Fireball.cpp.obj
 # target to build an object file
 src/Entities/Fireball.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Fireball.cpp.obj
 .PHONY : src/Entities/Fireball.cpp.obj
 
 src/Entities/Fireball.i: src/Entities/Fireball.cpp.i
@@ -540,7 +499,6 @@ src/Entities/Fireball.i: src/Entities/Fireball.cpp.i
 # target to preprocess a source file
 src/Entities/Fireball.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Fireball.cpp.i
 .PHONY : src/Entities/Fireball.cpp.i
 
 src/Entities/Fireball.s: src/Entities/Fireball.cpp.s
@@ -549,7 +507,6 @@ src/Entities/Fireball.s: src/Entities/Fireball.cpp.s
 # target to generate assembly for a file
 src/Entities/Fireball.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Fireball.cpp.s
 .PHONY : src/Entities/Fireball.cpp.s
 
 src/Entities/Goomba.obj: src/Entities/Goomba.cpp.obj
@@ -558,7 +515,6 @@ src/Entities/Goomba.obj: src/Entities/Goomba.cpp.obj
 # target to build an object file
 src/Entities/Goomba.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Goomba.cpp.obj
 .PHONY : src/Entities/Goomba.cpp.obj
 
 src/Entities/Goomba.i: src/Entities/Goomba.cpp.i
@@ -567,7 +523,6 @@ src/Entities/Goomba.i: src/Entities/Goomba.cpp.i
 # target to preprocess a source file
 src/Entities/Goomba.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Goomba.cpp.i
 .PHONY : src/Entities/Goomba.cpp.i
 
 src/Entities/Goomba.s: src/Entities/Goomba.cpp.s
@@ -576,7 +531,6 @@ src/Entities/Goomba.s: src/Entities/Goomba.cpp.s
 # target to generate assembly for a file
 src/Entities/Goomba.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Goomba.cpp.s
 .PHONY : src/Entities/Goomba.cpp.s
 
 src/Entities/InteractiveBlock.obj: src/Entities/InteractiveBlock.cpp.obj
@@ -585,7 +539,6 @@ src/Entities/InteractiveBlock.obj: src/Entities/InteractiveBlock.cpp.obj
 # target to build an object file
 src/Entities/InteractiveBlock.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/InteractiveBlock.cpp.obj
 .PHONY : src/Entities/InteractiveBlock.cpp.obj
 
 src/Entities/InteractiveBlock.i: src/Entities/InteractiveBlock.cpp.i
@@ -594,7 +547,6 @@ src/Entities/InteractiveBlock.i: src/Entities/InteractiveBlock.cpp.i
 # target to preprocess a source file
 src/Entities/InteractiveBlock.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/InteractiveBlock.cpp.i
 .PHONY : src/Entities/InteractiveBlock.cpp.i
 
 src/Entities/InteractiveBlock.s: src/Entities/InteractiveBlock.cpp.s
@@ -603,7 +555,6 @@ src/Entities/InteractiveBlock.s: src/Entities/InteractiveBlock.cpp.s
 # target to generate assembly for a file
 src/Entities/InteractiveBlock.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/InteractiveBlock.cpp.s
 .PHONY : src/Entities/InteractiveBlock.cpp.s
 
 src/Entities/Item.obj: src/Entities/Item.cpp.obj
@@ -612,7 +563,6 @@ src/Entities/Item.obj: src/Entities/Item.cpp.obj
 # target to build an object file
 src/Entities/Item.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Item.cpp.obj
 .PHONY : src/Entities/Item.cpp.obj
 
 src/Entities/Item.i: src/Entities/Item.cpp.i
@@ -621,7 +571,6 @@ src/Entities/Item.i: src/Entities/Item.cpp.i
 # target to preprocess a source file
 src/Entities/Item.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Item.cpp.i
 .PHONY : src/Entities/Item.cpp.i
 
 src/Entities/Item.s: src/Entities/Item.cpp.s
@@ -630,7 +579,6 @@ src/Entities/Item.s: src/Entities/Item.cpp.s
 # target to generate assembly for a file
 src/Entities/Item.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Item.cpp.s
 .PHONY : src/Entities/Item.cpp.s
 
 src/Entities/Koopa.obj: src/Entities/Koopa.cpp.obj
@@ -639,7 +587,6 @@ src/Entities/Koopa.obj: src/Entities/Koopa.cpp.obj
 # target to build an object file
 src/Entities/Koopa.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Koopa.cpp.obj
 .PHONY : src/Entities/Koopa.cpp.obj
 
 src/Entities/Koopa.i: src/Entities/Koopa.cpp.i
@@ -648,7 +595,6 @@ src/Entities/Koopa.i: src/Entities/Koopa.cpp.i
 # target to preprocess a source file
 src/Entities/Koopa.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Koopa.cpp.i
 .PHONY : src/Entities/Koopa.cpp.i
 
 src/Entities/Koopa.s: src/Entities/Koopa.cpp.s
@@ -657,7 +603,6 @@ src/Entities/Koopa.s: src/Entities/Koopa.cpp.s
 # target to generate assembly for a file
 src/Entities/Koopa.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Koopa.cpp.s
 .PHONY : src/Entities/Koopa.cpp.s
 
 src/Entities/PiranhaPlant.obj: src/Entities/PiranhaPlant.cpp.obj
@@ -666,7 +611,6 @@ src/Entities/PiranhaPlant.obj: src/Entities/PiranhaPlant.cpp.obj
 # target to build an object file
 src/Entities/PiranhaPlant.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/PiranhaPlant.cpp.obj
 .PHONY : src/Entities/PiranhaPlant.cpp.obj
 
 src/Entities/PiranhaPlant.i: src/Entities/PiranhaPlant.cpp.i
@@ -675,7 +619,6 @@ src/Entities/PiranhaPlant.i: src/Entities/PiranhaPlant.cpp.i
 # target to preprocess a source file
 src/Entities/PiranhaPlant.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/PiranhaPlant.cpp.i
 .PHONY : src/Entities/PiranhaPlant.cpp.i
 
 src/Entities/PiranhaPlant.s: src/Entities/PiranhaPlant.cpp.s
@@ -684,7 +627,6 @@ src/Entities/PiranhaPlant.s: src/Entities/PiranhaPlant.cpp.s
 # target to generate assembly for a file
 src/Entities/PiranhaPlant.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/PiranhaPlant.cpp.s
 .PHONY : src/Entities/PiranhaPlant.cpp.s
 
 src/Entities/Player.obj: src/Entities/Player.cpp.obj
@@ -693,7 +635,6 @@ src/Entities/Player.obj: src/Entities/Player.cpp.obj
 # target to build an object file
 src/Entities/Player.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Player.cpp.obj
 .PHONY : src/Entities/Player.cpp.obj
 
 src/Entities/Player.i: src/Entities/Player.cpp.i
@@ -702,7 +643,6 @@ src/Entities/Player.i: src/Entities/Player.cpp.i
 # target to preprocess a source file
 src/Entities/Player.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Player.cpp.i
 .PHONY : src/Entities/Player.cpp.i
 
 src/Entities/Player.s: src/Entities/Player.cpp.s
@@ -711,7 +651,6 @@ src/Entities/Player.s: src/Entities/Player.cpp.s
 # target to generate assembly for a file
 src/Entities/Player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/Player.cpp.s
 .PHONY : src/Entities/Player.cpp.s
 
 src/Entities/PlayerPowerState.obj: src/Entities/PlayerPowerState.cpp.obj
@@ -720,7 +659,6 @@ src/Entities/PlayerPowerState.obj: src/Entities/PlayerPowerState.cpp.obj
 # target to build an object file
 src/Entities/PlayerPowerState.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/PlayerPowerState.cpp.obj
 .PHONY : src/Entities/PlayerPowerState.cpp.obj
 
 src/Entities/PlayerPowerState.i: src/Entities/PlayerPowerState.cpp.i
@@ -729,7 +667,6 @@ src/Entities/PlayerPowerState.i: src/Entities/PlayerPowerState.cpp.i
 # target to preprocess a source file
 src/Entities/PlayerPowerState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/PlayerPowerState.cpp.i
 .PHONY : src/Entities/PlayerPowerState.cpp.i
 
 src/Entities/PlayerPowerState.s: src/Entities/PlayerPowerState.cpp.s
@@ -738,7 +675,6 @@ src/Entities/PlayerPowerState.s: src/Entities/PlayerPowerState.cpp.s
 # target to generate assembly for a file
 src/Entities/PlayerPowerState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/PlayerPowerState.cpp.s
 .PHONY : src/Entities/PlayerPowerState.cpp.s
 
 src/Entities/RockHead.obj: src/Entities/RockHead.cpp.obj
@@ -747,7 +683,6 @@ src/Entities/RockHead.obj: src/Entities/RockHead.cpp.obj
 # target to build an object file
 src/Entities/RockHead.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/RockHead.cpp.obj
 .PHONY : src/Entities/RockHead.cpp.obj
 
 src/Entities/RockHead.i: src/Entities/RockHead.cpp.i
@@ -756,7 +691,6 @@ src/Entities/RockHead.i: src/Entities/RockHead.cpp.i
 # target to preprocess a source file
 src/Entities/RockHead.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/RockHead.cpp.i
 .PHONY : src/Entities/RockHead.cpp.i
 
 src/Entities/RockHead.s: src/Entities/RockHead.cpp.s
@@ -765,8 +699,31 @@ src/Entities/RockHead.s: src/Entities/RockHead.cpp.s
 # target to generate assembly for a file
 src/Entities/RockHead.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/RockHead.cpp.s
 .PHONY : src/Entities/RockHead.cpp.s
+
+src/Entities/SpecialMove.obj: src/Entities/SpecialMove.cpp.obj
+.PHONY : src/Entities/SpecialMove.obj
+
+# target to build an object file
+src/Entities/SpecialMove.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj
+.PHONY : src/Entities/SpecialMove.cpp.obj
+
+src/Entities/SpecialMove.i: src/Entities/SpecialMove.cpp.i
+.PHONY : src/Entities/SpecialMove.i
+
+# target to preprocess a source file
+src/Entities/SpecialMove.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.i
+.PHONY : src/Entities/SpecialMove.cpp.i
+
+src/Entities/SpecialMove.s: src/Entities/SpecialMove.cpp.s
+.PHONY : src/Entities/SpecialMove.s
+
+# target to generate assembly for a file
+src/Entities/SpecialMove.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.s
+.PHONY : src/Entities/SpecialMove.cpp.s
 
 src/Entities/StaticEntity.obj: src/Entities/StaticEntity.cpp.obj
 .PHONY : src/Entities/StaticEntity.obj
@@ -774,7 +731,6 @@ src/Entities/StaticEntity.obj: src/Entities/StaticEntity.cpp.obj
 # target to build an object file
 src/Entities/StaticEntity.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/StaticEntity.cpp.obj
 .PHONY : src/Entities/StaticEntity.cpp.obj
 
 src/Entities/StaticEntity.i: src/Entities/StaticEntity.cpp.i
@@ -783,7 +739,6 @@ src/Entities/StaticEntity.i: src/Entities/StaticEntity.cpp.i
 # target to preprocess a source file
 src/Entities/StaticEntity.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/StaticEntity.cpp.i
 .PHONY : src/Entities/StaticEntity.cpp.i
 
 src/Entities/StaticEntity.s: src/Entities/StaticEntity.cpp.s
@@ -792,7 +747,6 @@ src/Entities/StaticEntity.s: src/Entities/StaticEntity.cpp.s
 # target to generate assembly for a file
 src/Entities/StaticEntity.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Entities/StaticEntity.cpp.s
 .PHONY : src/Entities/StaticEntity.cpp.s
 
 src/Persistence/Account.obj: src/Persistence/Account.cpp.obj
@@ -801,7 +755,6 @@ src/Persistence/Account.obj: src/Persistence/Account.cpp.obj
 # target to build an object file
 src/Persistence/Account.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Persistence/Account.cpp.obj
 .PHONY : src/Persistence/Account.cpp.obj
 
 src/Persistence/Account.i: src/Persistence/Account.cpp.i
@@ -810,7 +763,6 @@ src/Persistence/Account.i: src/Persistence/Account.cpp.i
 # target to preprocess a source file
 src/Persistence/Account.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Persistence/Account.cpp.i
 .PHONY : src/Persistence/Account.cpp.i
 
 src/Persistence/Account.s: src/Persistence/Account.cpp.s
@@ -819,7 +771,6 @@ src/Persistence/Account.s: src/Persistence/Account.cpp.s
 # target to generate assembly for a file
 src/Persistence/Account.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Persistence/Account.cpp.s
 .PHONY : src/Persistence/Account.cpp.s
 
 src/Persistence/SaveManager.obj: src/Persistence/SaveManager.cpp.obj
@@ -828,7 +779,6 @@ src/Persistence/SaveManager.obj: src/Persistence/SaveManager.cpp.obj
 # target to build an object file
 src/Persistence/SaveManager.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Persistence/SaveManager.cpp.obj
 .PHONY : src/Persistence/SaveManager.cpp.obj
 
 src/Persistence/SaveManager.i: src/Persistence/SaveManager.cpp.i
@@ -837,7 +787,6 @@ src/Persistence/SaveManager.i: src/Persistence/SaveManager.cpp.i
 # target to preprocess a source file
 src/Persistence/SaveManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Persistence/SaveManager.cpp.i
 .PHONY : src/Persistence/SaveManager.cpp.i
 
 src/Persistence/SaveManager.s: src/Persistence/SaveManager.cpp.s
@@ -846,7 +795,6 @@ src/Persistence/SaveManager.s: src/Persistence/SaveManager.cpp.s
 # target to generate assembly for a file
 src/Persistence/SaveManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Persistence/SaveManager.cpp.s
 .PHONY : src/Persistence/SaveManager.cpp.s
 
 src/Physics/Camera.obj: src/Physics/Camera.cpp.obj
@@ -855,7 +803,6 @@ src/Physics/Camera.obj: src/Physics/Camera.cpp.obj
 # target to build an object file
 src/Physics/Camera.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Physics/Camera.cpp.obj
 .PHONY : src/Physics/Camera.cpp.obj
 
 src/Physics/Camera.i: src/Physics/Camera.cpp.i
@@ -864,7 +811,6 @@ src/Physics/Camera.i: src/Physics/Camera.cpp.i
 # target to preprocess a source file
 src/Physics/Camera.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Physics/Camera.cpp.i
 .PHONY : src/Physics/Camera.cpp.i
 
 src/Physics/Camera.s: src/Physics/Camera.cpp.s
@@ -873,7 +819,6 @@ src/Physics/Camera.s: src/Physics/Camera.cpp.s
 # target to generate assembly for a file
 src/Physics/Camera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Physics/Camera.cpp.s
 .PHONY : src/Physics/Camera.cpp.s
 
 src/Physics/CollisionManager.obj: src/Physics/CollisionManager.cpp.obj
@@ -882,7 +827,6 @@ src/Physics/CollisionManager.obj: src/Physics/CollisionManager.cpp.obj
 # target to build an object file
 src/Physics/CollisionManager.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Physics/CollisionManager.cpp.obj
 .PHONY : src/Physics/CollisionManager.cpp.obj
 
 src/Physics/CollisionManager.i: src/Physics/CollisionManager.cpp.i
@@ -891,7 +835,6 @@ src/Physics/CollisionManager.i: src/Physics/CollisionManager.cpp.i
 # target to preprocess a source file
 src/Physics/CollisionManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Physics/CollisionManager.cpp.i
 .PHONY : src/Physics/CollisionManager.cpp.i
 
 src/Physics/CollisionManager.s: src/Physics/CollisionManager.cpp.s
@@ -900,7 +843,6 @@ src/Physics/CollisionManager.s: src/Physics/CollisionManager.cpp.s
 # target to generate assembly for a file
 src/Physics/CollisionManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/Physics/CollisionManager.cpp.s
 .PHONY : src/Physics/CollisionManager.cpp.s
 
 src/States/GameOverState.obj: src/States/GameOverState.cpp.obj
@@ -909,7 +851,6 @@ src/States/GameOverState.obj: src/States/GameOverState.cpp.obj
 # target to build an object file
 src/States/GameOverState.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/GameOverState.cpp.obj
 .PHONY : src/States/GameOverState.cpp.obj
 
 src/States/GameOverState.i: src/States/GameOverState.cpp.i
@@ -918,7 +859,6 @@ src/States/GameOverState.i: src/States/GameOverState.cpp.i
 # target to preprocess a source file
 src/States/GameOverState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/GameOverState.cpp.i
 .PHONY : src/States/GameOverState.cpp.i
 
 src/States/GameOverState.s: src/States/GameOverState.cpp.s
@@ -927,7 +867,6 @@ src/States/GameOverState.s: src/States/GameOverState.cpp.s
 # target to generate assembly for a file
 src/States/GameOverState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/GameOverState.cpp.s
 .PHONY : src/States/GameOverState.cpp.s
 
 src/States/GameplayState.obj: src/States/GameplayState.cpp.obj
@@ -936,7 +875,6 @@ src/States/GameplayState.obj: src/States/GameplayState.cpp.obj
 # target to build an object file
 src/States/GameplayState.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/GameplayState.cpp.obj
 .PHONY : src/States/GameplayState.cpp.obj
 
 src/States/GameplayState.i: src/States/GameplayState.cpp.i
@@ -945,7 +883,6 @@ src/States/GameplayState.i: src/States/GameplayState.cpp.i
 # target to preprocess a source file
 src/States/GameplayState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/GameplayState.cpp.i
 .PHONY : src/States/GameplayState.cpp.i
 
 src/States/GameplayState.s: src/States/GameplayState.cpp.s
@@ -954,7 +891,6 @@ src/States/GameplayState.s: src/States/GameplayState.cpp.s
 # target to generate assembly for a file
 src/States/GameplayState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/GameplayState.cpp.s
 .PHONY : src/States/GameplayState.cpp.s
 
 src/States/LevelSelectState.obj: src/States/LevelSelectState.cpp.obj
@@ -963,7 +899,6 @@ src/States/LevelSelectState.obj: src/States/LevelSelectState.cpp.obj
 # target to build an object file
 src/States/LevelSelectState.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/LevelSelectState.cpp.obj
 .PHONY : src/States/LevelSelectState.cpp.obj
 
 src/States/LevelSelectState.i: src/States/LevelSelectState.cpp.i
@@ -972,7 +907,6 @@ src/States/LevelSelectState.i: src/States/LevelSelectState.cpp.i
 # target to preprocess a source file
 src/States/LevelSelectState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/LevelSelectState.cpp.i
 .PHONY : src/States/LevelSelectState.cpp.i
 
 src/States/LevelSelectState.s: src/States/LevelSelectState.cpp.s
@@ -981,7 +915,6 @@ src/States/LevelSelectState.s: src/States/LevelSelectState.cpp.s
 # target to generate assembly for a file
 src/States/LevelSelectState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/LevelSelectState.cpp.s
 .PHONY : src/States/LevelSelectState.cpp.s
 
 src/States/LoginState.obj: src/States/LoginState.cpp.obj
@@ -990,7 +923,6 @@ src/States/LoginState.obj: src/States/LoginState.cpp.obj
 # target to build an object file
 src/States/LoginState.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/LoginState.cpp.obj
 .PHONY : src/States/LoginState.cpp.obj
 
 src/States/LoginState.i: src/States/LoginState.cpp.i
@@ -999,7 +931,6 @@ src/States/LoginState.i: src/States/LoginState.cpp.i
 # target to preprocess a source file
 src/States/LoginState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/LoginState.cpp.i
 .PHONY : src/States/LoginState.cpp.i
 
 src/States/LoginState.s: src/States/LoginState.cpp.s
@@ -1008,7 +939,6 @@ src/States/LoginState.s: src/States/LoginState.cpp.s
 # target to generate assembly for a file
 src/States/LoginState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/LoginState.cpp.s
 .PHONY : src/States/LoginState.cpp.s
 
 src/States/MainMenuState.obj: src/States/MainMenuState.cpp.obj
@@ -1017,7 +947,6 @@ src/States/MainMenuState.obj: src/States/MainMenuState.cpp.obj
 # target to build an object file
 src/States/MainMenuState.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/MainMenuState.cpp.obj
 .PHONY : src/States/MainMenuState.cpp.obj
 
 src/States/MainMenuState.i: src/States/MainMenuState.cpp.i
@@ -1026,7 +955,6 @@ src/States/MainMenuState.i: src/States/MainMenuState.cpp.i
 # target to preprocess a source file
 src/States/MainMenuState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/MainMenuState.cpp.i
 .PHONY : src/States/MainMenuState.cpp.i
 
 src/States/MainMenuState.s: src/States/MainMenuState.cpp.s
@@ -1035,7 +963,6 @@ src/States/MainMenuState.s: src/States/MainMenuState.cpp.s
 # target to generate assembly for a file
 src/States/MainMenuState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/MainMenuState.cpp.s
 .PHONY : src/States/MainMenuState.cpp.s
 
 src/States/PauseState.obj: src/States/PauseState.cpp.obj
@@ -1044,7 +971,6 @@ src/States/PauseState.obj: src/States/PauseState.cpp.obj
 # target to build an object file
 src/States/PauseState.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/PauseState.cpp.obj
 .PHONY : src/States/PauseState.cpp.obj
 
 src/States/PauseState.i: src/States/PauseState.cpp.i
@@ -1053,7 +979,6 @@ src/States/PauseState.i: src/States/PauseState.cpp.i
 # target to preprocess a source file
 src/States/PauseState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/PauseState.cpp.i
 .PHONY : src/States/PauseState.cpp.i
 
 src/States/PauseState.s: src/States/PauseState.cpp.s
@@ -1062,7 +987,6 @@ src/States/PauseState.s: src/States/PauseState.cpp.s
 # target to generate assembly for a file
 src/States/PauseState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/PauseState.cpp.s
 .PHONY : src/States/PauseState.cpp.s
 
 src/States/RegisterState.obj: src/States/RegisterState.cpp.obj
@@ -1071,7 +995,6 @@ src/States/RegisterState.obj: src/States/RegisterState.cpp.obj
 # target to build an object file
 src/States/RegisterState.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/RegisterState.cpp.obj
 .PHONY : src/States/RegisterState.cpp.obj
 
 src/States/RegisterState.i: src/States/RegisterState.cpp.i
@@ -1080,7 +1003,6 @@ src/States/RegisterState.i: src/States/RegisterState.cpp.i
 # target to preprocess a source file
 src/States/RegisterState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/RegisterState.cpp.i
 .PHONY : src/States/RegisterState.cpp.i
 
 src/States/RegisterState.s: src/States/RegisterState.cpp.s
@@ -1089,7 +1011,6 @@ src/States/RegisterState.s: src/States/RegisterState.cpp.s
 # target to generate assembly for a file
 src/States/RegisterState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/RegisterState.cpp.s
 .PHONY : src/States/RegisterState.cpp.s
 
 src/States/SettingsState.obj: src/States/SettingsState.cpp.obj
@@ -1098,7 +1019,6 @@ src/States/SettingsState.obj: src/States/SettingsState.cpp.obj
 # target to build an object file
 src/States/SettingsState.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/SettingsState.cpp.obj
 .PHONY : src/States/SettingsState.cpp.obj
 
 src/States/SettingsState.i: src/States/SettingsState.cpp.i
@@ -1107,7 +1027,6 @@ src/States/SettingsState.i: src/States/SettingsState.cpp.i
 # target to preprocess a source file
 src/States/SettingsState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/SettingsState.cpp.i
 .PHONY : src/States/SettingsState.cpp.i
 
 src/States/SettingsState.s: src/States/SettingsState.cpp.s
@@ -1116,7 +1035,6 @@ src/States/SettingsState.s: src/States/SettingsState.cpp.s
 # target to generate assembly for a file
 src/States/SettingsState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/States/SettingsState.cpp.s
 .PHONY : src/States/SettingsState.cpp.s
 
 src/World/EntityFactory.obj: src/World/EntityFactory.cpp.obj
@@ -1125,7 +1043,6 @@ src/World/EntityFactory.obj: src/World/EntityFactory.cpp.obj
 # target to build an object file
 src/World/EntityFactory.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/World/EntityFactory.cpp.obj
 .PHONY : src/World/EntityFactory.cpp.obj
 
 src/World/EntityFactory.i: src/World/EntityFactory.cpp.i
@@ -1134,7 +1051,6 @@ src/World/EntityFactory.i: src/World/EntityFactory.cpp.i
 # target to preprocess a source file
 src/World/EntityFactory.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/World/EntityFactory.cpp.i
 .PHONY : src/World/EntityFactory.cpp.i
 
 src/World/EntityFactory.s: src/World/EntityFactory.cpp.s
@@ -1143,7 +1059,6 @@ src/World/EntityFactory.s: src/World/EntityFactory.cpp.s
 # target to generate assembly for a file
 src/World/EntityFactory.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/World/EntityFactory.cpp.s
 .PHONY : src/World/EntityFactory.cpp.s
 
 src/World/Level.obj: src/World/Level.cpp.obj
@@ -1152,7 +1067,6 @@ src/World/Level.obj: src/World/Level.cpp.obj
 # target to build an object file
 src/World/Level.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/World/Level.cpp.obj
 .PHONY : src/World/Level.cpp.obj
 
 src/World/Level.i: src/World/Level.cpp.i
@@ -1161,7 +1075,6 @@ src/World/Level.i: src/World/Level.cpp.i
 # target to preprocess a source file
 src/World/Level.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/World/Level.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/World/Level.cpp.i
 .PHONY : src/World/Level.cpp.i
 
 src/World/Level.s: src/World/Level.cpp.s
@@ -1170,32 +1083,7 @@ src/World/Level.s: src/World/Level.cpp.s
 # target to generate assembly for a file
 src/World/Level.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MarioGame.dir\build.make CMakeFiles/MarioGame.dir/src/World/Level.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/src/World/Level.cpp.s
 .PHONY : src/World/Level.cpp.s
-
-test_mario.obj: test_mario.cpp.obj
-.PHONY : test_mario.obj
-
-# target to build an object file
-test_mario.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/test_mario.cpp.obj
-.PHONY : test_mario.cpp.obj
-
-test_mario.i: test_mario.cpp.i
-.PHONY : test_mario.i
-
-# target to preprocess a source file
-test_mario.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/test_mario.cpp.i
-.PHONY : test_mario.cpp.i
-
-test_mario.s: test_mario.cpp.s
-.PHONY : test_mario.s
-
-# target to generate assembly for a file
-test_mario.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\TestMario.dir\build.make CMakeFiles/TestMario.dir/test_mario.cpp.s
-.PHONY : test_mario.cpp.s
 
 # Help Target
 help:
@@ -1214,7 +1102,6 @@ help:
 	@echo ... uninstall
 	@echo ... update_mappings
 	@echo ... MarioGame
-	@echo ... TestMario
 	@echo ... glfw
 	@echo ... raylib
 	@echo ... main.obj
@@ -1274,6 +1161,9 @@ help:
 	@echo ... src/Entities/RockHead.obj
 	@echo ... src/Entities/RockHead.i
 	@echo ... src/Entities/RockHead.s
+	@echo ... src/Entities/SpecialMove.obj
+	@echo ... src/Entities/SpecialMove.i
+	@echo ... src/Entities/SpecialMove.s
 	@echo ... src/Entities/StaticEntity.obj
 	@echo ... src/Entities/StaticEntity.i
 	@echo ... src/Entities/StaticEntity.s
@@ -1319,9 +1209,6 @@ help:
 	@echo ... src/World/Level.obj
 	@echo ... src/World/Level.i
 	@echo ... src/World/Level.s
-	@echo ... test_mario.obj
-	@echo ... test_mario.i
-	@echo ... test_mario.s
 .PHONY : help
 
 

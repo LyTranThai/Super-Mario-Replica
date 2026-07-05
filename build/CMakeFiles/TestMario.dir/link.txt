@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\TestMario.dir/objects.a
-C:\Strawberry\c\bin\ar.exe qc CMakeFiles\TestMario.dir/objects.a @CMakeFiles\TestMario.dir\objects1.rsp
-C:\Strawberry\c\bin\c++.exe -Wl,--whole-archive CMakeFiles\TestMario.dir/objects.a -Wl,--no-whole-archive -o TestMario.exe -Wl,--out-implib,libTestMario.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\TestMario.dir\linkLibs.rsp

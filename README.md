@@ -4,6 +4,26 @@ A 2D Mario-style platformer game implemented in C++17 utilizing Object-Oriented 
 
 ---
 
+## Quick Start & Run Prerequisites
+
+### Prerequisites
+Ensure you have the following installed on your system:
+- **CMake** (version 3.12 or higher)
+- **C++17 Compiler** (MSVC, MinGW-W64, or Clang)
+- **Git** (required for CMake to fetch Raylib automatically)
+
+### Quick Build & Run
+From the project root directory, run:
+```powershell
+mkdir build
+cd build
+cmake .. "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+cmake --build . --config Release
+.\\MarioGame.exe
+```
+
+---
+
 ## 1. Core Features & Capabilities
 
 - **Game Screens & Flow (State Stack)**: Pushes and pops game state overlays (`MainMenu`, `Gameplay`, `Settings`, `Pause`, `GameOver`). Freezes gameplay updates during transparent pauses.

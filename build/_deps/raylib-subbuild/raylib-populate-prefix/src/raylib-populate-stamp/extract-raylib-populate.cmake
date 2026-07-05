@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz" ABSOLUTE)
-get_filename_component(directory "C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-src" ABSOLUTE)
+get_filename_component(filename "C:/Users/Admin/Desktop/Mario/Super Mario Replica/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz" ABSOLUTE)
+get_filename_component(directory "C:/Users/Admin/Desktop/Mario/Super Mario Replica/build/_deps/raylib-src" ABSOLUTE)
 
 message(VERBOSE "extracting...
      src='${filename}'

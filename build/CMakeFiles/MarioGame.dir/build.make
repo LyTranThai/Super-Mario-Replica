@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Admin\Desktop\Mario\1st_src
+CMAKE_SOURCE_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Admin\Desktop\Mario\1st_src\build
+CMAKE_BINARY_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/MarioGame.dir/depend.make
@@ -73,513 +73,528 @@ CMakeFiles/MarioGame.dir/codegen:
 
 CMakeFiles/MarioGame.dir/main.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/main.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/main.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/main.cpp
+CMakeFiles/MarioGame.dir/main.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/main.cpp
 CMakeFiles/MarioGame.dir/main.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MarioGame.dir/main.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/main.cpp.obj -MF CMakeFiles\MarioGame.dir\main.cpp.obj.d -o CMakeFiles\MarioGame.dir\main.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MarioGame.dir/main.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/main.cpp.obj -MF CMakeFiles\MarioGame.dir\main.cpp.obj.d -o CMakeFiles\MarioGame.dir\main.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\main.cpp"
 
 CMakeFiles/MarioGame.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/main.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\main.cpp > CMakeFiles\MarioGame.dir\main.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\main.cpp" > CMakeFiles\MarioGame.dir\main.cpp.i
 
 CMakeFiles/MarioGame.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/main.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\main.cpp -o CMakeFiles\MarioGame.dir\main.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\main.cpp" -o CMakeFiles\MarioGame.dir\main.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Core/AssetManager.cpp
+CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Core/AssetManager.cpp
 CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\AssetManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\AssetManager.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Core\AssetManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\AssetManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\AssetManager.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\AssetManager.cpp"
 
 CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Core\AssetManager.cpp > CMakeFiles\MarioGame.dir\src\Core\AssetManager.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\AssetManager.cpp" > CMakeFiles\MarioGame.dir\src\Core\AssetManager.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Core/AssetManager.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Core\AssetManager.cpp -o CMakeFiles\MarioGame.dir\src\Core\AssetManager.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\AssetManager.cpp" -o CMakeFiles\MarioGame.dir\src\Core\AssetManager.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Core/GameEngine.cpp
+CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Core/GameEngine.cpp
 CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\GameEngine.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\GameEngine.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Core\GameEngine.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\GameEngine.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\GameEngine.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\GameEngine.cpp"
 
 CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Core\GameEngine.cpp > CMakeFiles\MarioGame.dir\src\Core\GameEngine.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\GameEngine.cpp" > CMakeFiles\MarioGame.dir\src\Core\GameEngine.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Core/GameEngine.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Core\GameEngine.cpp -o CMakeFiles\MarioGame.dir\src\Core\GameEngine.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\GameEngine.cpp" -o CMakeFiles\MarioGame.dir\src\Core\GameEngine.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Core/GameStateManager.cpp
+CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Core/GameStateManager.cpp
 CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\GameStateManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\GameStateManager.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Core\GameStateManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\GameStateManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\GameStateManager.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\GameStateManager.cpp"
 
 CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Core\GameStateManager.cpp > CMakeFiles\MarioGame.dir\src\Core\GameStateManager.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\GameStateManager.cpp" > CMakeFiles\MarioGame.dir\src\Core\GameStateManager.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Core/GameStateManager.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Core\GameStateManager.cpp -o CMakeFiles\MarioGame.dir\src\Core\GameStateManager.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\GameStateManager.cpp" -o CMakeFiles\MarioGame.dir\src\Core\GameStateManager.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Core/InputManager.cpp
+CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Core/InputManager.cpp
 CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\InputManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\InputManager.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Core\InputManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\InputManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\InputManager.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\InputManager.cpp"
 
 CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Core\InputManager.cpp > CMakeFiles\MarioGame.dir\src\Core\InputManager.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\InputManager.cpp" > CMakeFiles\MarioGame.dir\src\Core\InputManager.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Core/InputManager.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Core\InputManager.cpp -o CMakeFiles\MarioGame.dir\src\Core\InputManager.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\InputManager.cpp" -o CMakeFiles\MarioGame.dir\src\Core\InputManager.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Core/SoundManager.cpp
+CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Core/SoundManager.cpp
 CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\SoundManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\SoundManager.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Core\SoundManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Core\SoundManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Core\SoundManager.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\SoundManager.cpp"
 
 CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Core\SoundManager.cpp > CMakeFiles\MarioGame.dir\src\Core\SoundManager.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\SoundManager.cpp" > CMakeFiles\MarioGame.dir\src\Core\SoundManager.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Core/SoundManager.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Core\SoundManager.cpp -o CMakeFiles\MarioGame.dir\src\Core\SoundManager.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Core\SoundManager.cpp" -o CMakeFiles\MarioGame.dir\src\Core\SoundManager.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/Block.cpp
+CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/Block.cpp
 CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Block.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Block.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Block.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Block.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Block.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Block.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Block.cpp > CMakeFiles\MarioGame.dir\src\Entities\Block.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Block.cpp" > CMakeFiles\MarioGame.dir\src\Entities\Block.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/Block.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Block.cpp -o CMakeFiles\MarioGame.dir\src\Entities\Block.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Block.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\Block.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/DynamicEntity.cpp
+CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/DynamicEntity.cpp
 CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\DynamicEntity.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\DynamicEntity.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\DynamicEntity.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\DynamicEntity.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\DynamicEntity.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\DynamicEntity.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\DynamicEntity.cpp > CMakeFiles\MarioGame.dir\src\Entities\DynamicEntity.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\DynamicEntity.cpp" > CMakeFiles\MarioGame.dir\src\Entities\DynamicEntity.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/DynamicEntity.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\DynamicEntity.cpp -o CMakeFiles\MarioGame.dir\src\Entities\DynamicEntity.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\DynamicEntity.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\DynamicEntity.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/Enemy.cpp
+CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/Enemy.cpp
 CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Enemy.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Enemy.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Enemy.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Enemy.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Enemy.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Enemy.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Enemy.cpp > CMakeFiles\MarioGame.dir\src\Entities\Enemy.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Enemy.cpp" > CMakeFiles\MarioGame.dir\src\Entities\Enemy.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/Enemy.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Enemy.cpp -o CMakeFiles\MarioGame.dir\src\Entities\Enemy.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Enemy.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\Enemy.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/Entity.cpp
+CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/Entity.cpp
 CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Entity.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Entity.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Entity.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Entity.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Entity.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Entity.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Entity.cpp > CMakeFiles\MarioGame.dir\src\Entities\Entity.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Entity.cpp" > CMakeFiles\MarioGame.dir\src\Entities\Entity.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/Entity.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Entity.cpp -o CMakeFiles\MarioGame.dir\src\Entities\Entity.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Entity.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\Entity.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/Fireball.cpp
+CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/Fireball.cpp
 CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Fireball.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Fireball.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Fireball.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Fireball.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Fireball.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Fireball.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Fireball.cpp > CMakeFiles\MarioGame.dir\src\Entities\Fireball.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Fireball.cpp" > CMakeFiles\MarioGame.dir\src\Entities\Fireball.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/Fireball.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Fireball.cpp -o CMakeFiles\MarioGame.dir\src\Entities\Fireball.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Fireball.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\Fireball.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/Goomba.cpp
+CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/Goomba.cpp
 CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Goomba.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Goomba.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Goomba.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Goomba.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Goomba.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Goomba.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Goomba.cpp > CMakeFiles\MarioGame.dir\src\Entities\Goomba.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Goomba.cpp" > CMakeFiles\MarioGame.dir\src\Entities\Goomba.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/Goomba.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Goomba.cpp -o CMakeFiles\MarioGame.dir\src\Entities\Goomba.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Goomba.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\Goomba.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/InteractiveBlock.cpp
+CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/InteractiveBlock.cpp
 CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\InteractiveBlock.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\InteractiveBlock.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\InteractiveBlock.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\InteractiveBlock.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\InteractiveBlock.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\InteractiveBlock.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\InteractiveBlock.cpp > CMakeFiles\MarioGame.dir\src\Entities\InteractiveBlock.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\InteractiveBlock.cpp" > CMakeFiles\MarioGame.dir\src\Entities\InteractiveBlock.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/InteractiveBlock.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\InteractiveBlock.cpp -o CMakeFiles\MarioGame.dir\src\Entities\InteractiveBlock.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\InteractiveBlock.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\InteractiveBlock.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/Item.cpp
+CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/Item.cpp
 CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Item.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Item.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Item.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Item.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Item.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Item.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Item.cpp > CMakeFiles\MarioGame.dir\src\Entities\Item.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Item.cpp" > CMakeFiles\MarioGame.dir\src\Entities\Item.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/Item.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Item.cpp -o CMakeFiles\MarioGame.dir\src\Entities\Item.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Item.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\Item.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/Koopa.cpp
+CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/Koopa.cpp
 CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Koopa.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Koopa.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Koopa.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Koopa.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Koopa.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Koopa.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Koopa.cpp > CMakeFiles\MarioGame.dir\src\Entities\Koopa.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Koopa.cpp" > CMakeFiles\MarioGame.dir\src\Entities\Koopa.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/Koopa.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Koopa.cpp -o CMakeFiles\MarioGame.dir\src\Entities\Koopa.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Koopa.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\Koopa.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/PiranhaPlant.cpp
+CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/PiranhaPlant.cpp
 CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\PiranhaPlant.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\PiranhaPlant.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\PiranhaPlant.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\PiranhaPlant.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\PiranhaPlant.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\PiranhaPlant.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\PiranhaPlant.cpp > CMakeFiles\MarioGame.dir\src\Entities\PiranhaPlant.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\PiranhaPlant.cpp" > CMakeFiles\MarioGame.dir\src\Entities\PiranhaPlant.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\PiranhaPlant.cpp -o CMakeFiles\MarioGame.dir\src\Entities\PiranhaPlant.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\PiranhaPlant.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\PiranhaPlant.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/Player.cpp
+CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/Player.cpp
 CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Player.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Player.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Player.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\Player.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\Player.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Player.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Player.cpp > CMakeFiles\MarioGame.dir\src\Entities\Player.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Player.cpp" > CMakeFiles\MarioGame.dir\src\Entities\Player.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\Player.cpp -o CMakeFiles\MarioGame.dir\src\Entities\Player.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\Player.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\Player.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/PlayerPowerState.cpp
+CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/PlayerPowerState.cpp
 CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\PlayerPowerState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\PlayerPowerState.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\PlayerPowerState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\PlayerPowerState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\PlayerPowerState.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\PlayerPowerState.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\PlayerPowerState.cpp > CMakeFiles\MarioGame.dir\src\Entities\PlayerPowerState.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\PlayerPowerState.cpp" > CMakeFiles\MarioGame.dir\src\Entities\PlayerPowerState.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\PlayerPowerState.cpp -o CMakeFiles\MarioGame.dir\src\Entities\PlayerPowerState.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\PlayerPowerState.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\PlayerPowerState.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/RockHead.cpp
+CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/RockHead.cpp
 CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\RockHead.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\RockHead.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\RockHead.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\RockHead.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\RockHead.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\RockHead.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\RockHead.cpp > CMakeFiles\MarioGame.dir\src\Entities\RockHead.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\RockHead.cpp" > CMakeFiles\MarioGame.dir\src\Entities\RockHead.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\RockHead.cpp -o CMakeFiles\MarioGame.dir\src\Entities\RockHead.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\RockHead.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\RockHead.cpp.s
+
+CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
+CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
+CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/SpecialMove.cpp
+CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\SpecialMove.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\SpecialMove.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\SpecialMove.cpp"
+
+CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.i"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\SpecialMove.cpp" > CMakeFiles\MarioGame.dir\src\Entities\SpecialMove.cpp.i
+
+CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.s"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\SpecialMove.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\SpecialMove.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Entities/StaticEntity.cpp
+CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Entities/StaticEntity.cpp
 CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\StaticEntity.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\StaticEntity.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\StaticEntity.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Entities\StaticEntity.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Entities\StaticEntity.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\StaticEntity.cpp"
 
 CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\StaticEntity.cpp > CMakeFiles\MarioGame.dir\src\Entities\StaticEntity.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\StaticEntity.cpp" > CMakeFiles\MarioGame.dir\src\Entities\StaticEntity.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Entities\StaticEntity.cpp -o CMakeFiles\MarioGame.dir\src\Entities\StaticEntity.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Entities\StaticEntity.cpp" -o CMakeFiles\MarioGame.dir\src\Entities\StaticEntity.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Persistence/Account.cpp
+CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Persistence/Account.cpp
 CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Persistence\Account.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Persistence\Account.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Persistence\Account.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Persistence\Account.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Persistence\Account.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Persistence\Account.cpp"
 
 CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Persistence\Account.cpp > CMakeFiles\MarioGame.dir\src\Persistence\Account.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Persistence\Account.cpp" > CMakeFiles\MarioGame.dir\src\Persistence\Account.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Persistence\Account.cpp -o CMakeFiles\MarioGame.dir\src\Persistence\Account.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Persistence\Account.cpp" -o CMakeFiles\MarioGame.dir\src\Persistence\Account.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Persistence/SaveManager.cpp
+CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Persistence/SaveManager.cpp
 CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Persistence\SaveManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Persistence\SaveManager.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Persistence\SaveManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Persistence\SaveManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Persistence\SaveManager.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Persistence\SaveManager.cpp"
 
 CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Persistence\SaveManager.cpp > CMakeFiles\MarioGame.dir\src\Persistence\SaveManager.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Persistence\SaveManager.cpp" > CMakeFiles\MarioGame.dir\src\Persistence\SaveManager.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Persistence\SaveManager.cpp -o CMakeFiles\MarioGame.dir\src\Persistence\SaveManager.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Persistence\SaveManager.cpp" -o CMakeFiles\MarioGame.dir\src\Persistence\SaveManager.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Physics/Camera.cpp
+CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Physics/Camera.cpp
 CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Physics\Camera.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Physics\Camera.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Physics\Camera.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Physics\Camera.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Physics\Camera.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Physics\Camera.cpp"
 
 CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Physics\Camera.cpp > CMakeFiles\MarioGame.dir\src\Physics\Camera.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Physics\Camera.cpp" > CMakeFiles\MarioGame.dir\src\Physics\Camera.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Physics/Camera.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Physics\Camera.cpp -o CMakeFiles\MarioGame.dir\src\Physics\Camera.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Physics\Camera.cpp" -o CMakeFiles\MarioGame.dir\src\Physics\Camera.cpp.s
 
 CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/Physics/CollisionManager.cpp
+CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/Physics/CollisionManager.cpp
 CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Physics\CollisionManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Physics\CollisionManager.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\Physics\CollisionManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.obj -MF CMakeFiles\MarioGame.dir\src\Physics\CollisionManager.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\Physics\CollisionManager.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Physics\CollisionManager.cpp"
 
 CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\Physics\CollisionManager.cpp > CMakeFiles\MarioGame.dir\src\Physics\CollisionManager.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Physics\CollisionManager.cpp" > CMakeFiles\MarioGame.dir\src\Physics\CollisionManager.cpp.i
 
 CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/Physics/CollisionManager.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\Physics\CollisionManager.cpp -o CMakeFiles\MarioGame.dir\src\Physics\CollisionManager.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\Physics\CollisionManager.cpp" -o CMakeFiles\MarioGame.dir\src\Physics\CollisionManager.cpp.s
 
 CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/States/GameOverState.cpp
+CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/States/GameOverState.cpp
 CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\GameOverState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\GameOverState.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\States\GameOverState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\GameOverState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\GameOverState.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\GameOverState.cpp"
 
 CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\States\GameOverState.cpp > CMakeFiles\MarioGame.dir\src\States\GameOverState.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\GameOverState.cpp" > CMakeFiles\MarioGame.dir\src\States\GameOverState.cpp.i
 
 CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/States/GameOverState.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\States\GameOverState.cpp -o CMakeFiles\MarioGame.dir\src\States\GameOverState.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\GameOverState.cpp" -o CMakeFiles\MarioGame.dir\src\States\GameOverState.cpp.s
 
 CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/States/GameplayState.cpp
+CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/States/GameplayState.cpp
 CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\GameplayState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\GameplayState.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\States\GameplayState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\GameplayState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\GameplayState.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\GameplayState.cpp"
 
 CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\States\GameplayState.cpp > CMakeFiles\MarioGame.dir\src\States\GameplayState.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\GameplayState.cpp" > CMakeFiles\MarioGame.dir\src\States\GameplayState.cpp.i
 
 CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/States/GameplayState.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\States\GameplayState.cpp -o CMakeFiles\MarioGame.dir\src\States\GameplayState.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\GameplayState.cpp" -o CMakeFiles\MarioGame.dir\src\States\GameplayState.cpp.s
 
 CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/States/LevelSelectState.cpp
+CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/States/LevelSelectState.cpp
 CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\LevelSelectState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\LevelSelectState.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\States\LevelSelectState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\LevelSelectState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\LevelSelectState.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\LevelSelectState.cpp"
 
 CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\States\LevelSelectState.cpp > CMakeFiles\MarioGame.dir\src\States\LevelSelectState.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\LevelSelectState.cpp" > CMakeFiles\MarioGame.dir\src\States\LevelSelectState.cpp.i
 
 CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/States/LevelSelectState.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\States\LevelSelectState.cpp -o CMakeFiles\MarioGame.dir\src\States\LevelSelectState.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\LevelSelectState.cpp" -o CMakeFiles\MarioGame.dir\src\States\LevelSelectState.cpp.s
 
 CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/States/LoginState.cpp
+CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/States/LoginState.cpp
 CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\LoginState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\LoginState.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\States\LoginState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\LoginState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\LoginState.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\LoginState.cpp"
 
 CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\States\LoginState.cpp > CMakeFiles\MarioGame.dir\src\States\LoginState.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\LoginState.cpp" > CMakeFiles\MarioGame.dir\src\States\LoginState.cpp.i
 
 CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/States/LoginState.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\States\LoginState.cpp -o CMakeFiles\MarioGame.dir\src\States\LoginState.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\LoginState.cpp" -o CMakeFiles\MarioGame.dir\src\States\LoginState.cpp.s
 
 CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/States/MainMenuState.cpp
+CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/States/MainMenuState.cpp
 CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\MainMenuState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\MainMenuState.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\States\MainMenuState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\MainMenuState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\MainMenuState.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\MainMenuState.cpp"
 
 CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\States\MainMenuState.cpp > CMakeFiles\MarioGame.dir\src\States\MainMenuState.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\MainMenuState.cpp" > CMakeFiles\MarioGame.dir\src\States\MainMenuState.cpp.i
 
 CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/States/MainMenuState.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\States\MainMenuState.cpp -o CMakeFiles\MarioGame.dir\src\States\MainMenuState.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\MainMenuState.cpp" -o CMakeFiles\MarioGame.dir\src\States\MainMenuState.cpp.s
 
 CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/States/PauseState.cpp
+CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/States/PauseState.cpp
 CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\PauseState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\PauseState.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\States\PauseState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\PauseState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\PauseState.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\PauseState.cpp"
 
 CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\States\PauseState.cpp > CMakeFiles\MarioGame.dir\src\States\PauseState.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\PauseState.cpp" > CMakeFiles\MarioGame.dir\src\States\PauseState.cpp.i
 
 CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/States/PauseState.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\States\PauseState.cpp -o CMakeFiles\MarioGame.dir\src\States\PauseState.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\PauseState.cpp" -o CMakeFiles\MarioGame.dir\src\States\PauseState.cpp.s
 
 CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/States/RegisterState.cpp
+CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/States/RegisterState.cpp
 CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\RegisterState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\RegisterState.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\States\RegisterState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\RegisterState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\RegisterState.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\RegisterState.cpp"
 
 CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\States\RegisterState.cpp > CMakeFiles\MarioGame.dir\src\States\RegisterState.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\RegisterState.cpp" > CMakeFiles\MarioGame.dir\src\States\RegisterState.cpp.i
 
 CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/States/RegisterState.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\States\RegisterState.cpp -o CMakeFiles\MarioGame.dir\src\States\RegisterState.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\RegisterState.cpp" -o CMakeFiles\MarioGame.dir\src\States\RegisterState.cpp.s
 
 CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/States/SettingsState.cpp
+CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/States/SettingsState.cpp
 CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\SettingsState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\SettingsState.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\States\SettingsState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.obj -MF CMakeFiles\MarioGame.dir\src\States\SettingsState.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\States\SettingsState.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\SettingsState.cpp"
 
 CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\States\SettingsState.cpp > CMakeFiles\MarioGame.dir\src\States\SettingsState.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\SettingsState.cpp" > CMakeFiles\MarioGame.dir\src\States\SettingsState.cpp.i
 
 CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/States/SettingsState.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\States\SettingsState.cpp -o CMakeFiles\MarioGame.dir\src\States\SettingsState.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\States\SettingsState.cpp" -o CMakeFiles\MarioGame.dir\src\States\SettingsState.cpp.s
 
 CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/World/EntityFactory.cpp
+CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/World/EntityFactory.cpp
 CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj -MF CMakeFiles\MarioGame.dir\src\World\EntityFactory.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\World\EntityFactory.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\World\EntityFactory.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.obj -MF CMakeFiles\MarioGame.dir\src\World\EntityFactory.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\World\EntityFactory.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\World\EntityFactory.cpp"
 
 CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\World\EntityFactory.cpp > CMakeFiles\MarioGame.dir\src\World\EntityFactory.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\World\EntityFactory.cpp" > CMakeFiles\MarioGame.dir\src\World\EntityFactory.cpp.i
 
 CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/World/EntityFactory.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\World\EntityFactory.cpp -o CMakeFiles\MarioGame.dir\src\World\EntityFactory.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\World\EntityFactory.cpp" -o CMakeFiles\MarioGame.dir\src\World\EntityFactory.cpp.s
 
 CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj: CMakeFiles/MarioGame.dir/flags.make
 CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj: CMakeFiles/MarioGame.dir/includes_CXX.rsp
-CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj: C:/Users/Admin/Desktop/Mario/1st_src/src/World/Level.cpp
+CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj: C:/Users/Admin/Desktop/Mario/Super\ Mario\ Replica/src/World/Level.cpp
 CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj: CMakeFiles/MarioGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj -MF CMakeFiles\MarioGame.dir\src\World\Level.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\World\Level.cpp.obj -c C:\Users\Admin\Desktop\Mario\1st_src\src\World\Level.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MarioGame.dir/src/World/Level.cpp.obj -MF CMakeFiles\MarioGame.dir\src\World\Level.cpp.obj.d -o CMakeFiles\MarioGame.dir\src\World\Level.cpp.obj -c "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\World\Level.cpp"
 
 CMakeFiles/MarioGame.dir/src/World/Level.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MarioGame.dir/src/World/Level.cpp.i"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Admin\Desktop\Mario\1st_src\src\World\Level.cpp > CMakeFiles\MarioGame.dir\src\World\Level.cpp.i
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\World\Level.cpp" > CMakeFiles\MarioGame.dir\src\World\Level.cpp.i
 
 CMakeFiles/MarioGame.dir/src/World/Level.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MarioGame.dir/src/World/Level.cpp.s"
-	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Admin\Desktop\Mario\1st_src\src\World\Level.cpp -o CMakeFiles\MarioGame.dir\src\World\Level.cpp.s
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Admin\Desktop\Mario\Super Mario Replica\src\World\Level.cpp" -o CMakeFiles\MarioGame.dir\src\World\Level.cpp.s
 
 # Object files for target MarioGame
 MarioGame_OBJECTS = \
@@ -602,6 +617,7 @@ MarioGame_OBJECTS = \
 "CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj" \
 "CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj" \
 "CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj" \
+"CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj" \
 "CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj" \
 "CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj" \
 "CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj" \
@@ -640,6 +656,7 @@ MarioGame.exe: CMakeFiles/MarioGame.dir/src/Entities/PiranhaPlant.cpp.obj
 MarioGame.exe: CMakeFiles/MarioGame.dir/src/Entities/Player.cpp.obj
 MarioGame.exe: CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj
 MarioGame.exe: CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj
+MarioGame.exe: CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj
 MarioGame.exe: CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj
 MarioGame.exe: CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj
 MarioGame.exe: CMakeFiles/MarioGame.dir/src/Persistence/SaveManager.cpp.obj
@@ -661,10 +678,10 @@ MarioGame.exe: _deps/raylib-build/raylib/external/glfw/src/libglfw3.a
 MarioGame.exe: CMakeFiles/MarioGame.dir/linkLibs.rsp
 MarioGame.exe: CMakeFiles/MarioGame.dir/objects1.rsp
 MarioGame.exe: CMakeFiles/MarioGame.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Linking CXX executable MarioGame.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_36) "Linking CXX executable MarioGame.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\MarioGame.dir\link.txt --verbose=$(VERBOSE)
-	"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Admin/Desktop/Mario/1st_src/build/accounts
-	"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/Admin/Desktop/Mario/1st_src/assets C:/Users/Admin/Desktop/Mario/1st_src/build/assets
+	"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/Admin/Desktop/Mario/Super Mario Replica/build/accounts"
+	"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Users/Admin/Desktop/Mario/Super Mario Replica/assets" "C:/Users/Admin/Desktop/Mario/Super Mario Replica/build/assets"
 
 # Rule to build all files generated by this target.
 CMakeFiles/MarioGame.dir/build: MarioGame.exe
@@ -675,6 +692,6 @@ CMakeFiles/MarioGame.dir/clean:
 .PHONY : CMakeFiles/MarioGame.dir/clean
 
 CMakeFiles/MarioGame.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Admin\Desktop\Mario\1st_src C:\Users\Admin\Desktop\Mario\1st_src C:\Users\Admin\Desktop\Mario\1st_src\build C:\Users\Admin\Desktop\Mario\1st_src\build C:\Users\Admin\Desktop\Mario\1st_src\build\CMakeFiles\MarioGame.dir\DependInfo.cmake "--color=$(COLOR)" MarioGame
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\Admin\Desktop\Mario\Super Mario Replica" "C:\Users\Admin\Desktop\Mario\Super Mario Replica" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\CMakeFiles\MarioGame.dir\DependInfo.cmake" "--color=$(COLOR)" MarioGame
 .PHONY : CMakeFiles/MarioGame.dir/depend
 

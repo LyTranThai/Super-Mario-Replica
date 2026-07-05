@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Admin\Desktop\Mario\1st_src
+CMAKE_SOURCE_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Admin\Desktop\Mario\1st_src\build
+CMAKE_BINARY_DIR = "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build"
 
 # Utility rule file for uninstall.
 
@@ -66,7 +66,7 @@ include _deps/raylib-build/CMakeFiles/uninstall.dir/compiler_depend.make
 include _deps/raylib-build/CMakeFiles/uninstall.dir/progress.make
 
 _deps/raylib-build/CMakeFiles/uninstall:
-	cd /d C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-build && "C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/Admin/Desktop/Mario/1st_src/build/_deps/raylib-build/cmake_uninstall.cmake
+	cd /d C:\Users\Admin\Desktop\Mario\SUPERM~1\build\_deps\RAYLIB~3 && "C:\Program Files\CMake\bin\cmake.exe" -P "C:/Users/Admin/Desktop/Mario/Super Mario Replica/build/_deps/raylib-build/cmake_uninstall.cmake"
 
 _deps/raylib-build/CMakeFiles/uninstall.dir/codegen:
 .PHONY : _deps/raylib-build/CMakeFiles/uninstall.dir/codegen
@@ -80,10 +80,10 @@ _deps/raylib-build/CMakeFiles/uninstall.dir/build: uninstall
 .PHONY : _deps/raylib-build/CMakeFiles/uninstall.dir/build
 
 _deps/raylib-build/CMakeFiles/uninstall.dir/clean:
-	cd /d C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-build && $(CMAKE_COMMAND) -P CMakeFiles\uninstall.dir\cmake_clean.cmake
+	cd /d C:\Users\Admin\Desktop\Mario\SUPERM~1\build\_deps\RAYLIB~3 && $(CMAKE_COMMAND) -P CMakeFiles\uninstall.dir\cmake_clean.cmake
 .PHONY : _deps/raylib-build/CMakeFiles/uninstall.dir/clean
 
 _deps/raylib-build/CMakeFiles/uninstall.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Admin\Desktop\Mario\1st_src C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-src C:\Users\Admin\Desktop\Mario\1st_src\build C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-build C:\Users\Admin\Desktop\Mario\1st_src\build\_deps\raylib-build\CMakeFiles\uninstall.dir\DependInfo.cmake "--color=$(COLOR)" uninstall
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\Admin\Desktop\Mario\Super Mario Replica" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-src" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-build" "C:\Users\Admin\Desktop\Mario\Super Mario Replica\build\_deps\raylib-build\CMakeFiles\uninstall.dir\DependInfo.cmake" "--color=$(COLOR)" uninstall
 .PHONY : _deps/raylib-build/CMakeFiles/uninstall.dir/depend
 

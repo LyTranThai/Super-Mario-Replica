@@ -37,6 +37,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/MarioGame.dir/src/Entities/PlayerPowerState.cpp.obj.d"
   "CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj"
   "CMakeFiles/MarioGame.dir/src/Entities/RockHead.cpp.obj.d"
+  "CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj"
+  "CMakeFiles/MarioGame.dir/src/Entities/SpecialMove.cpp.obj.d"
   "CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj"
   "CMakeFiles/MarioGame.dir/src/Entities/StaticEntity.cpp.obj.d"
   "CMakeFiles/MarioGame.dir/src/Persistence/Account.cpp.obj"
