@@ -120,6 +120,10 @@ void Player::jump() {
 void Player::takeDamage() {
     if (isInvincible()) return;
 
+    std::cout << "[DEBUG] Player (" << textureID << ") took damage! PowerState: " 
+              << (getPowerType() == PowerStateType::Small ? "Small" : (getPowerType() == PowerStateType::Super ? "Super" : "Fire")) 
+              << ", Lives remaining: " << lives << std::endl;
+
     powerState->onDamage(*this);
     invincibilityTimer = 2.0f; // 2 seconds of recovery invincibility
 }
@@ -185,8 +189,13 @@ void Player::shootFireball() {
 }
 
 void Player::onCollision(Entity& other, CollisionSide side) {
-    (void)other;
+    if (!other.isActive()) return;
+
+    //std::cout << "[DEBUG] Collision: Player (" << textureID << ") collided with (" << other.getTextureID() << ") on side " 
+    //          << (side == CollisionSide::Top ? "Top" : (side == CollisionSide::Bottom ? "Bottom" : (side == CollisionSide::Left ? "Left" : (side == CollisionSide::Right ? "Right" : "None")))) << std::endl;
+
     if (side == CollisionSide::Bottom) {
+        //std::cout << "[DEBUG]   -> Case: Player hit ground/solid bottom. Resetting jumpCount." << std::endl;
         jumpCount = 0;
     }
 }
