@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\MarioGame.dir/objects.a
-C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\MarioGame.dir/objects.a @CMakeFiles\MarioGame.dir\objects1.rsp
-C:\msys64\ucrt64\bin\c++.exe -O3 -DNDEBUG -Wl,--whole-archive CMakeFiles\MarioGame.dir/objects.a -Wl,--no-whole-archive -o MarioGame.exe -Wl,--out-implib,libMarioGame.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\MarioGame.dir\linkLibs.rsp
