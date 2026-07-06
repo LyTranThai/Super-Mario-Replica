@@ -77,18 +77,19 @@ void Koopa::onCollision(Entity& other, CollisionSide side) {
                     EventManager::getInstance().broadcast(EventType::PlayerJump); // Play kick audio
                 }
             } else {
-                // Hurt player
-                player->takeDamage();
+                // Get carried
+                carried = true;
+                player->setCarriedEntity(this);
             }
         }
     } 
-    else if (other.isSolid()) {
+    if (other.isSolid()) {
         if (side == CollisionSide::Left || side == CollisionSide::Right) {
             velocity.x = -velocity.x;
             facingRight = (velocity.x > 0.0f);
         }
     }
-    else if (Enemy* enemy = dynamic_cast<Enemy*>(&other)) {
+    if (Enemy* enemy = dynamic_cast<Enemy*>(&other)) {
         // Colliding with another enemy while moving as a shell deals damage to them
         if (inShell && shellMoving) {
             enemy->takeDamage();

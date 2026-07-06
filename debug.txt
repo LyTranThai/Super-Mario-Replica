@@ -17,10 +17,11 @@ Failed to load texture: assets/textures/flower.png
 Failed to load texture: assets/textures/star.png
 Failed to load texture: assets/textures/coin.png
 Failed to load texture: assets/textures/fireball.png
-Level file not found: assets/levels/level1.txt. Loading fallback level.
-Level file not found: assets/levels/level1.txt. Loading fallback level.
-Level file not found: assets/levels/level1.txt. Loading fallback level.
-DESKTOP (GLFW): Initialized successfully
+AO functions loaded successfully
+INFO: GL: NPOT textures extension detected, full NPOT textures supported
+INFO: GL: DXT compressed textures supported
+INFO: GL: ETC2/EAC compressed textures supported
+INFO: PLATFORM: DESKTOP (GLFW): Initialized successfully
 INFO: TEXTURE: [ID 1] Texture loaded successfully (1x1 | R8G8B8A8 | 1 mipmaps)
 INFO: TEXTURE: [ID 1] Default texture loaded successfully
 INFO: SHADER: [ID 1] Vertex shader compiled successfully

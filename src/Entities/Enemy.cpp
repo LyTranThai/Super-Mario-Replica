@@ -1,6 +1,8 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Core/EventSystem.h"
+#include "Fireball.h"
+#include "Koopa.h"
 #include <iostream>
 
 Enemy::Enemy(Vector2 pos, Vector2 sprSize, Vector2 hitSize, Vector2 hitOffset, const std::string& texID, Color dbgColor)
@@ -25,9 +27,7 @@ void Enemy::takeDamage() {
 
 void Enemy::onCollision(Entity& other, CollisionSide side) {
     if (!other.isActive()) return;
-
-    Player* player = dynamic_cast<Player*>(&other);
-    if (player) {
+    if (Player* player = dynamic_cast<Player*>(&other)) {
         if (side == CollisionSide::Top) {
             // Player stomped on us
             takeDamage();
@@ -42,5 +42,18 @@ void Enemy::onCollision(Entity& other, CollisionSide side) {
             velocity.x = -velocity.x;
             facingRight = (velocity.x > 0.0f);
         }
+    }
+
+    else if (Fireball* fireball = dynamic_cast<Fireball*>(&other))
+    {
+        takeDamage();
+    }
+    else if (Koopa* koopa = dynamic_cast<Koopa*>(&other))
+    {
+        if(koopa -> isInShell() && koopa -> isShellMoving())
+        {
+            takeDamage();
+        }
+
     }
 }

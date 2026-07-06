@@ -2,6 +2,7 @@
 #include "Entities/Entity.h"
 #include "Entities/DynamicEntity.h"
 #include "Entities/Player.h"
+#include "Entities/Fireball.h"
 #include <cmath>
 #include <iostream>
 
@@ -318,7 +319,7 @@ void CollisionManager::updatePhysicsAndCollisions(std::vector<std::unique_ptr<En
         if (!e1->isActive() || e1->isCarried()) continue;
         
         // Check if e1 is fireball
-        if (e1->isActive() && e1->getSpriteSize().x == 16.0f && e1->getHitboxSize().x == 12.0f) { // Simple check for Fireball properties
+        if (Fireball* fireball = dynamic_cast<Fireball*> (e1.get())) { // Simple check for Fireball properties
             Rectangle fBox = e1->getBoundingBox();
             for (auto& e2 : entities) {
                 if (!e2->isActive() || e2.get() == e1.get() || e2.get() == &player || e2->isCarried()) continue;
@@ -327,7 +328,7 @@ void CollisionManager::updatePhysicsAndCollisions(std::vector<std::unique_ptr<En
                 DynamicEntity* enemy = dynamic_cast<DynamicEntity*>(e2.get());
                 if (enemy && !e2->isSolid()) { // If it's a non-solid active NPC (Goomba/Koopa)
                     if (checkAABB(fBox, enemy->getBoundingBox())) {
-                        e1->setActive(false); // Destroy fireball
+                        fireball -> explode(); // Destroy fireball
                         enemy->onCollision(*e1, CollisionSide::None); // Kill enemy
                     }
                 }
