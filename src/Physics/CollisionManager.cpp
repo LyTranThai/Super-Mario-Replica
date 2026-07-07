@@ -262,8 +262,10 @@ void CollisionManager::updatePhysicsAndCollisions(std::vector<std::unique_ptr<En
                     if (dBox.y + dBox.height / 2.0f < oBox.y + oBox.height / 2.0f) {
                         pos.y -= overlap;
                         vel.y = 0.0f;
+                        dyn->setVelocity(vel);
                         dyn->setOnGround(true);
                         dyn->onCollision(*other, CollisionSide::Bottom);
+                        vel = dyn->getVelocity();
                     }
                 } else if (vel.y < 0.0f) {
                     // For ceiling checks, verify with original dBox to avoid false ceiling triggers
@@ -280,6 +282,7 @@ void CollisionManager::updatePhysicsAndCollisions(std::vector<std::unique_ptr<En
             }
         }
         dyn->setVelocity(vel);
+        // Some entity handle it's velocity it self
     }
 
     // 4. Dynamic vs Dynamic Interactions (Overlap based trigger callbacks)
@@ -328,8 +331,9 @@ void CollisionManager::updatePhysicsAndCollisions(std::vector<std::unique_ptr<En
                 DynamicEntity* enemy = dynamic_cast<DynamicEntity*>(e2.get());
                 if (enemy && !e2->isSolid()) { // If it's a non-solid active NPC (Goomba/Koopa)
                     if (checkAABB(fBox, enemy->getBoundingBox())) {
-                        fireball -> explode(); // Destroy fireball
+
                         enemy->onCollision(*e1, CollisionSide::None); // Kill enemy
+                        fireball -> explode(); // Destroy fireball
                     }
                 }
             }

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Core/EventSystem.h"
 #include "Core/GameEngine.h"
+#include "Fireball.h"
 #include <iostream>
 
 Koopa::Koopa(Vector2 pos)
@@ -69,10 +70,8 @@ void Koopa::onCollision(Entity& other, CollisionSide side) {
             if (inShell) {
                 if(GameEngine::getInstance().getInputManager().isActionPressed(Action::Run))
                 {
-                    if (!shellMoving) {
                     std::cout << "[DEBUG]   -> Case: Player carrying Koopa shell." << std::endl;
                     this -> beingCarried(*player);
-                    }
                 } else {
                     // Kick the shell!
                     std::cout << "[DEBUG]   -> Case: Player kicked Koopa shell." << std::endl;
@@ -98,11 +97,21 @@ void Koopa::onCollision(Entity& other, CollisionSide side) {
             facingRight = (velocity.x > 0.0f);
         }
     }
+
+    // Colliding with another enemy while moving as a shell deals damage to them
     if (Enemy* enemy = dynamic_cast<Enemy*>(&other)) {
-        // Colliding with another enemy while moving as a shell deals damage to them
         if (inShell && shellMoving) {
             std::cout << "[DEBUG]   -> Case: Moving shell hit another enemy. Enemy (" << enemy->getTextureID() << ") taking damage." << std::endl;
             enemy->takeDamage();
+        }
+    }
+
+    if(Fireball* fireball = dynamic_cast<Fireball*> (&other))
+    {
+        if(!inShell)
+        {
+            std::cout << "[DEBUG]   -> Case: Fireball hit. Enemy (" << this->getTextureID() << ") taking damage." << std::endl;
+            takeDamage();
         }
     }
 }

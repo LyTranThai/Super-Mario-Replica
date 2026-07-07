@@ -15,8 +15,7 @@ Player::Player(Vector2 pos)
       lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false) {
     
     powerState = new SmallState();
-    powerState = new FireState();
-    specialMove = std::make_unique<NoneMove>();
+    specialMove = std::make_unique<FireballMove>();
     applyHitboxDimensions();
 }
 
@@ -77,12 +76,9 @@ void Player::draw() {
 }
 
 void Player::handleInput(const InputManager& input) {
-    // Drop the carried entity if the player releases the Run button
+    // Throw the carried entity if the player releases the Run button
     if (carriedEntity != nullptr && !input.isActionPressed(Action::Run)) {
-        if (Koopa* koopa = dynamic_cast<Koopa*>(carriedEntity)) {
-            koopa->setCarried(false);
-        }
-        carriedEntity = nullptr;
+        throwCarriedEntity();
     }
 
     if (input.isActionJustPressed(Action::Crouch)) {
@@ -180,6 +176,7 @@ void Player::throwCarriedEntity() {
         if (koopa) {
             koopa->setCarried(false);
             koopa->setShellMoving(true);
+            koopa->setFacingRight(facingRight);
         }
         
         carriedEntity = nullptr;
