@@ -5,6 +5,7 @@
 #include "PlayerPowerState.h"
 #include "SpecialMove.h"
 #include <memory>
+#include <iostream>
 
 class InputManager;
 

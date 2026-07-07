@@ -187,6 +187,7 @@ void Player::throwCarriedEntity() {
 }
 
 void Player::shootFireball() {
+    std::cout << "[DEBUG]" << textureID << " shoot fireball" << std::endl;
     Vector2 spawnPos;
     if (facingRight) {
         spawnPos.x = position.x + spriteSize.x;
