@@ -15,6 +15,7 @@ Player::Player(Vector2 pos)
       lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false) {
     
     powerState = new SmallState();
+    powerState = new FireState();
     specialMove = std::make_unique<NoneMove>();
     applyHitboxDimensions();
 }
@@ -62,13 +63,23 @@ void Player::draw() {
         DrawRectangleRec(getBoundingBox(), color);
         DrawRectangleLinesEx(getBoundingBox(), 1.0f, BLACK);
     }
+
+    //Draw the entity that it carried along
+    if(carriedEntity)
+    {
+        //Draw it infront of player face
+        float offsetX = facingRight ? hitboxSize.x + 2.0f : -carriedEntity->getHitboxSize().x - 2.0f;
+        Vector2 pos = { position.x + offsetX, position.y };
+        // Set location logic
+        carriedEntity -> setPosition(pos);
+        carriedEntity -> draw();
+    }
 }
 
 void Player::handleInput(const InputManager& input) {
     // Drop the carried entity if the player releases the Run button
     if (carriedEntity != nullptr && !input.isActionPressed(Action::Run)) {
-        Koopa* koopa = dynamic_cast<Koopa*>(carriedEntity);
-        if (koopa) {
+        if (Koopa* koopa = dynamic_cast<Koopa*>(carriedEntity)) {
             koopa->setCarried(false);
         }
         carriedEntity = nullptr;
@@ -119,6 +130,10 @@ void Player::jump() {
 
 void Player::takeDamage() {
     if (isInvincible()) return;
+
+    std::cout << "[DEBUG] Player (" << textureID << ") took damage! PowerState: " 
+              << (getPowerType() == PowerStateType::Small ? "Small" : (getPowerType() == PowerStateType::Super ? "Super" : "Fire")) 
+              << ", Lives remaining: " << lives << std::endl;
 
     powerState->onDamage(*this);
     invincibilityTimer = 2.0f; // 2 seconds of recovery invincibility
@@ -172,6 +187,7 @@ void Player::throwCarriedEntity() {
 }
 
 void Player::shootFireball() {
+    std::cout << "[DEBUG]" << textureID << " shoot fireball" << std::endl;
     Vector2 spawnPos;
     if (facingRight) {
         spawnPos.x = position.x + spriteSize.x;
@@ -185,8 +201,12 @@ void Player::shootFireball() {
 }
 
 void Player::onCollision(Entity& other, CollisionSide side) {
-    (void)other;
+     
+    //std::cout << "[DEBUG] Collision: Player (" << textureID << ") collided with (" << other.getTextureID() << ") on side " 
+    //          << (side == CollisionSide::Top ? "Top" : (side == CollisionSide::Bottom ? "Bottom" : (side == CollisionSide::Left ? "Left" : (side == CollisionSide::Right ? "Right" : "None")))) << std::endl;
+
     if (side == CollisionSide::Bottom) {
+        //std::cout << "[DEBUG]   -> Case: Player hit ground/solid bottom. Resetting jumpCount." << std::endl;
         jumpCount = 0;
     }
 }

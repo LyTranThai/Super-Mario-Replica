@@ -1,5 +1,5 @@
-Guest
-
+dasdgc
+e25fe7fce1211dd0
 1
 0
 KEY Crouch 83
@@ -10,4 +10,4 @@ KEY MoveLeft 65
 KEY MoveRight 68
 KEY Pause 80
 KEY Run 340
-KEY Shoot 75
+KEY Shoot 74
