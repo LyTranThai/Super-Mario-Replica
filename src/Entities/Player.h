@@ -36,7 +36,8 @@ public:
 
     void handleInput(const InputManager& input);
     void jump();
-    void doubleJump();
+    int getjumpCount() const {return jumpCount;};
+    void setjumpCount(int s) {jumpCount = s < 0 ? 1 : std::min(s, jumpCount);};
     void takeDamage();
     void powerUp(PowerStateType type);
     void shootFireball();

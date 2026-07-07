@@ -63,13 +63,16 @@ void Koopa::onCollision(Entity& other, CollisionSide side) {
             std::cout << "[DEBUG]   -> Case: Player stomped Koopa. Koopa taking damage." << std::endl;
             takeDamage();
             // Bounce player
-            player->setVelocity(Vector2{ player->getVelocity().x, -350.0f });
+            //player-> setjumpCount(0);
+            player-> setVelocity(Vector2{ player->getVelocity().x, -350.0f });
         } else {
-            if (inShell && !shellMoving) {
-                if (GameEngine::getInstance().getInputManager().isActionPressed(Action::Run)) {
+            if (inShell) {
+                if(GameEngine::getInstance().getInputManager().isActionPressed(Action::Run))
+                {
+                    if (!shellMoving) {
                     std::cout << "[DEBUG]   -> Case: Player carrying Koopa shell." << std::endl;
-                    carried = true;
-                    player->setCarriedEntity(this);
+                    this -> beingCarried(*player);
+                    }
                 } else {
                     // Kick the shell!
                     std::cout << "[DEBUG]   -> Case: Player kicked Koopa shell." << std::endl;
@@ -83,10 +86,8 @@ void Koopa::onCollision(Entity& other, CollisionSide side) {
                     EventManager::getInstance().broadcast(EventType::PlayerJump); // Play kick audio
                 }
             } else {
-                // Get carried
-                std::cout << "[DEBUG]   -> Case: Player touched Koopa side. Koopa gets carried." << std::endl;
-                carried = true;
-                player->setCarriedEntity(this);
+                // Hurt Player
+                player -> takeDamage();
             }
         }
     } 
@@ -103,5 +104,13 @@ void Koopa::onCollision(Entity& other, CollisionSide side) {
             std::cout << "[DEBUG]   -> Case: Moving shell hit another enemy. Enemy (" << enemy->getTextureID() << ") taking damage." << std::endl;
             enemy->takeDamage();
         }
+    }
+}
+void Koopa :: beingCarried (Entity& other)
+{
+    if(Player* player = dynamic_cast<Player*>(&other))
+    {
+        player -> setCarriedEntity(this);
+        this -> setCarried(true);
     }
 }
