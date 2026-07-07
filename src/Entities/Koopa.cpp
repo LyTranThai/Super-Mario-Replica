@@ -78,6 +78,7 @@ void Koopa::onCollision(Entity& other, CollisionSide side) {
                     shellMoving = true;
                     facingRight = (player->getPosition().x < position.x);
                     velocity.x = facingRight ? 400.0f : -400.0f;
+                    velocity.y = 100.0f;
                     // Position offset slightly to prevent immediate recollision
                     Vector2 pos = position;
                     pos.x += facingRight ? 10.0f : -10.0f;

@@ -273,7 +273,9 @@ void CollisionManager::updatePhysicsAndCollisions(std::vector<std::unique_ptr<En
                         if (dBox.y + dBox.height / 2.0f > oBox.y + oBox.height / 2.0f) {
                             pos.y += overlap;
                             vel.y = 0.0f;
+                            dyn->setVelocity(vel); // Apply before callback
                             dyn->onCollision(*other, CollisionSide::Top);
+                            vel = dyn->getVelocity(); // Reload
                         }
                     }
                 }
