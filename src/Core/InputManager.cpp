@@ -1,4 +1,4 @@
-#include "InputManager.hpp"
+#include "InputManager.h"
 #include "raylib.h"
 
 InputManager::InputManager() {

@@ -1,9 +1,9 @@
 #ifndef SETTINGS_STATE_H
 #define SETTINGS_STATE_H
 
-#include "Core/GameState.hpp"
-#include "Persistence/SaveManager.hpp"
-#include "Persistence/Account.hpp"
+#include "Core/GameState.h"
+#include "Persistence/SaveManager.h"
+#include "Persistence/Account.h"
 #include <string>
 #include <vector>
 

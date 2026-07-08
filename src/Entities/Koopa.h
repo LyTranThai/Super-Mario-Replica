@@ -1,7 +1,7 @@
 #ifndef KOOPA_H
 #define KOOPA_H
 
-#include "Enemy.hpp"
+#include "Enemy.h"
 
 class Koopa : public Enemy {
 private:

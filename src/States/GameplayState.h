@@ -1,8 +1,8 @@
 #ifndef GAMEPLAY_STATE_H
 #define GAMEPLAY_STATE_H
 
-#include "Core/GameState.hpp"
-#include "Core/EventSystem.hpp"
+#include "Core/GameState.h"
+#include "Core/EventSystem.h"
 #include <memory>
 #include <string>
 

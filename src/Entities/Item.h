@@ -1,8 +1,8 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include "DynamicEntity.hpp"
-#include "InteractiveBlock.hpp"
+#include "DynamicEntity.h"
+#include "InteractiveBlock.h"
 
 class Item : public DynamicEntity {
 protected:

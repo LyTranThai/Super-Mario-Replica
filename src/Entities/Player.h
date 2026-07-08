@@ -1,10 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "DynamicEntity.hpp"
-#include "PlayerPowerState.hpp"
-#include "SpriteAnimator.hpp"
-#include "SpecialMove.hpp"
+#include "DynamicEntity.h"
+#include "PlayerPowerState.h"
+#include "SpriteAnimator.h"
+#include "SpecialMove.h"
 #include <memory>
 
 class InputManager;

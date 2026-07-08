@@ -1,8 +1,8 @@
-#include "GameEngine.hpp"
+#include "GameEngine.h"
 #include "raylib.h"
-#include "SoundManager.hpp"
-#include "AssetManager.hpp"
-#include "States/MainMenuState.hpp"
+#include "SoundManager.h"
+#include "AssetManager.h"
+#include "States/MainMenuState.h"
 #include <iostream>
 
 #ifdef _WIN32

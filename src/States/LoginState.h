@@ -1,8 +1,8 @@
 #ifndef LOGIN_STATE_H
 #define LOGIN_STATE_H
 
-#include "Core/GameState.hpp"
-#include "Persistence/SaveManager.hpp"
+#include "Core/GameState.h"
+#include "Persistence/SaveManager.h"
 #include <string>
 
 class LoginState : public GameState {

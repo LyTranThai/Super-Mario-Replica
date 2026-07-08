@@ -1,7 +1,7 @@
-#include "InteractiveBlock.hpp"
-#include "Player.hpp"
-#include "Core/EventSystem.hpp"
-#include "Core/AssetManager.hpp"
+#include "InteractiveBlock.h"
+#include "Player.h"
+#include "Core/EventSystem.h"
+#include "Core/AssetManager.h"
 #include <iostream>
 #include <cmath>
 

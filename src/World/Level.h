@@ -1,10 +1,10 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#include "Entities/Entity.hpp"
-#include "Entities/Player.hpp"
-#include "Physics/Camera.hpp"
-#include "Physics/CollisionManager.hpp"
+#include "Entities/Entity.h"
+#include "Entities/Player.h"
+#include "Physics/Camera.h"
+#include "Physics/CollisionManager.h"
 #include <vector>
 #include <memory>
 #include <string>

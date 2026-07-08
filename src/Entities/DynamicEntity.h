@@ -1,7 +1,7 @@
 #ifndef DYNAMIC_ENTITY_H
 #define DYNAMIC_ENTITY_H
 
-#include "Entity.hpp"
+#include "Entity.h"
 
 enum class CollisionSide {
     None,

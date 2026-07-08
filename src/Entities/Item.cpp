@@ -1,6 +1,6 @@
-#include "Item.hpp"
-#include "Player.hpp"
-#include "Core/EventSystem.hpp"
+#include "Item.h"
+#include "Player.h"
+#include "Core/EventSystem.h"
 #include <iostream>
 
 Item::Item(Vector2 pos, ItemType type, const std::string& texID, Color dbgColor)

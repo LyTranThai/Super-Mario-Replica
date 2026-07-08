@@ -1,7 +1,7 @@
 #ifndef ENTITY_FACTORY_H
 #define ENTITY_FACTORY_H
 
-#include "Entities/Entity.hpp"
+#include "Entities/Entity.h"
 #include <memory>
 #include <string>
 

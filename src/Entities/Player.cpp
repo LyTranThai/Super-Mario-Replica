@@ -1,8 +1,8 @@
-#include "Player.hpp"
-#include "Core/InputManager.hpp"
-#include "Core/EventSystem.hpp"
-#include "Core/AssetManager.hpp"
-#include "Koopa.hpp"
+#include "Player.h"
+#include "Core/InputManager.h"
+#include "Core/EventSystem.h"
+#include "Core/AssetManager.h"
+#include "Koopa.h"
 #include <iostream>
 
 struct FireballSpawnData {
@@ -278,65 +278,65 @@ void Player::configureAnimations() {
 
     if (type == PowerStateType::Small) {
         // --- Small Luigi/Mario frames from Row 0 (y=0, h=16) and Row 1 (y=39, h=17) ---
-        // Idle (standing) — index 0 (x=5)
+        // Idle (standing) â€” index 0 (x=5)
         animator.addAnimation(AnimState::Idle,
             { Rectangle{5, 0, 11, 16} }, 1.0f);
 
-        // Walk cycle — 3 frames (index 1, 2, 3)
+        // Walk cycle â€” 3 frames (index 1, 2, 3)
         animator.addAnimation(AnimState::Walk,
             { Rectangle{34, 0, 14, 16},
               Rectangle{93, 0, 16, 16},
               Rectangle{154, 0, 13, 16} }, 0.08f);
 
-        // Jump — index 5 (x=213)
+        // Jump â€” index 5 (x=213)
         animator.addAnimation(AnimState::Jump,
             { Rectangle{213, 0, 15, 16} }, 1.0f);
 
-        // Fall — same as jump
+        // Fall â€” same as jump
         animator.addAnimation(AnimState::Fall,
             { Rectangle{213, 0, 15, 16} }, 1.0f);
 
-        // Skid/turn — index 4 (x=183)
+        // Skid/turn â€” index 4 (x=183)
         animator.addAnimation(AnimState::Skid,
             { Rectangle{183, 0, 16, 16} }, 1.0f);
 
-        // Die — Row 1, index 8 (x=423)
+        // Die â€” Row 1, index 8 (x=423)
         animator.addAnimation(AnimState::Die,
             { Rectangle{423, 39, 16, 17} }, 1.0f, false);
 
-        // Crouch — index 6 (x=244)
+        // Crouch â€” index 6 (x=244)
         animator.addAnimation(AnimState::Crouch,
             { Rectangle{244, 0, 14, 16} }, 1.0f);
 
     } else if (type == PowerStateType::Super) {
         // --- Super Luigi/Mario frames from Row 2 (y=68, h=40) and Row 3 (y=112, h=31) ---
-        // Idle — Row 2, index 0 (x=4)
+        // Idle â€” Row 2, index 0 (x=4)
         animator.addAnimation(AnimState::Idle,
             { Rectangle{4, 68, 14, 40} }, 1.0f);
 
-        // Walk cycle — 3 frames (Row 2, index 1, 2, 3)
+        // Walk cycle â€” 3 frames (Row 2, index 1, 2, 3)
         animator.addAnimation(AnimState::Walk,
             { Rectangle{33, 68, 16, 40},
               Rectangle{63, 68, 16, 40},
               Rectangle{93, 68, 16, 40} }, 0.08f);
 
-        // Jump — Row 2, index 5 (x=153)
+        // Jump â€” Row 2, index 5 (x=153)
         animator.addAnimation(AnimState::Jump,
             { Rectangle{153, 68, 16, 40} }, 1.0f);
 
-        // Fall — same as jump
+        // Fall â€” same as jump
         animator.addAnimation(AnimState::Fall,
             { Rectangle{153, 68, 16, 40} }, 1.0f);
 
-        // Skid — Row 2, index 4 (x=124)
+        // Skid â€” Row 2, index 4 (x=124)
         animator.addAnimation(AnimState::Skid,
             { Rectangle{124, 68, 14, 40} }, 1.0f);
 
-        // Crouch — Row 3, index 0 (x=2, h=31)
+        // Crouch â€” Row 3, index 0 (x=2, h=31)
         animator.addAnimation(AnimState::Crouch,
             { Rectangle{2, 112, 18, 31} }, 1.0f);
 
-        // Die — Row 1, index 8 (x=423)
+        // Die â€” Row 1, index 8 (x=423)
         animator.addAnimation(AnimState::Die,
             { Rectangle{423, 39, 16, 17} }, 1.0f, false);
 
@@ -346,7 +346,7 @@ void Player::configureAnimations() {
         animator.addAnimation(AnimState::Idle,
             { Rectangle{4, 148, 14, 40} }, 1.0f);
 
-        // Walk cycle — 3 frames
+        // Walk cycle â€” 3 frames
         animator.addAnimation(AnimState::Walk,
             { Rectangle{33, 148, 16, 40},
               Rectangle{63, 148, 16, 40},

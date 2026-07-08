@@ -1,7 +1,7 @@
 #ifndef INTERACTIVE_BLOCK_H
 #define INTERACTIVE_BLOCK_H
 
-#include "StaticEntity.hpp"
+#include "StaticEntity.h"
 
 enum class InteractiveBlockType {
     Brick,

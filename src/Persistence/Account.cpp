@@ -1,4 +1,4 @@
-#include "Account.hpp"
+#include "Account.h"
 #include "raylib.h"
 
 Account::Account() : username(""), passwordHash(""), currentLevel(1), highScore(0) {

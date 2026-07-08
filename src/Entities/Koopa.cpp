@@ -1,7 +1,7 @@
-#include "Koopa.hpp"
-#include "Player.hpp"
-#include "Core/EventSystem.hpp"
-#include "Core/GameEngine.hpp"
+#include "Koopa.h"
+#include "Player.h"
+#include "Core/EventSystem.h"
+#include "Core/GameEngine.h"
 #include <iostream>
 
 Koopa::Koopa(Vector2 pos)

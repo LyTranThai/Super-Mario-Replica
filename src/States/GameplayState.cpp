@@ -1,12 +1,12 @@
-#include "GameplayState.hpp"
-#include "PauseState.hpp"
-#include "GameOverState.hpp"
-#include "Core/GameEngine.hpp"
-#include "Core/SoundManager.hpp"
-#include "World/Level.hpp"
-#include "Entities/Fireball.hpp"
-#include "Entities/Item.hpp"
-#include "Persistence/SaveManager.hpp"
+#include "GameplayState.h"
+#include "PauseState.h"
+#include "GameOverState.h"
+#include "Core/GameEngine.h"
+#include "Core/SoundManager.h"
+#include "World/Level.h"
+#include "Entities/Fireball.h"
+#include "Entities/Item.h"
+#include "Persistence/SaveManager.h"
 #include <iostream>
 
 struct FireballSpawnData {

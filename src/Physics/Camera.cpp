@@ -1,4 +1,4 @@
-#include "Camera.hpp"
+#include "Camera.h"
 
 GameCamera::GameCamera() : position{0.0f, 0.0f}, viewportSize{800.0f, 600.0f}, leftBoundary(0.0f), rightBoundary(2000.0f) {}
 

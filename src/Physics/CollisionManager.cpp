@@ -1,7 +1,7 @@
-#include "CollisionManager.hpp"
-#include "Entities/Entity.hpp"
-#include "Entities/DynamicEntity.hpp"
-#include "Entities/Player.hpp"
+#include "CollisionManager.h"
+#include "Entities/Entity.h"
+#include "Entities/DynamicEntity.h"
+#include "Entities/Player.h"
 #include <cmath>
 #include <iostream>
 

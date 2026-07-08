@@ -1,6 +1,6 @@
-#include "SaveManager.hpp"
-#include "Account.hpp"
-#include "Core/GameEngine.hpp"
+#include "SaveManager.h"
+#include "Account.h"
+#include "Core/GameEngine.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>

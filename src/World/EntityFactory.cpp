@@ -1,10 +1,10 @@
-#include "EntityFactory.hpp"
-#include "Entities/Block.hpp"
-#include "Entities/InteractiveBlock.hpp"
-#include "Entities/Goomba.hpp"
-#include "Entities/Koopa.hpp"
-#include "Entities/PiranhaPlant.hpp"
-#include "Entities/RockHead.hpp"
+#include "EntityFactory.h"
+#include "Entities/Block.h"
+#include "Entities/InteractiveBlock.h"
+#include "Entities/Goomba.h"
+#include "Entities/Koopa.h"
+#include "Entities/PiranhaPlant.h"
+#include "Entities/RockHead.h"
 
 std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y) {
     Vector2 pos = { x, y };

@@ -1,8 +1,8 @@
-#include "LevelSelectState.hpp"
+#include "LevelSelectState.h"
 #include "raylib.h"
-#include "Core/GameEngine.hpp"
-#include "Core/SoundManager.hpp"
-#include "States/GameplayState.hpp"
+#include "Core/GameEngine.h"
+#include "Core/SoundManager.h"
+#include "States/GameplayState.h"
 #include <iostream>
 #include <cmath>
 

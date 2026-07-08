@@ -1,6 +1,6 @@
-#include "Enemy.hpp"
-#include "Player.hpp"
-#include "Core/EventSystem.hpp"
+#include "Enemy.h"
+#include "Player.h"
+#include "Core/EventSystem.h"
 #include <iostream>
 
 Enemy::Enemy(Vector2 pos, Vector2 sprSize, Vector2 hitSize, Vector2 hitOffset, const std::string& texID, Color dbgColor)

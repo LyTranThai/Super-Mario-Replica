@@ -1,7 +1,7 @@
 #ifndef STATIC_ENTITY_H
 #define STATIC_ENTITY_H
 
-#include "Entity.hpp"
+#include "Entity.h"
 
 class Player;
 

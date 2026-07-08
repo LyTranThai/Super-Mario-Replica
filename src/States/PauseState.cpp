@@ -1,6 +1,6 @@
-#include "PauseState.hpp"
-#include "MainMenuState.hpp"
-#include "Core/GameEngine.hpp"
+#include "PauseState.h"
+#include "MainMenuState.h"
+#include "Core/GameEngine.h"
 #include "raylib.h"
 
 PauseState::PauseState() : selectedIndex(0) {}

@@ -1,8 +1,8 @@
-#include "LoginState.hpp"
+#include "LoginState.h"
 #include "raylib.h"
-#include "Core/GameEngine.hpp"
-#include "States/LevelSelectState.hpp"
-#include "Persistence/Account.hpp"
+#include "Core/GameEngine.h"
+#include "States/LevelSelectState.h"
+#include "Persistence/Account.h"
 
 LoginState::LoginState()
     : inputUsername(""), inputPassword(""), isPasswordHidden(true), 

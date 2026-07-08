@@ -1,7 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "DynamicEntity.hpp"
+#include "DynamicEntity.h"
 
 class AIBehaviorStrategy {
 public:

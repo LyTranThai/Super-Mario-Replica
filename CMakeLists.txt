@@ -21,7 +21,7 @@ FetchContent_MakeAvailable(raylib)
 
 # Gather source and header files recursively
 file(GLOB_RECURSE SOURCES "src/*.cpp")
-file(GLOB_RECURSE HEADERS "src/*.hpp")
+file(GLOB_RECURSE HEADERS "src/*.h")
 
 add_executable(MarioGame main.cpp ${SOURCES} ${HEADERS})
 

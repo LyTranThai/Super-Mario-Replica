@@ -1,7 +1,7 @@
-#include "Level.hpp"
-#include "EntityFactory.hpp"
-#include "Entities/RockHead.hpp"
-#include "Core/EventSystem.hpp"
+#include "Level.h"
+#include "EntityFactory.h"
+#include "Entities/RockHead.h"
+#include "Core/EventSystem.h"
 #include <fstream>
 #include <iostream>
 #include <algorithm>
