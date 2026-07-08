@@ -4,7 +4,7 @@
 #include "raylib.h"
 #include <vector>
 #include <memory>
-
+#include <iostream>
 class Entity;
 class DynamicEntity;
 class Player;
