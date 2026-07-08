@@ -32,6 +32,7 @@ public:
 
     bool isActive() const { return active; }
     void setActive(bool state) { active = state; }
+    const std::string& getTextureID() const { return textureID; }
 
     virtual bool isSolid() const { return false; } // Handled dynamically
     virtual bool isCarried() const { return false; }

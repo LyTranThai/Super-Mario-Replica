@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Core/EventSystem.h"
 #include "Core/GameEngine.h"
+#include "Fireball.h"
 #include <iostream>
 
 Koopa::Koopa(Vector2 pos)
@@ -39,6 +40,7 @@ void Koopa::takeDamage() {
         hitboxOffset = Vector2{ 4.0f, 8.0f };
         textureID = "koopa_shell";
         
+        std::cout << "[DEBUG] Koopa (" << textureID << ") took damage and retreated to shell." << std::endl;
         EventManager::getInstance().broadcast(EventType::EnemyStomped);
     } else {
         // If already in shell, toggle slide on stomp
@@ -48,28 +50,35 @@ void Koopa::takeDamage() {
         } else {
             velocity.x = 0.0f;
         }
+        std::cout << "[DEBUG] Koopa shell took damage. shellMoving toggled to: " << (shellMoving ? "true" : "false") << std::endl;
     }
 }
 
 void Koopa::onCollision(Entity& other, CollisionSide side) {
     if (!other.isActive() || carried) return;
 
+    
     Player* player = dynamic_cast<Player*>(&other);
     if (player) {
         if (side == CollisionSide::Top) {
+            std::cout << "[DEBUG]   -> Case: Player stomped Koopa. Koopa taking damage." << std::endl;
             takeDamage();
             // Bounce player
-            player->setVelocity(Vector2{ player->getVelocity().x, -350.0f });
+            //player-> setjumpCount(0);
+            player-> setVelocity(Vector2{ player->getVelocity().x, -350.0f });
         } else {
-            if (inShell && !shellMoving) {
-                if (GameEngine::getInstance().getInputManager().isActionPressed(Action::Run)) {
-                    carried = true;
-                    player->setCarriedEntity(this);
+            if (inShell) {
+                if(GameEngine::getInstance().getInputManager().isActionPressed(Action::Run))
+                {
+                    std::cout << "[DEBUG]   -> Case: Player carrying Koopa shell." << std::endl;
+                    this -> beingCarried(*player);
                 } else {
                     // Kick the shell!
+                    std::cout << "[DEBUG]   -> Case: Player kicked Koopa shell." << std::endl;
                     shellMoving = true;
                     facingRight = (player->getPosition().x < position.x);
                     velocity.x = facingRight ? 400.0f : -400.0f;
+                    velocity.y = 100.0f;
                     // Position offset slightly to prevent immediate recollision
                     Vector2 pos = position;
                     pos.x += facingRight ? 10.0f : -10.0f;
@@ -77,21 +86,41 @@ void Koopa::onCollision(Entity& other, CollisionSide side) {
                     EventManager::getInstance().broadcast(EventType::PlayerJump); // Play kick audio
                 }
             } else {
-                // Hurt player
-                player->takeDamage();
+                // Hurt Player
+                player -> takeDamage();
             }
         }
     } 
-    else if (other.isSolid()) {
+    if (other.isSolid()) {
         if (side == CollisionSide::Left || side == CollisionSide::Right) {
+            //std::cout << "[DEBUG]   -> Case: Solid block side collision. Reversing direction." << std::endl;
             velocity.x = -velocity.x;
             facingRight = (velocity.x > 0.0f);
         }
     }
-    else if (Enemy* enemy = dynamic_cast<Enemy*>(&other)) {
-        // Colliding with another enemy while moving as a shell deals damage to them
+
+    // Colliding with another enemy while moving as a shell deals damage to them
+    if (Enemy* enemy = dynamic_cast<Enemy*>(&other)) {
         if (inShell && shellMoving) {
+            std::cout << "[DEBUG]   -> Case: Moving shell hit another enemy. Enemy (" << enemy->getTextureID() << ") taking damage." << std::endl;
             enemy->takeDamage();
         }
+    }
+
+    if(Fireball* fireball = dynamic_cast<Fireball*> (&other))
+    {
+        if(!inShell)
+        {
+            std::cout << "[DEBUG]   -> Case: Fireball hit. Enemy (" << this->getTextureID() << ") taking damage." << std::endl;
+            takeDamage();
+        }
+    }
+}
+void Koopa :: beingCarried (Entity& other)
+{
+    if(Player* player = dynamic_cast<Player*>(&other))
+    {
+        player -> setCarriedEntity(this);
+        this -> setCarried(true);
     }
 }

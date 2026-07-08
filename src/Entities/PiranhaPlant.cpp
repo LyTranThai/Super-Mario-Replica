@@ -1,6 +1,7 @@
 #include "PiranhaPlant.h"
 #include "Player.h"
 #include <cmath>
+#include <iostream>
 
 PiranhaPlant::PiranhaPlant(Vector2 pos)
     : Enemy(pos, Vector2{ 32.0f, 48.0f }, Vector2{ 24.0f, 40.0f }, Vector2{ 4.0f, 8.0f }, "piranha", RED),
@@ -54,9 +55,10 @@ void PiranhaPlant::onCollision(Entity& other, CollisionSide side) {
     (void)side;
     if (!other.isActive()) return;
 
+    
     Player* player = dynamic_cast<Player*>(&other);
     if (player) {
-        // Piranha Plants can never be stomped - they always damage the player
+        std::cout << "[DEBUG]   -> Case: Player touched Piranha Plant. Player taking damage." << std::endl;
         player->takeDamage();
     }
 }

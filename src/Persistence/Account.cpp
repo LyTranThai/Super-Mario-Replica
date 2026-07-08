@@ -7,7 +7,7 @@ Account::Account() : username(""), passwordHash(""), currentLevel(1), highScore(
     setKeySetting("MoveRight", KEY_D);
     setKeySetting("Jump", KEY_W);
     setKeySetting("Crouch", KEY_S);
-    setKeySetting("Run", KEY_LEFT_SHIFT);
+    setKeySetting("Run", KEY_RIGHT_SHIFT);
     setKeySetting("Shoot", KEY_J);
     setKeySetting("Pause", KEY_P);
     setKeySetting("MenuUp", KEY_UP);
@@ -21,7 +21,7 @@ Account::Account(const std::string& user, const std::string& passHash)
     setKeySetting("MoveRight", KEY_D);
     setKeySetting("Jump", KEY_W);
     setKeySetting("Crouch", KEY_S);
-    setKeySetting("Run", KEY_LEFT_SHIFT);
+    setKeySetting("Run", KEY_RIGHT_SHIFT);
     setKeySetting("Shoot", KEY_J);
     setKeySetting("Pause", KEY_P);
     setKeySetting("MenuUp", KEY_UP);
