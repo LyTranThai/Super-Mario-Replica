@@ -1,5 +1,5 @@
-#include "Fireball.h"
-#include "Enemy.h"
+#include "Fireball.hpp"
+#include "Enemy.hpp"
 #include <iostream>
 
 Fireball::Fireball(Vector2 pos, bool faceRight)

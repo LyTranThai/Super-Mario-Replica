@@ -1,7 +1,7 @@
-#include "RegisterState.h"
+#include "RegisterState.hpp"
 #include "raylib.h"
-#include "Core/GameEngine.h"
-#include "States/LoginState.h"
+#include "Core/GameEngine.hpp"
+#include "States/LoginState.hpp"
 
 RegisterState::RegisterState()
     : inputUsername(""), inputPassword(""), isPasswordHidden(true), 

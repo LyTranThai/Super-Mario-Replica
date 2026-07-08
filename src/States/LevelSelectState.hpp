@@ -1,7 +1,7 @@
 #ifndef LEVEL_SELECT_STATE_H
 #define LEVEL_SELECT_STATE_H
 
-#include "Core/GameState.h"
+#include "Core/GameState.hpp"
 #include <vector>
 #include <string>
 

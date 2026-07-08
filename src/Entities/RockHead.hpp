@@ -1,7 +1,7 @@
 #ifndef ROCK_HEAD_H
 #define ROCK_HEAD_H
 
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 enum class RockState {
     Idle,

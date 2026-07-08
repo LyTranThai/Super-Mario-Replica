@@ -1,5 +1,5 @@
-#include "PiranhaPlant.h"
-#include "Player.h"
+#include "PiranhaPlant.hpp"
+#include "Player.hpp"
 #include <cmath>
 
 PiranhaPlant::PiranhaPlant(Vector2 pos)

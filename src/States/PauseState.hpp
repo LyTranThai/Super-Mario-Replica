@@ -1,7 +1,7 @@
 #ifndef PAUSE_STATE_H
 #define PAUSE_STATE_H
 
-#include "Core/GameState.h"
+#include "Core/GameState.hpp"
 #include <vector>
 #include <string>
 

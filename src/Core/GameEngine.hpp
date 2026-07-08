@@ -1,9 +1,9 @@
 #ifndef GAME_ENGINE_H
 #define GAME_ENGINE_H
 
-#include "GameStateManager.h"
-#include "InputManager.h"
-#include "Persistence/Account.h"
+#include "GameStateManager.hpp"
+#include "InputManager.hpp"
+#include "Persistence/Account.hpp"
 
 class GameEngine {
 private:

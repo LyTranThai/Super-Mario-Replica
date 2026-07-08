@@ -1,6 +1,6 @@
-#include "SettingsState.h"
+#include "SettingsState.hpp"
 #include "raylib.h"
-#include "Core/GameEngine.h"
+#include "Core/GameEngine.hpp"
 
 // Simple helper to convert Raylib keycodes to strings
 static std::string getKeyNameForSettings(int key) {

@@ -1,5 +1,5 @@
-#include "GameStateManager.h"
-#include "GameState.h"
+#include "GameStateManager.hpp"
+#include "GameState.hpp"
 #include "raylib.h"
 
 GameStateManager::~GameStateManager() {

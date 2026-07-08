@@ -1,5 +1,5 @@
-#include "RockHead.h"
-#include "Player.h"
+#include "RockHead.hpp"
+#include "Player.hpp"
 #include <cmath>
 
 RockHead::RockHead(Vector2 pos)

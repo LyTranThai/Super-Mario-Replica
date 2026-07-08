@@ -2,7 +2,7 @@
 #define SOUND_MANAGER_H
 
 #include "raylib.h"
-#include "EventSystem.h"
+#include "EventSystem.hpp"
 #include <map>
 #include <string>
 

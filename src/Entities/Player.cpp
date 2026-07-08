@@ -1,8 +1,8 @@
-#include "Player.h"
-#include "Core/InputManager.h"
-#include "Core/EventSystem.h"
-#include "Core/AssetManager.h"
-#include "Koopa.h"
+#include "Player.hpp"
+#include "Core/InputManager.hpp"
+#include "Core/EventSystem.hpp"
+#include "Core/AssetManager.hpp"
+#include "Koopa.hpp"
 #include <iostream>
 
 struct FireballSpawnData {
@@ -17,6 +17,7 @@ Player::Player(Vector2 pos)
     powerState = new SmallState();
     specialMove = std::make_unique<NoneMove>();
     applyHitboxDimensions();
+    configureAnimations();
 }
 
 Player::~Player() {
@@ -30,6 +31,8 @@ void Player::update(float dt) {
 
     powerState->update(*this, dt);
     applyHitboxDimensions();
+    updateAnimationState();
+    animator.update(dt);
     
     if (carriedEntity) {
         float offsetX = facingRight ? hitboxSize.x + 2.0f : -carriedEntity->getHitboxSize().x - 2.0f;
@@ -40,12 +43,32 @@ void Player::update(float dt) {
 void Player::draw() {
     Texture2D tex = AssetManager::getInstance().getTexture(textureID);
     if (tex.id != 0) {
-        Rectangle source = { 0.0f, 0.0f, (float)tex.width, (float)tex.height };
-        if (!facingRight) {
-            source.width = -source.width;
+        // Get the current animation frame from the spritesheet
+        Rectangle source = animator.getCurrentFrame();
+        float srcWidth = std::abs(source.width);
+        float srcHeight = std::abs(source.height);
+        
+        // Calculate scale to match player's current sprite height
+        float scale = spriteSize.y / srcHeight;
+        float destWidth = srcWidth * scale;
+        float destHeight = spriteSize.y;
+        
+        // Center the sprite horizontally on the player's hitbox
+        float hitboxCenter = position.x + hitboxOffset.x + hitboxSize.x / 2.0f;
+        float destX = hitboxCenter - destWidth / 2.0f;
+        
+        // Align the bottom of the sprite box
+        Vector2 baseSpriteSize, baseHitboxSize, baseHitboxOffset;
+        getPowerStateDimensions(baseSpriteSize, baseHitboxSize, baseHitboxOffset);
+        float offsetY = baseSpriteSize.y - spriteSize.y;
+        float destY = position.y + offsetY;
+        
+        Rectangle dest = { destX, destY, destWidth, destHeight };
+
+        if (facingRight) {
+            source.width = -source.width;  // Flip horizontally because sheet faces left
         }
         
-        Rectangle dest = getSpriteBox();
         Vector2 origin = { 0.0f, 0.0f };
 
         Color tint = WHITE;
@@ -147,6 +170,7 @@ void Player::changePowerState(PlayerPowerState* newState) {
     // Resize hitbox and graphics boundaries dynamically
     Vector2 oldSize = hitboxSize;
     applyHitboxDimensions();
+    configureAnimations();  // Reconfigure animation frames for the new power state
 
     // Adjust position vertically to prevent clipping into the ground when growing
     position.y -= (hitboxSize.y - oldSize.y);
@@ -229,4 +253,145 @@ Rectangle Player::getSpriteBox() const {
     getPowerStateDimensions(baseSpriteSize, baseHitboxSize, baseHitboxOffset);
     float offsetY = baseSpriteSize.y - spriteSize.y;
     return Rectangle{ position.x, position.y + offsetY, spriteSize.x, spriteSize.y };
+}
+
+// ============================================================
+// Spritesheet Animation Configuration
+// ============================================================
+// Frame rectangles are derived from pixel-scanning Mario.png (442x339).
+// Each Rectangle is {x, y, width, height} on the spritesheet.
+//
+// Spritesheet row map:
+//   Row 0 (y=0,  h=16):  Small Mario poses (8 sprites)
+//   Row 1 (y=39, h=17):  Small Mario poses (9 sprites)
+//   Row 2 (y=68, h=40):  Super Mario poses (11 sprites)
+//   Row 3 (y=112,h=31):  Super Mario poses (13 sprites)
+//   Row 4 (y=148,h=40):  Fire Mario poses  (11 sprites)
+//   Row 5 (y=192,h=31):  Fire Mario poses  (15 sprites)
+//   Row 6-8: Swimming, climbing, misc
+// ============================================================
+
+void Player::configureAnimations() {
+    animator.clearAnimations();
+
+    PowerStateType type = powerState->getType();
+
+    if (type == PowerStateType::Small) {
+        // --- Small Luigi/Mario frames from Row 0 (y=0, h=16) and Row 1 (y=39, h=17) ---
+        // Idle (standing) — index 0 (x=5)
+        animator.addAnimation(AnimState::Idle,
+            { Rectangle{5, 0, 11, 16} }, 1.0f);
+
+        // Walk cycle — 3 frames (index 1, 2, 3)
+        animator.addAnimation(AnimState::Walk,
+            { Rectangle{34, 0, 14, 16},
+              Rectangle{93, 0, 16, 16},
+              Rectangle{154, 0, 13, 16} }, 0.08f);
+
+        // Jump — index 5 (x=213)
+        animator.addAnimation(AnimState::Jump,
+            { Rectangle{213, 0, 15, 16} }, 1.0f);
+
+        // Fall — same as jump
+        animator.addAnimation(AnimState::Fall,
+            { Rectangle{213, 0, 15, 16} }, 1.0f);
+
+        // Skid/turn — index 4 (x=183)
+        animator.addAnimation(AnimState::Skid,
+            { Rectangle{183, 0, 16, 16} }, 1.0f);
+
+        // Die — Row 1, index 8 (x=423)
+        animator.addAnimation(AnimState::Die,
+            { Rectangle{423, 39, 16, 17} }, 1.0f, false);
+
+        // Crouch — index 6 (x=244)
+        animator.addAnimation(AnimState::Crouch,
+            { Rectangle{244, 0, 14, 16} }, 1.0f);
+
+    } else if (type == PowerStateType::Super) {
+        // --- Super Luigi/Mario frames from Row 2 (y=68, h=40) and Row 3 (y=112, h=31) ---
+        // Idle — Row 2, index 0 (x=4)
+        animator.addAnimation(AnimState::Idle,
+            { Rectangle{4, 68, 14, 40} }, 1.0f);
+
+        // Walk cycle — 3 frames (Row 2, index 1, 2, 3)
+        animator.addAnimation(AnimState::Walk,
+            { Rectangle{33, 68, 16, 40},
+              Rectangle{63, 68, 16, 40},
+              Rectangle{93, 68, 16, 40} }, 0.08f);
+
+        // Jump — Row 2, index 5 (x=153)
+        animator.addAnimation(AnimState::Jump,
+            { Rectangle{153, 68, 16, 40} }, 1.0f);
+
+        // Fall — same as jump
+        animator.addAnimation(AnimState::Fall,
+            { Rectangle{153, 68, 16, 40} }, 1.0f);
+
+        // Skid — Row 2, index 4 (x=124)
+        animator.addAnimation(AnimState::Skid,
+            { Rectangle{124, 68, 14, 40} }, 1.0f);
+
+        // Crouch — Row 3, index 0 (x=2, h=31)
+        animator.addAnimation(AnimState::Crouch,
+            { Rectangle{2, 112, 18, 31} }, 1.0f);
+
+        // Die — Row 1, index 8 (x=423)
+        animator.addAnimation(AnimState::Die,
+            { Rectangle{423, 39, 16, 17} }, 1.0f, false);
+
+    } else if (type == PowerStateType::Fire) {
+        // --- Fire Luigi/Mario frames from Row 4 (y=148, h=40) and Row 5 (y=192, h=31) ---
+        // Idle
+        animator.addAnimation(AnimState::Idle,
+            { Rectangle{4, 148, 14, 40} }, 1.0f);
+
+        // Walk cycle — 3 frames
+        animator.addAnimation(AnimState::Walk,
+            { Rectangle{33, 148, 16, 40},
+              Rectangle{63, 148, 16, 40},
+              Rectangle{93, 148, 16, 40} }, 0.08f);
+
+        // Jump
+        animator.addAnimation(AnimState::Jump,
+            { Rectangle{153, 148, 16, 40} }, 1.0f);
+
+        // Fall
+        animator.addAnimation(AnimState::Fall,
+            { Rectangle{153, 148, 16, 40} }, 1.0f);
+
+        // Skid
+        animator.addAnimation(AnimState::Skid,
+            { Rectangle{124, 148, 14, 40} }, 1.0f);
+
+        // Crouch
+        animator.addAnimation(AnimState::Crouch,
+            { Rectangle{2, 192, 18, 31} }, 1.0f);
+
+        // Die
+        animator.addAnimation(AnimState::Die,
+            { Rectangle{423, 39, 16, 17} }, 1.0f, false);
+    }
+}
+
+void Player::updateAnimationState() {
+    if (!onGround) {
+        if (velocity.y < 0.0f) {
+            animator.setState(AnimState::Jump);
+        } else {
+            animator.setState(AnimState::Fall);
+        }
+    } else if (isCrouching) {
+        animator.setState(AnimState::Crouch);
+    } else if (velocity.x != 0.0f) {
+        // Check for skid: moving one direction but facing the other
+        bool movingRight = velocity.x > 0.0f;
+        if (movingRight != facingRight) {
+            animator.setState(AnimState::Skid);
+        } else {
+            animator.setState(AnimState::Walk);
+        }
+    } else {
+        animator.setState(AnimState::Idle);
+    }
 }

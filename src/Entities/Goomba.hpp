@@ -1,7 +1,7 @@
 #ifndef GOOMBA_H
 #define GOOMBA_H
 
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 class Goomba : public Enemy {
 public:

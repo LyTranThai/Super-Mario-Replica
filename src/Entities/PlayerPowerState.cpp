@@ -1,7 +1,7 @@
-#include "PlayerPowerState.h"
-#include "Player.h"
-#include "Core/InputManager.h"
-#include "Core/EventSystem.h"
+#include "PlayerPowerState.hpp"
+#include "Player.hpp"
+#include "Core/InputManager.hpp"
+#include "Core/EventSystem.hpp"
 
 // --- SmallState ---
 void SmallState::handleInput(Player& player, const InputManager& input) {

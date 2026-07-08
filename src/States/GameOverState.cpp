@@ -1,7 +1,7 @@
-#include "GameOverState.h"
-#include "MainMenuState.h"
-#include "Core/GameEngine.h"
-#include "Core/SoundManager.h"
+#include "GameOverState.hpp"
+#include "MainMenuState.hpp"
+#include "Core/GameEngine.hpp"
+#include "Core/SoundManager.hpp"
 #include "raylib.h"
 
 GameOverState::GameOverState(bool win, int finalScore) : isWin(win), score(finalScore) {}

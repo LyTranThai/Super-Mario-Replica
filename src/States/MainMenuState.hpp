@@ -1,8 +1,8 @@
 #ifndef MAIN_MENU_STATE_H
 #define MAIN_MENU_STATE_H
 
-#include "Core/GameState.h"
-#include "Persistence/Account.h"
+#include "Core/GameState.hpp"
+#include "Persistence/Account.hpp"
 #include <string>
 #include <vector>
 

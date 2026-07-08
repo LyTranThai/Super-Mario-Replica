@@ -1,9 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "DynamicEntity.h"
-#include "PlayerPowerState.h"
-#include "SpecialMove.h"
+#include "DynamicEntity.hpp"
+#include "PlayerPowerState.hpp"
+#include "SpriteAnimator.hpp"
+#include "SpecialMove.hpp"
 #include <memory>
 
 class InputManager;
@@ -21,6 +22,7 @@ private:
     bool isCrouching;
     bool wantToStandUp;
     static constexpr float crouchHeightPercentage = 0.6f;
+    SpriteAnimator animator;
 
     // Movement rates constants
     static constexpr float speed = 250.0f;
@@ -74,6 +76,8 @@ public:
     void setWantToStandUp(bool state) { wantToStandUp = state; }
     void getPowerStateDimensions(Vector2& outSpriteSize, Vector2& outHitboxSize, Vector2& outHitboxOffset) const;
     void applyHitboxDimensions();
+    void configureAnimations();  // Setup spritesheet frames for current power state
+    void updateAnimationState(); // Pick animation based on physics state
     Rectangle getSpriteBox() const override;
 };
 

@@ -1,7 +1,7 @@
 #ifndef FIREBALL_H
 #define FIREBALL_H
 
-#include "DynamicEntity.h"
+#include "DynamicEntity.hpp"
 
 class Fireball : public DynamicEntity {
 private:

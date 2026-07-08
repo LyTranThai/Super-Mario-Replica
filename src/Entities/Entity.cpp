@@ -1,5 +1,5 @@
-#include "Entity.h"
-#include "Core/AssetManager.h"
+#include "Entity.hpp"
+#include "Core/AssetManager.hpp"
 
 Entity::Entity(Vector2 pos, Vector2 sprSize, Vector2 hitSize, Vector2 hitOffset, const std::string& texID, Color dbgColor)
     : position(pos), spriteSize(sprSize), hitboxSize(hitSize), hitboxOffset(hitOffset), 

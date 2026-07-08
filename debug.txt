@@ -4,7 +4,6 @@ Failed to load sound: assets/audio/coin.wav
 Failed to load sound: assets/audio/hurt.wav
 Failed to load sound: assets/audio/die.wav
 Failed to load sound: assets/audio/break.wav
-Failed to load texture: assets/textures/mario.png
 Failed to load texture: assets/textures/goomba.png
 Failed to load texture: assets/textures/koopa.png
 Failed to load texture: assets/textures/piranha.png
@@ -17,10 +16,12 @@ Failed to load texture: assets/textures/flower.png
 Failed to load texture: assets/textures/star.png
 Failed to load texture: assets/textures/coin.png
 Failed to load texture: assets/textures/fireball.png
-Level file not found: assets/levels/level1.txt. Loading fallback level.
-Level file not found: assets/levels/level1.txt. Loading fallback level.
-Level file not found: assets/levels/level1.txt. Loading fallback level.
-DESKTOP (GLFW): Initialized successfully
+ild 20.19.15.5171
+INFO: GL: VAO extension detected, VAO functions loaded successfully
+INFO: GL: NPOT textures extension detected, full NPOT textures supported
+INFO: GL: DXT compressed textures supported
+INFO: GL: ETC2/EAC compressed textures supported
+INFO: PLATFORM: DESKTOP (GLFW): Initialized successfully
 INFO: TEXTURE: [ID 1] Texture loaded successfully (1x1 | R8G8B8A8 | 1 mipmaps)
 INFO: TEXTURE: [ID 1] Default texture loaded successfully
 INFO: SHADER: [ID 1] Vertex shader compiled successfully
@@ -45,7 +46,9 @@ WARNING: FILEIO: [assets/audio/coin.wav] Failed to open file
 WARNING: FILEIO: [assets/audio/hurt.wav] Failed to open file
 WARNING: FILEIO: [assets/audio/die.wav] Failed to open file
 WARNING: FILEIO: [assets/audio/break.wav] Failed to open file
-WARNING: FILEIO: [assets/textures/mario.png] Failed to open file
+INFO: FILEIO: [assets/textures/Mario.png] File loaded successfully
+INFO: IMAGE: Data loaded successfully (442x339 | R8G8B8A8 | 1 mipmaps)
+INFO: TEXTURE: [ID 3] Texture loaded successfully (442x339 | R8G8B8A8 | 1 mipmaps)
 WARNING: FILEIO: [assets/textures/goomba.png] Failed to open file
 WARNING: FILEIO: [assets/textures/koopa.png] Failed to open file
 WARNING: FILEIO: [assets/textures/piranha.png] Failed to open file
@@ -58,8 +61,3 @@ WARNING: FILEIO: [assets/textures/flower.png] Failed to open file
 WARNING: FILEIO: [assets/textures/star.png] Failed to open file
 WARNING: FILEIO: [assets/textures/coin.png] Failed to open file
 WARNING: FILEIO: [assets/textures/fireball.png] Failed to open file
-INFO: AUDIO: Device closed successfully
-INFO: TEXTURE: [ID 2] Unloaded texture data from VRAM (GPU)
-INFO: SHADER: [ID 3] Default shader unloaded successfully
-INFO: TEXTURE: [ID 1] Default texture unloaded successfully
-INFO: Window closed successfully

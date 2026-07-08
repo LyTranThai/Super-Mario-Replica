@@ -1,4 +1,4 @@
-#include "SoundManager.h"
+#include "SoundManager.hpp"
 #include <iostream>
 
 SoundManager::SoundManager() : isMusicPlaying(false), isInitialized(false) {

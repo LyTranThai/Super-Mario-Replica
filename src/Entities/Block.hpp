@@ -1,7 +1,7 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include "StaticEntity.h"
+#include "StaticEntity.hpp"
 
 class Block : public StaticEntity {
 public:

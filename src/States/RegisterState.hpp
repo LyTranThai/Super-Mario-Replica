@@ -1,8 +1,8 @@
 #ifndef REGISTER_STATE_H
 #define REGISTER_STATE_H
 
-#include "Core/GameState.h"
-#include "Persistence/SaveManager.h"
+#include "Core/GameState.hpp"
+#include "Persistence/SaveManager.hpp"
 #include <string>
 
 class RegisterState : public GameState {

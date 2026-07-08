@@ -1,12 +1,12 @@
-#include "MainMenuState.h"
+#include "MainMenuState.hpp"
 #include "raylib.h"
-#include "Core/GameEngine.h"
-#include "Core/SoundManager.h"
-#include "States/GameplayState.h"
-#include "States/LevelSelectState.h"
-#include "States/LoginState.h"
-#include "States/RegisterState.h"
-#include "States/SettingsState.h"
+#include "Core/GameEngine.hpp"
+#include "Core/SoundManager.hpp"
+#include "States/GameplayState.hpp"
+#include "States/LevelSelectState.hpp"
+#include "States/LoginState.hpp"
+#include "States/RegisterState.hpp"
+#include "States/SettingsState.hpp"
 #include <iostream>
 
 MainMenuState::MainMenuState() 

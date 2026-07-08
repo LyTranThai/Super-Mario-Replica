@@ -1,7 +1,7 @@
 #ifndef PIRANHA_PLANT_H
 #define PIRANHA_PLANT_H
 
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 enum class PlantState {
     Hidden,
