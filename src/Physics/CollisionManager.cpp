@@ -333,7 +333,7 @@ void CollisionManager::updatePhysicsAndCollisions(std::vector<std::unique_ptr<En
                 DynamicEntity* enemy = dynamic_cast<DynamicEntity*>(e2.get());
                 if (enemy && !e2->isSolid()) { // If it's a non-solid active NPC (Goomba/Koopa)
                     if (checkAABB(fBox, enemy->getBoundingBox())) {
-
+                        std :: cout << "[DEBUG]" << "Fireball hit" << enemy -> getTextureID() << std :: endl;
                         enemy->onCollision(*e1, CollisionSide::None); // Kill enemy
                         fireball -> explode(); // Destroy fireball
                     }
