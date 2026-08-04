@@ -3,6 +3,7 @@
 #include "Entities/DynamicEntity.h"
 #include "Entities/Player.h"
 #include "Entities/Fireball.h"
+#include "Entities/MovingPlatform.h"
 #include <cmath>
 #include <iostream>
 
@@ -86,6 +87,28 @@ void CollisionManager::resolveStuckRecovery(DynamicEntity& entity, const std::ve
 }
 
 void CollisionManager::updatePhysicsAndCollisions(std::vector<std::unique_ptr<Entity>>& entities, Player& player, float dt) {
+    // Carry a player who was standing on a platform before it moved this frame.
+    // Level updates platforms before collision resolution, so their frame delta
+    // is already available here.
+    if (player.isActive() && player.getVelocity().y >= 0.0f) {
+        Rectangle playerBounds = player.getBoundingBox();
+        for (auto const& entity : entities) {
+            MovingPlatform* platform = dynamic_cast<MovingPlatform*>(entity.get());
+            if (!platform || !platform->isActive()) {
+                continue;
+            }
+
+            if (platform->wasStandingOn(playerBounds)) {
+                Vector2 playerPosition = player.getPosition();
+                Vector2 platformMovement = platform->getFrameMovement();
+                playerPosition.x += platformMovement.x;
+                playerPosition.y += platformMovement.y;
+                player.setPosition(playerPosition);
+                break;
+            }
+        }
+    }
+
     if (player.isActive() && player.getWantToStandUp()) {
         Vector2 baseSpriteSize, baseHitboxSize, baseHitboxOffset;
         player.getPowerStateDimensions(baseSpriteSize, baseHitboxSize, baseHitboxOffset);
