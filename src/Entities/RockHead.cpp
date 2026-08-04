@@ -1,6 +1,7 @@
 #include "RockHead.h"
 #include "Player.h"
 #include <cmath>
+#include <iostream>
 
 RockHead::RockHead(Vector2 pos)
     : Enemy(pos, Vector2{ 48.0f, 64.0f }, Vector2{ 40.0f, 56.0f }, Vector2{ 4.0f, 4.0f }, "thwomp", DARKGRAY),
@@ -56,12 +57,15 @@ void RockHead::checkTrigger(Vector2 playerPos) {
 void RockHead::onCollision(Entity& other, CollisionSide side) {
     if (!other.isActive()) return;
 
+    
     Player* player = dynamic_cast<Player*>(&other);
     if (player) {
+        std::cout << "[DEBUG]   -> Case: Player touched RockHead. Player taking damage." << std::endl;
         player->takeDamage();
     } 
     else if (other.isSolid()) {
         if (side == CollisionSide::Bottom && rockState == RockState::Slamming) {
+            //std::cout << "[DEBUG]   -> Case: Slamming hit bottom solid block. Transitioning to Waiting state." << std::endl;
             rockState = RockState::Waiting;
             timer = 1.0f; // Stay down for 1 second
             velocity.y = 0.0f;

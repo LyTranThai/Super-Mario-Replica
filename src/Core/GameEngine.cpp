@@ -46,7 +46,7 @@ void GameEngine::init() {
     SoundManager::getInstance().loadSound("break", "assets/audio/break.wav");
 
     // Try to load textures
-    AssetManager::getInstance().loadTexture("mario", "assets/textures/mario.png");
+    AssetManager::getInstance().loadTexture("mario", "assets/textures/Mario.png");
     AssetManager::getInstance().loadTexture("goomba", "assets/textures/goomba.png");
     AssetManager::getInstance().loadTexture("koopa", "assets/textures/koopa.png");
     AssetManager::getInstance().loadTexture("piranha", "assets/textures/piranha.png");

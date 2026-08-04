@@ -1,4 +1,4 @@
-Guest
+
 
 1
 0
@@ -9,5 +9,5 @@ KEY MenuUp 265
 KEY MoveLeft 65
 KEY MoveRight 68
 KEY Pause 80
-KEY Run 344
-KEY Shoot 74
+KEY Run 340
+KEY Shoot 75

@@ -4,7 +4,7 @@
 #include "Entities/Entity.h"
 #include "Entities/Player.h"
 #include "Physics/Camera.h"
-#include "Physics/CollisionManager.h"
+#include "Physics/CollisionChecker.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -14,7 +14,7 @@ private:
     std::vector<std::unique_ptr<Entity>> entities;
     std::unique_ptr<Player> player;
     GameCamera camera;
-    CollisionManager collisionManager;
+    CollisionChecker collisionChecker;
     
     std::string levelFilePath;
     int levelWidth;

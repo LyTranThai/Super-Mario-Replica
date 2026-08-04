@@ -23,6 +23,7 @@ public:
     
     void setCarried(bool state) { carried = state; }
     bool isCarried() const { return carried; }
+    void beingCarried(Entity& other);
 };
 
 #endif // KOOPA_H
