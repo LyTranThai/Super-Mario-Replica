@@ -222,13 +222,22 @@ void Player::shootFireball() {
 }
 
 void Player::onCollision(Entity& other, CollisionSide side) {
-     
-    //std::cout << "[DEBUG] Collision: Player (" << textureID << ") collided with (" << other.getTextureID() << ") on side " 
-    //          << (side == CollisionSide::Top ? "Top" : (side == CollisionSide::Bottom ? "Bottom" : (side == CollisionSide::Left ? "Left" : (side == CollisionSide::Right ? "Right" : "None")))) << std::endl;
-
     if (side == CollisionSide::Bottom) {
-        //std::cout << "[DEBUG]   -> Case: Player hit ground/solid bottom. Resetting jumpCount." << std::endl;
         jumpCount = 0;
+    }
+
+    // Stomp logic
+    DynamicEntity* dynOther = dynamic_cast<DynamicEntity*>(&other);
+    if (dynOther && !other.isSolid()) {
+        if (side == CollisionSide::Bottom && velocity.y > 0.0f) {
+            float playerBottom = getBoundingBox().y + getBoundingBox().height;
+            float enemyMiddle = other.getBoundingBox().y + other.getBoundingBox().height / 2.0f;
+            
+            if (playerBottom < enemyMiddle) {
+                // Stomp! Bounce player upward
+                velocity.y = -350.0f;
+            }
+        }
     }
 }
 

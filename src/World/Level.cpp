@@ -103,7 +103,7 @@ void Level::update(float dt) {
 
     // 3. Evaluate and resolve AABB collisions
     if (player->isActive()) {
-        collisionManager.updatePhysicsAndCollisions(entities, *player, dt);
+        collisionChecker.updatePhysics(entities, *player, dt);
     }
 
     // 4. Remove deactivated entities

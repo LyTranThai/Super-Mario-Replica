@@ -4,6 +4,14 @@
 #include "raylib.h"
 #include <string>
 
+enum class CollisionSide {
+    None,
+    Top,
+    Bottom,
+    Left,
+    Right
+};
+
 class Entity {
 protected:
     Vector2 position;      // Top-left visual coordinate
@@ -35,6 +43,7 @@ public:
     const std::string& getTextureID() const { return textureID; }
 
     virtual bool isSolid() const { return false; } // Handled dynamically
+    virtual bool isSolidFrom(CollisionSide side, Entity* collider) const { return isSolid(); }
     virtual bool isCarried() const { return false; }
 };
 
