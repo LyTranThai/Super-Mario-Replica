@@ -2,6 +2,7 @@
 #include "EntityFactory.h"
 #include "Entities/RockHead.h"
 #include "Core/EventSystem.h"
+#include "Core/GameEngine.h"
 #include <fstream>
 #include <iostream>
 #include <algorithm>
@@ -14,38 +15,90 @@ Level::Level(const std::string& filePath)
     loadFromFile(filePath);
 }
 
+#include <cstdlib>
+#include <ctime>
+
 void Level::loadFromFile(const std::string& filePath) {
     entities.clear();
     player.reset();
 
-    std::ifstream file(filePath);
     std::vector<std::string> lines;
     
-    if (!file.is_open()) {
-        std::cerr << "Level file not found: " << filePath << ". Loading fallback level." << std::endl;
-        // Fallback grid
-        lines = {
-            "############################################################",
-            "#                                                          #",
-            "#                                                          #",
-            "#                                                          #",
-            "#                                                          #",
-            "#        ?  B  M  F                                        #",
-            "#                                                          #",
-            "#                                 T                        #",
-            "#                                                          #",
-            "#    P       G       K           ###         I             #",
-            "############################################################"
-        };
-    } else {
-        std::string line;
-        while (std::getline(file, line)) {
-            if (!line.empty() && line.back() == '\r') {
-                line.pop_back(); // Clean carriage return in Windows text files
-            }
-            lines.push_back(line);
+    if (filePath == "RANDOM" || filePath == "assets/levels/random_level.txt") {
+        int width = 100;
+        int height = 15;
+        lines = std::vector<std::string>(height, std::string(width, '.'));
+        
+        srand((unsigned int)time(NULL));
+
+        // Right boundary wall & ground
+        for (int r = 0; r < height; ++r) {
+            lines[r][width - 1] = '#';
         }
-        file.close();
+        for (int c = 0; c < width; ++c) {
+            lines[height - 1][c] = '#';
+            lines[height - 2][c] = '#';
+        }
+
+        // Random pit gaps in ground
+        for (int c = 18; c < width - 15; c += 16 + rand() % 8) {
+            int pitWidth = 2 + rand() % 3;
+            for (int p = 0; p < pitWidth && c + p < width - 10; ++p) {
+                lines[height - 1][c + p] = '.';
+                lines[height - 2][c + p] = '.';
+            }
+        }
+
+        // Spawn & Exit Pipe
+        lines[height - 3][3] = 'P';
+        lines[height - 3][width - 3] = 'W';
+
+        // Random platforms, items, and enemies
+        for (int c = 10; c < width - 10; ++c) {
+            if (rand() % 7 == 0) {
+                int r = height - 6 - (rand() % 3);
+                lines[r][c] = (rand() % 2 == 0) ? '?' : 'B';
+                if (rand() % 4 == 0) lines[r][c] = 'M';
+                else if (rand() % 5 == 0) lines[r][c] = 'F';
+                else if (rand() % 9 == 0) lines[r][c] = 'S';
+            }
+            
+            // Enemy spawns on solid ground
+            if (rand() % 10 == 0 && lines[height - 1][c] == '#') {
+                int enemyChoice = rand() % 4;
+                if (enemyChoice == 0) lines[height - 3][c] = 'G';
+                else if (enemyChoice == 1) lines[height - 3][c] = 'K';
+                else if (enemyChoice == 2) lines[height - 3][c] = 'I';
+                else if (enemyChoice == 3 && c % 18 == 0) lines[1][c] = 'T';
+            }
+        }
+    } else {
+        std::ifstream file(filePath);
+        if (!file.is_open()) {
+            std::cerr << "Level file not found: " << filePath << ". Loading fallback level." << std::endl;
+            lines = {
+                "############################################################",
+                "#                                                          #",
+                "#                                                          #",
+                "#                                                          #",
+                "#                                                          #",
+                "#        ?  B  M  F                                        #",
+                "#                                                          #",
+                "#                                 T                        #",
+                "#                                                          #",
+                "#    P       G       K           ###         I             #",
+                "############################################################"
+            };
+        } else {
+            std::string line;
+            while (std::getline(file, line)) {
+                if (!line.empty() && line.back() == '\r') {
+                    line.pop_back(); // Clean carriage return in Windows text files
+                }
+                lines.push_back(line);
+            }
+            file.close();
+        }
     }
 
     if (lines.empty()) return;
@@ -60,8 +113,10 @@ void Level::loadFromFile(const std::string& filePath) {
             float y = row * TILE_SIZE;
 
             if (type == 'P') {
-                // Spawn player
-                player = std::make_unique<Player>(Vector2{ x, y });
+                // Spawn player with character type from active account
+                std::string selChar = GameEngine::getInstance().getActiveAccount().getSelectedCharacter();
+                CharacterType cType = (selChar == "Luigi") ? CharacterType::Luigi : CharacterType::Mario;
+                player = std::make_unique<Player>(Vector2{ x, y }, cType);
             } else if (type != ' ' && type != '\n') {
                 // Spawn environment/enemy blocks via factory
                 auto ent = EntityFactory::createEntity(type, x, y);
@@ -78,9 +133,13 @@ void Level::loadFromFile(const std::string& filePath) {
 
     // If no player was spawned, spawn at fallback default
     if (!player) {
-        player = std::make_unique<Player>(Vector2{ 100.0f, 100.0f });
+        std::string selChar = GameEngine::getInstance().getActiveAccount().getSelectedCharacter();
+        CharacterType cType = (selChar == "Luigi") ? CharacterType::Luigi : CharacterType::Mario;
+        player = std::make_unique<Player>(Vector2{ 100.0f, 100.0f }, cType);
     }
 }
+
+#include "Entities/ExitBlock.h"
 
 void Level::update(float dt) {
     if (isCompleted) return;
@@ -97,6 +156,16 @@ void Level::update(float dt) {
             if (thwomp && player->isActive()) {
                 thwomp->checkTrigger(player->getPosition());
             }
+            
+            // Check Exit Pipe / Goal Door collision
+            ExitBlock* exitBlock = dynamic_cast<ExitBlock*>(entity.get());
+            if (exitBlock && player->isActive()) {
+                if (CheckCollisionRecs(player->getBoundingBox(), exitBlock->getBoundingBox())) {
+                    isCompleted = true;
+                    EventManager::getInstance().broadcast(EventType::LevelCompleted);
+                }
+            }
+
             entity->update(dt);
         }
     }
@@ -115,6 +184,19 @@ void Level::update(float dt) {
 
     // 5. Update Camera target focus locked relative to player
     if (player->isActive()) {
+        // Enforce right boundary wall clamping
+        float maxPlayerX = levelWidth - TILE_SIZE - player->getHitboxSize().x;
+        if (player->getPosition().x > maxPlayerX) {
+            Vector2 p = player->getPosition();
+            p.x = maxPlayerX;
+            player->setPosition(p);
+        }
+        if (player->getPosition().x < 0.0f) {
+            Vector2 p = player->getPosition();
+            p.x = 0.0f;
+            player->setPosition(p);
+        }
+
         camera.update(player->getPosition());
 
         // Check if player reached the rightmost end of the map (completion checkpoint)

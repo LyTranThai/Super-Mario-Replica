@@ -10,10 +10,18 @@ struct FireballSpawnData {
     bool facingRight;
 };
 
-Player::Player(Vector2 pos) 
-    : DynamicEntity(pos, Vector2{ 32.0f, 32.0f }, Vector2{ 20.0f, 26.0f }, Vector2{ 6.0f, 6.0f }, "mario", RED),
-      lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false) {
+Player::Player(Vector2 pos, CharacterType type) 
+    : DynamicEntity(pos, Vector2{ 32.0f, 32.0f }, Vector2{ 20.0f, 26.0f }, Vector2{ 6.0f, 6.0f }, (type == CharacterType::Luigi ? "luigi" : "mario"), (type == CharacterType::Luigi ? GREEN : RED)),
+      charType(type), lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false) {
     
+    if (charType == CharacterType::Luigi) {
+        jumpForce = 480.0f; // Luigi jumps higher!
+        speed = 230.0f;     // Slightly slower speed
+    } else {
+        jumpForce = 420.0f; // Mario standard jump
+        speed = 250.0f;
+    }
+
     powerState = new SmallState();
     specialMove = std::make_unique<NoneMove>();
     applyHitboxDimensions();
@@ -39,6 +47,11 @@ void Player::update(float dt) {
 
 void Player::draw() {
     Texture2D tex = AssetManager::getInstance().getTexture(textureID);
+    if (tex.id == 0 && charType == CharacterType::Luigi) {
+        // Fallback to mario texture if luigi texture is not loaded
+        tex = AssetManager::getInstance().getTexture("mario");
+    }
+
     if (tex.id != 0) {
         Rectangle source = { 0.0f, 0.0f, (float)tex.width, (float)tex.height };
         if (!facingRight) {
@@ -48,17 +61,17 @@ void Player::draw() {
         Rectangle dest = getSpriteBox();
         Vector2 origin = { 0.0f, 0.0f };
 
-        Color tint = WHITE;
+        Color tint = (charType == CharacterType::Luigi) ? Color{ 120, 255, 120, 255 } : WHITE;
         if (isInvincible()) {
             // Flashes the alpha
             if (((int)(invincibilityTimer * 15) % 2) == 0) {
-                tint = Fade(WHITE, 0.2f);
+                tint = Fade(tint, 0.2f);
             }
         }
         DrawTexturePro(tex, source, dest, origin, 0.0f, tint);
     } else {
         // Draw debug fallback box
-        Color color = isInvincible() ? ORANGE : RED;
+        Color color = isInvincible() ? ORANGE : (charType == CharacterType::Luigi ? GREEN : RED);
         DrawRectangleRec(getBoundingBox(), color);
         DrawRectangleLinesEx(getBoundingBox(), 1.0f, BLACK);
     }

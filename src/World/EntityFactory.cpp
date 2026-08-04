@@ -5,6 +5,7 @@
 #include "Entities/Koopa.h"
 #include "Entities/PiranhaPlant.h"
 #include "Entities/RockHead.h"
+#include "Entities/ExitBlock.h"
 
 std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y) {
     Vector2 pos = { x, y };
@@ -38,6 +39,10 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
         
         case 'I': // Piranha Plant Enemy
             return std::make_unique<PiranhaPlant>(pos);
+
+        case 'E': // Exit Block / Pipe
+        case 'W': // Warp Pipe Exit Goal
+            return std::make_unique<ExitBlock>(pos);
             
         default:
             return nullptr;

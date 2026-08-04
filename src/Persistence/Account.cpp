@@ -1,7 +1,7 @@
 #include "Account.h"
 #include "raylib.h"
 
-Account::Account() : username(""), passwordHash(""), currentLevel(1), highScore(0) {
+Account::Account() : username(""), passwordHash(""), currentLevel(1), highScore(0), selectedCharacter("Mario") {
     // Set default controls
     setKeySetting("MoveLeft", KEY_A);
     setKeySetting("MoveRight", KEY_D);
@@ -15,7 +15,7 @@ Account::Account() : username(""), passwordHash(""), currentLevel(1), highScore(
 }
 
 Account::Account(const std::string& user, const std::string& passHash) 
-    : username(user), passwordHash(passHash), currentLevel(1), highScore(0) {
+    : username(user), passwordHash(passHash), currentLevel(1), highScore(0), selectedCharacter("Mario") {
     // Set default controls
     setKeySetting("MoveLeft", KEY_A);
     setKeySetting("MoveRight", KEY_D);
