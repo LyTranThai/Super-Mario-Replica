@@ -52,6 +52,7 @@ void GameEngine::init() {
     AssetManager::getInstance().loadTexture("piranha", "assets/textures/piranha.png");
     AssetManager::getInstance().loadTexture("thwomp", "assets/textures/thwomp.png");
     AssetManager::getInstance().loadTexture("brick", "assets/textures/brick.png");
+    AssetManager::getInstance().loadTexture("world", "assets/textures/World.png");
     AssetManager::getInstance().loadTexture("solid", "assets/textures/solid.png");
     AssetManager::getInstance().loadTexture("question", "assets/textures/question.png");
     AssetManager::getInstance().loadTexture("mushroom", "assets/textures/mushroom.png");
