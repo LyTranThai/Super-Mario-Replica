@@ -324,7 +324,7 @@ void Player::configureAnimations() {
         // Walk cycle: (20,8) -> (35,23) and (38,8) -> (53,23)
         animator.addAnimation(AnimState::Walk,
             { Rectangle{ 20.0f, 8.0f, 16.0f, 16.0f },
-              Rectangle{ 38.0f, 8.0f, 16.0f, 16.0f } }, 0.1f);
+              Rectangle{ 56.0f, 8.0f, 16.0f, 16.0f } }, 0.1f);
 
         // Jump: (116,8) -> (131,23)
         animator.addAnimation(AnimState::Jump,
