@@ -22,6 +22,7 @@ private:
     bool isCompleted;
 
     static constexpr float TILE_SIZE = 32.0f;
+    void drawScenery();
 
 public:
     Level(const std::string& filePath);

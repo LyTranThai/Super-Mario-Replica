@@ -3,6 +3,7 @@
 #include "Entities/RockHead.h"
 #include "Core/EventSystem.h"
 #include "Core/GameEngine.h"
+#include "Core/AssetManager.h"
 #include <fstream>
 #include <iostream>
 #include <algorithm>
@@ -207,8 +208,65 @@ void Level::update(float dt) {
     }
 }
 
+void Level::drawScenery() {
+    Texture2D worldTex = AssetManager::getInstance().getTexture("world");
+    if (worldTex.id == 0) return;
+
+    // Source rects in World.png
+    Rectangle srcSmallHill = { 0.0f, 160.0f, 80.0f, 48.0f };
+    Rectangle srcBigHill   = { 176.0f, 144.0f, 80.0f, 64.0f };
+    Rectangle srcBush      = { 256.0f, 176.0f, 48.0f, 32.0f };
+    Rectangle srcCloud     = { 128.0f, 48.0f, 48.0f, 32.0f };
+    Rectangle srcTree      = { 448.0f, 144.0f, 32.0f, 64.0f };
+
+    float groundY = levelHeight - 64.0f; // Top of ground tiles
+
+    // Repeat scenery periodically across the level width
+    for (float x = 50.0f; x < levelWidth - 100.0f; x += 700.0f) {
+        // Big Hill
+        Vector2 posBigHill = { x, groundY - 64.0f };
+        Vector2 offBigHill = camera.applyOffset(posBigHill);
+        DrawTexturePro(worldTex, srcBigHill, Rectangle{ offBigHill.x, offBigHill.y, 160.0f, 128.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+
+        // Small Hill
+        Vector2 posSmallHill = { x + 350.0f, groundY - 48.0f };
+        Vector2 offSmallHill = camera.applyOffset(posSmallHill);
+        DrawTexturePro(worldTex, srcSmallHill, Rectangle{ offSmallHill.x, offSmallHill.y, 120.0f, 96.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+
+        // Bushes
+        Vector2 posBush1 = { x + 180.0f, groundY - 32.0f };
+        Vector2 offBush1 = camera.applyOffset(posBush1);
+        DrawTexturePro(worldTex, srcBush, Rectangle{ offBush1.x, offBush1.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+
+        Vector2 posBush2 = { x + 520.0f, groundY - 32.0f };
+        Vector2 offBush2 = camera.applyOffset(posBush2);
+        DrawTexturePro(worldTex, srcBush, Rectangle{ offBush2.x, offBush2.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+
+        // Trees
+        Vector2 posTree1 = { x + 460.0f, groundY - 64.0f };
+        Vector2 offTree1 = camera.applyOffset(posTree1);
+        DrawTexturePro(worldTex, srcTree, Rectangle{ offTree1.x, offTree1.y, 64.0f, 128.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+
+        // Floating Sky Clouds
+        Vector2 posCloud1 = { x + 80.0f, 60.0f };
+        Vector2 offCloud1 = camera.applyOffset(posCloud1);
+        DrawTexturePro(worldTex, srcCloud, Rectangle{ offCloud1.x, offCloud1.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+
+        Vector2 posCloud2 = { x + 300.0f, 40.0f };
+        Vector2 offCloud2 = camera.applyOffset(posCloud2);
+        DrawTexturePro(worldTex, srcCloud, Rectangle{ offCloud2.x, offCloud2.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+
+        Vector2 posCloud3 = { x + 580.0f, 80.0f };
+        Vector2 offCloud3 = camera.applyOffset(posCloud3);
+        DrawTexturePro(worldTex, srcCloud, Rectangle{ offCloud3.x, offCloud3.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+    }
+}
+
 void Level::draw() {
     ClearBackground(Color{ 92, 148, 252, 255 });
+
+    // 0. Draw background scenery (mountains, trees, bushes, clouds)
+    drawScenery();
 
     // 1. Draw entities relative to Camera offsets
     for (auto& entity : entities) {
