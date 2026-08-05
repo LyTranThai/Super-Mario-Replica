@@ -47,9 +47,7 @@ void GameEngine::init() {
 
     // Try to load textures
     AssetManager::getInstance().loadTexture("mario", "assets/textures/Mario.png");
-    AssetManager::getInstance().loadTexture("goomba", "assets/textures/goomba.png");
-    AssetManager::getInstance().loadTexture("koopa", "assets/textures/koopa.png");
-    AssetManager::getInstance().loadTexture("piranha", "assets/textures/piranha.png");
+    AssetManager::getInstance().loadTexture("enemy", "assets/textures/enemy.png");
     AssetManager::getInstance().loadTexture("thwomp", "assets/textures/thwomp.png");
     AssetManager::getInstance().loadTexture("brick", "assets/textures/brick.png");
     AssetManager::getInstance().loadTexture("world", "assets/textures/World.png");

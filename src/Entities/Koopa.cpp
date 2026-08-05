@@ -6,7 +6,7 @@
 #include <iostream>
 
 Koopa::Koopa(Vector2 pos)
-    : Enemy(pos, Vector2{ 32.0f, 48.0f }, Vector2{ 24.0f, 40.0f }, Vector2{ 4.0f, 8.0f }, "koopa", GREEN),
+    : Enemy(pos, Vector2{ 32.0f, 48.0f }, Vector2{ 24.0f, 40.0f }, Vector2{ 4.0f, 8.0f }, "enemy", GREEN),
       inShell(false), shellMoving(false), carried(false) {}
 
 void Koopa::update(float dt) {
