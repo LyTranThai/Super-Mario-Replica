@@ -208,6 +208,8 @@ void Level::update(float dt) {
 }
 
 void Level::draw() {
+    ClearBackground(Color{ 92, 148, 252, 255 });
+
     // 1. Draw entities relative to Camera offsets
     for (auto& entity : entities) {
         if (entity->isActive()) {
