@@ -22,6 +22,11 @@ Level::Level(const std::string& filePath)
 void Level::loadFromFile(const std::string& filePath) {
     entities.clear();
     player.reset();
+    sceneryTrees.clear();
+    sceneryBushes.clear();
+    sceneryBigHills.clear();
+    scenerySmallHills.clear();
+    sceneryClouds.clear();
 
     std::vector<std::string> lines;
     
@@ -132,6 +137,36 @@ void Level::loadFromFile(const std::string& filePath) {
     levelHeight = lines.size() * TILE_SIZE;
     camera.setBoundaries(0.0f, levelWidth);
 
+    // Calculate scenery positions based on ground topology
+    for (int col = 0; col < maxCols; ++col) {
+        int topRow = -1;
+        for (size_t row = 0; row < lines.size(); ++row) {
+            if (col < lines[row].length() && lines[row][col] == '#') {
+                topRow = (int)row;
+                break;
+            }
+        }
+
+        if (topRow != -1) {
+            float x = col * TILE_SIZE;
+            float y = topRow * TILE_SIZE;
+            
+            if (col % 22 == 15) {
+                sceneryTrees.push_back(Vector2{ x, y - 64.0f });
+            } else if (col % 16 == 5) {
+                sceneryBushes.push_back(Vector2{ x, y - 32.0f });
+            } else if (col % 28 == 0) {
+                sceneryBigHills.push_back(Vector2{ x - 16.0f, y - 64.0f }); // slightly offset for visual variety
+            } else if (col % 28 == 10) {
+                scenerySmallHills.push_back(Vector2{ x - 16.0f, y - 48.0f });
+            }
+        }
+        
+        if (col % 12 == 0) {
+            sceneryClouds.push_back(Vector2{ (float)col * TILE_SIZE, 40.0f + (col % 3) * 20.0f });
+        }
+    }
+
     // If no player was spawned, spawn at fallback default
     if (!player) {
         std::string selChar = GameEngine::getInstance().getActiveAccount().getSelectedCharacter();
@@ -219,46 +254,25 @@ void Level::drawScenery() {
     Rectangle srcCloud     = { 128.0f, 48.0f, 48.0f, 32.0f };
     Rectangle srcTree      = { 448.0f, 144.0f, 32.0f, 64.0f };
 
-    float groundY = levelHeight - 64.0f; // Top of ground tiles
-
-    // Repeat scenery periodically across the level width
-    for (float x = 50.0f; x < levelWidth - 100.0f; x += 700.0f) {
-        // Big Hill
-        Vector2 posBigHill = { x, groundY - 64.0f };
-        Vector2 offBigHill = camera.applyOffset(posBigHill);
-        DrawTexturePro(worldTex, srcBigHill, Rectangle{ offBigHill.x, offBigHill.y, 160.0f, 128.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
-
-        // Small Hill
-        Vector2 posSmallHill = { x + 350.0f, groundY - 48.0f };
-        Vector2 offSmallHill = camera.applyOffset(posSmallHill);
-        DrawTexturePro(worldTex, srcSmallHill, Rectangle{ offSmallHill.x, offSmallHill.y, 120.0f, 96.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
-
-        // Bushes
-        Vector2 posBush1 = { x + 180.0f, groundY - 32.0f };
-        Vector2 offBush1 = camera.applyOffset(posBush1);
-        DrawTexturePro(worldTex, srcBush, Rectangle{ offBush1.x, offBush1.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
-
-        Vector2 posBush2 = { x + 520.0f, groundY - 32.0f };
-        Vector2 offBush2 = camera.applyOffset(posBush2);
-        DrawTexturePro(worldTex, srcBush, Rectangle{ offBush2.x, offBush2.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
-
-        // Trees
-        Vector2 posTree1 = { x + 460.0f, groundY - 64.0f };
-        Vector2 offTree1 = camera.applyOffset(posTree1);
-        DrawTexturePro(worldTex, srcTree, Rectangle{ offTree1.x, offTree1.y, 64.0f, 128.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
-
-        // Floating Sky Clouds
-        Vector2 posCloud1 = { x + 80.0f, 60.0f };
-        Vector2 offCloud1 = camera.applyOffset(posCloud1);
-        DrawTexturePro(worldTex, srcCloud, Rectangle{ offCloud1.x, offCloud1.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
-
-        Vector2 posCloud2 = { x + 300.0f, 40.0f };
-        Vector2 offCloud2 = camera.applyOffset(posCloud2);
-        DrawTexturePro(worldTex, srcCloud, Rectangle{ offCloud2.x, offCloud2.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
-
-        Vector2 posCloud3 = { x + 580.0f, 80.0f };
-        Vector2 offCloud3 = camera.applyOffset(posCloud3);
-        DrawTexturePro(worldTex, srcCloud, Rectangle{ offCloud3.x, offCloud3.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+    for (const auto& pos : sceneryBigHills) {
+        Vector2 off = camera.applyOffset(pos);
+        DrawTexturePro(worldTex, srcBigHill, Rectangle{ off.x, off.y, 160.0f, 128.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+    }
+    for (const auto& pos : scenerySmallHills) {
+        Vector2 off = camera.applyOffset(pos);
+        DrawTexturePro(worldTex, srcSmallHill, Rectangle{ off.x, off.y, 120.0f, 96.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+    }
+    for (const auto& pos : sceneryBushes) {
+        Vector2 off = camera.applyOffset(pos);
+        DrawTexturePro(worldTex, srcBush, Rectangle{ off.x, off.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+    }
+    for (const auto& pos : sceneryTrees) {
+        Vector2 off = camera.applyOffset(pos);
+        DrawTexturePro(worldTex, srcTree, Rectangle{ off.x, off.y, 64.0f, 128.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+    }
+    for (const auto& pos : sceneryClouds) {
+        Vector2 off = camera.applyOffset(pos);
+        DrawTexturePro(worldTex, srcCloud, Rectangle{ off.x, off.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
 }
 

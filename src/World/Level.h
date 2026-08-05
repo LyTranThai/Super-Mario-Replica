@@ -21,6 +21,12 @@ private:
     int levelHeight;
     bool isCompleted;
 
+    std::vector<Vector2> sceneryTrees;
+    std::vector<Vector2> sceneryBushes;
+    std::vector<Vector2> sceneryBigHills;
+    std::vector<Vector2> scenerySmallHills;
+    std::vector<Vector2> sceneryClouds;
+
     static constexpr float TILE_SIZE = 32.0f;
     void drawScenery();
 
