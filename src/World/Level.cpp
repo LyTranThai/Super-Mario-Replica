@@ -22,10 +22,10 @@ Level::Level(const std::string& filePath)
 void Level::loadFromFile(const std::string& filePath) {
     entities.clear();
     player.reset();
-    sceneryTrees.clear();
-    sceneryBushes.clear();
     sceneryBigHills.clear();
     scenerySmallHills.clear();
+    sceneryBush1.clear();
+    sceneryBush2.clear();
     sceneryClouds.clear();
 
     std::vector<std::string> lines;
@@ -152,13 +152,13 @@ void Level::loadFromFile(const std::string& filePath) {
             float y = topRow * TILE_SIZE;
             
             if (col % 22 == 15) {
-                sceneryTrees.push_back(Vector2{ x, y - 64.0f });
+                sceneryBush1.push_back(Vector2{ x, y - 18.0f });
             } else if (col % 16 == 5) {
-                sceneryBushes.push_back(Vector2{ x, y - 32.0f });
+                sceneryBush2.push_back(Vector2{ x, y - 20.0f });
             } else if (col % 28 == 0) {
-                sceneryBigHills.push_back(Vector2{ x - 16.0f, y - 64.0f }); // slightly offset for visual variety
+                sceneryBigHills.push_back(Vector2{ x - 16.0f, y - 37.0f });
             } else if (col % 28 == 10) {
-                scenerySmallHills.push_back(Vector2{ x - 16.0f, y - 48.0f });
+                scenerySmallHills.push_back(Vector2{ x - 16.0f, y - 27.0f });
             }
         }
         
@@ -248,27 +248,27 @@ void Level::drawScenery() {
     if (worldTex.id == 0) return;
 
     // Source rects in World.png
-    Rectangle srcSmallHill = { 0.0f, 160.0f, 80.0f, 48.0f };
-    Rectangle srcBigHill   = { 176.0f, 144.0f, 80.0f, 64.0f };
-    Rectangle srcBush      = { 256.0f, 176.0f, 48.0f, 32.0f };
+    Rectangle srcBigHill   = { 0.0f, 171.0f, 80.0f, 37.0f };
+    Rectangle srcSmallHill = { 250.0f, 181.0f, 54.0f, 27.0f };
+    Rectangle srcBush1     = { 179.0f, 190.0f, 70.0f, 18.0f };
+    Rectangle srcBush2     = { 370.0f, 188.0f, 40.0f, 20.0f };
     Rectangle srcCloud     = { 128.0f, 48.0f, 48.0f, 32.0f };
-    Rectangle srcTree      = { 448.0f, 144.0f, 32.0f, 64.0f };
 
     for (const auto& pos : sceneryBigHills) {
         Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcBigHill, Rectangle{ off.x, off.y, 160.0f, 128.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        DrawTexturePro(worldTex, srcBigHill, Rectangle{ off.x, off.y, 80.0f, 37.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
     for (const auto& pos : scenerySmallHills) {
         Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcSmallHill, Rectangle{ off.x, off.y, 120.0f, 96.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        DrawTexturePro(worldTex, srcSmallHill, Rectangle{ off.x, off.y, 54.0f, 27.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
-    for (const auto& pos : sceneryBushes) {
+    for (const auto& pos : sceneryBush1) {
         Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcBush, Rectangle{ off.x, off.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        DrawTexturePro(worldTex, srcBush1, Rectangle{ off.x, off.y, 70.0f, 18.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
-    for (const auto& pos : sceneryTrees) {
+    for (const auto& pos : sceneryBush2) {
         Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcTree, Rectangle{ off.x, off.y, 64.0f, 128.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        DrawTexturePro(worldTex, srcBush2, Rectangle{ off.x, off.y, 40.0f, 20.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
     for (const auto& pos : sceneryClouds) {
         Vector2 off = camera.applyOffset(pos);
