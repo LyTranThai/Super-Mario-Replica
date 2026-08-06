@@ -57,7 +57,7 @@ void Goomba::draw() {
         
         Rectangle dest = { destX, destY, destWidth, destHeight };
         
-        if (!facingRight) {
+        if (facingRight) {
             source.width = -source.width;
         }
         
