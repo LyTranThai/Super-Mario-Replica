@@ -7,7 +7,7 @@
 #include <cmath>
 
 LevelSelectState::LevelSelectState() : selectedIndex(0), animTime(0.0f) {
-    levelFiles = { "assets/levels/level1.txt", "assets/levels/level2.txt", "assets/levels/level3.txt" };
+    levelFiles = { "assets/levels/level1.txt", "assets/levels/level2.txt", "assets/levels/level3.txt", "assets/levels/custom_level.txt", "RANDOM" };
 }
 
 void LevelSelectState::init() {
@@ -23,7 +23,7 @@ void LevelSelectState::handleInput(const InputManager& input) {
     }
     if (input.isActionJustPressed(Action::MenuConfirm)) {
         Account& acc = GameEngine::getInstance().getActiveAccount();
-        bool isLocked = (selectedIndex >= acc.getCurrentLevel());
+        bool isLocked = (selectedIndex < 3 && selectedIndex >= acc.getCurrentLevel());
         if (isLocked) {
             SoundManager::getInstance().playSound("break");
         } else {
@@ -53,19 +53,21 @@ void LevelSelectState::draw() {
     }
 
     // Title
-    DrawText("SUPER MARIO OOP", 220, 40, 40, MAROON);
-    DrawText("LEVEL SELECTION", 310, 95, 22, GOLD);
+    DrawText("SUPER MARIO OOP", 220, 25, 36, MAROON);
+    DrawText("LEVEL SELECTION", 310, 70, 20, GOLD);
 
     Account& acc = GameEngine::getInstance().getActiveAccount();
 
     for (size_t i = 0; i < levelFiles.size(); ++i) {
-        int cardX = 40 + i * 250;
-        int cardY = 160;
-        int cardW = 220;
-        int cardH = 320;
+        int cardX = 20 + i * 152;
+        int cardY = 125;
+        int cardW = 142;
+        int cardH = 360;
         
         bool isSelected = (i == (size_t)selectedIndex);
-        bool isLocked = (i >= (size_t)acc.getCurrentLevel());
+        bool isCustom = (i == 3);
+        bool isRandom = (i == 4);
+        bool isLocked = (!isCustom && !isRandom && i >= (size_t)acc.getCurrentLevel());
         int highScore = acc.getLevelHighScore(i);
         
         Color bgColor;
@@ -74,6 +76,12 @@ void LevelSelectState::draw() {
         if (isLocked) {
             bgColor = Color{ 30, 20, 20, 255 };
             borderNormalColor = Color{ 80, 40, 40, 255 };
+        } else if (isCustom) {
+            bgColor = Color{ 35, 25, 45, 255 };
+            borderNormalColor = Color{ 120, 50, 160, 255 };
+        } else if (isRandom) {
+            bgColor = Color{ 20, 40, 35, 255 };
+            borderNormalColor = Color{ 40, 180, 120, 255 };
         } else if (highScore > 0) {
             bgColor = Color{ 25, 35, 45, 255 };
             borderNormalColor = Color{ 50, 100, 150, 255 };
@@ -101,26 +109,36 @@ void LevelSelectState::draw() {
         DrawRectangleRoundedLines(cardRect, 0.08f, 4, isSelected ? 4.0f : 2.0f, borderColor);
         
         // Render content
-        std::string levelTitle = "LEVEL " + std::to_string(i + 1);
-        DrawText(levelTitle.c_str(), cardX + 55, cardY + 30, 28, isLocked ? GRAY : WHITE);
+        std::string levelTitle = isRandom ? "RANDOM" : (isCustom ? "CUSTOM" : ("LEVEL " + std::to_string(i + 1)));
+        DrawText(levelTitle.c_str(), cardX + 15, cardY + 25, 20, isLocked ? GRAY : WHITE);
         
         if (isLocked) {
-            DrawText("LOCKED", cardX + 60, cardY + 120, 24, RED);
-            DrawText("Requirement:", cardX + 30, cardY + 180, 16, LIGHTGRAY);
+            DrawText("LOCKED", cardX + 30, cardY + 110, 18, RED);
+            DrawText("Requirement:", cardX + 10, cardY + 170, 12, LIGHTGRAY);
             std::string reqMsg = "Beat Level " + std::to_string(i);
-            DrawText(reqMsg.c_str(), cardX + 30, cardY + 205, 16, GRAY);
-            DrawText("(Locked)", cardX + 75, cardY + 260, 16, DARKGRAY);
+            DrawText(reqMsg.c_str(), cardX + 10, cardY + 195, 12, GRAY);
+            DrawText("(Locked)", cardX + 40, cardY + 280, 14, DARKGRAY);
+        } else if (isCustom) {
+            DrawText("USER MAP", cardX + 25, cardY + 110, 16, PURPLE);
+            DrawText("Custom Level", cardX + 10, cardY + 170, 12, LIGHTGRAY);
+            DrawText("Created in Editor", cardX + 5, cardY + 195, 12, SKYBLUE);
+            DrawText("(Play)", cardX + 48, cardY + 280, 14, GOLD);
+        } else if (isRandom) {
+            DrawText("INFINITE", cardX + 30, cardY + 110, 16, Color{ 40, 200, 120, 255 });
+            DrawText("Procedural Map", cardX + 8, cardY + 170, 12, LIGHTGRAY);
+            DrawText("Random Seed!", cardX + 10, cardY + 195, 12, GREEN);
+            DrawText("(Play)", cardX + 48, cardY + 280, 14, GOLD);
         } else {
             if (highScore > 0) {
-                DrawText("COMPLETED", cardX + 45, cardY + 100, 20, GREEN);
-                DrawText("Highest Score:", cardX + 30, cardY + 160, 16, LIGHTGRAY);
+                DrawText("COMPLETED", cardX + 15, cardY + 100, 16, GREEN);
+                DrawText("Highest Score:", cardX + 10, cardY + 160, 12, LIGHTGRAY);
                 std::string scoreStr = std::to_string(highScore);
-                DrawText(scoreStr.c_str(), cardX + 30, cardY + 190, 24, GOLD);
-                DrawText("(Replay)", cardX + 75, cardY + 260, 16, GRAY);
+                DrawText(scoreStr.c_str(), cardX + 10, cardY + 190, 20, GOLD);
+                DrawText("(Replay)", cardX + 40, cardY + 280, 14, GRAY);
             } else {
-                DrawText("UNLOCKED", cardX + 50, cardY + 100, 20, SKYBLUE);
-                DrawText("Haven't played", cardX + 30, cardY + 160, 16, LIGHTGRAY);
-                DrawText("(New)", cardX + 85, cardY + 260, 16, GRAY);
+                DrawText("UNLOCKED", cardX + 22, cardY + 100, 16, SKYBLUE);
+                DrawText("Haven't played", cardX + 10, cardY + 160, 12, LIGHTGRAY);
+                DrawText("(New)", cardX + 48, cardY + 280, 14, GRAY);
             }
         }
     }

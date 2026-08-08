@@ -13,12 +13,17 @@ private:
     std::map<std::string, int> keySettings;
     std::map<int, int> levelHighScores;
 
+    std::string selectedCharacter;
+
 public:
     Account();
     Account(const std::string& user, const std::string& passHash);
 
     std::string getUsername() const { return username; }
     std::string getPasswordHash() const { return passwordHash; }
+
+    std::string getSelectedCharacter() const { return selectedCharacter; }
+    void setSelectedCharacter(const std::string& character) { selectedCharacter = character; }
 
     int getCurrentLevel() const { return currentLevel; }
     void setCurrentLevel(int level) { currentLevel = level; }

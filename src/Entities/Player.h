@@ -10,8 +10,11 @@
 
 class InputManager;
 
+enum class CharacterType { Mario, Luigi };
+
 class Player : public DynamicEntity {
 private:
+    CharacterType charType;
     int lives;
     int score;
     int coins;
@@ -26,12 +29,14 @@ private:
     SpriteAnimator animator;
 
     // Movement rates constants
-    static constexpr float speed = 250.0f;
-    static constexpr float jumpForce = 420.0f;
+    float speed = 250.0f;
+    float jumpForce = 420.0f;
 
 public:
-    Player(Vector2 pos);
+    Player(Vector2 pos, CharacterType type = CharacterType::Mario);
     ~Player() override;
+
+    CharacterType getCharacterType() const { return charType; }
 
     void update(float dt) override;
     void draw() override;

@@ -22,8 +22,8 @@ struct ItemSpawnData {
 GameplayState::GameplayState() : GameplayState(0) {}
 
 GameplayState::GameplayState(int startLevelIndex) : currentLevelIndex(startLevelIndex) {
-    // Setup list of 3 levels
-    levelFiles = { "assets/levels/level1.txt", "assets/levels/level2.txt", "assets/levels/level3.txt" };
+    // Setup list of standard + custom levels
+    levelFiles = { "assets/levels/level1.txt", "assets/levels/level2.txt", "assets/levels/level3.txt", "assets/levels/custom_level.txt" };
 }
 
 GameplayState::~GameplayState() {

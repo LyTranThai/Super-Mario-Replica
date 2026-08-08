@@ -110,6 +110,11 @@ bool SaveManager::loadAccount(const std::string& username, Account& outAccount) 
                 if (ss >> levelIdx >> score) {
                     loadedAccount.setLevelHighScore(levelIdx, score);
                 }
+            } else if (prefix == "CHARACTER") {
+                std::string charName;
+                if (ss >> charName) {
+                    loadedAccount.setSelectedCharacter(charName);
+                }
             }
         }
     }
@@ -134,6 +139,10 @@ bool SaveManager::saveAccount(const Account& account) {
         file << account.getPasswordHash() << "\n";
         file << account.getCurrentLevel() << "\n";
         file << account.getHighScore() << "\n";
+
+        if (!account.getSelectedCharacter().empty()) {
+            file << "CHARACTER " << account.getSelectedCharacter() << "\n";
+        }
 
         // Write level high scores
         for (auto const& [levelIdx, score] : account.getLevelHighScores()) {

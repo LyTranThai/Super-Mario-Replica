@@ -2,18 +2,21 @@
 #define KOOPA_H
 
 #include "Enemy.h"
+#include "SpriteAnimator.h"
 
 class Koopa : public Enemy {
 private:
     bool inShell;
     bool shellMoving;
     bool carried;
+    SpriteAnimator animator;
 
 public:
     Koopa(Vector2 pos);
     ~Koopa() override = default;
 
     void update(float dt) override;
+    void draw() override;
     void onCollision(Entity& other, CollisionSide side) override;
     void takeDamage() override;
     
