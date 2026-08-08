@@ -5,11 +5,8 @@
 #include "Entities/Koopa.h"
 #include "Entities/PiranhaPlant.h"
 #include "Entities/RockHead.h"
-<<<<<<< HEAD
 #include "Entities/MovingPlatform.h"
-=======
 #include "Entities/ExitBlock.h"
->>>>>>> origin/main
 
 std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y) {
     Vector2 pos = { x, y };
@@ -44,7 +41,6 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
         case 'I': // Piranha Plant Enemy
             return std::make_unique<PiranhaPlant>(pos);
 
-<<<<<<< HEAD
         case 'H': // Horizontal moving platform
             return std::make_unique<MovingPlatform>(
                 pos,
@@ -58,11 +54,10 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
                 Vector2{ 64.0f, 16.0f },
                 std::make_unique<VerticalMovingStrategy>(
                     y - 96.0f, y, 55.0f, -1));
-=======
+
         case 'E': // Exit Block / Pipe
         case 'W': // Warp Pipe Exit Goal
             return std::make_unique<ExitBlock>(pos);
->>>>>>> origin/main
             
         default:
             return nullptr;

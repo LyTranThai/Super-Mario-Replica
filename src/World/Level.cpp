@@ -28,6 +28,7 @@ void Level::loadFromFile(const std::string& filePath) {
     scenerySmallHills.clear();
     sceneryClouds.clear();
 
+    std::ifstream file(filePath);
     std::vector<std::string> lines;
     
     if (!file.is_open()) {
@@ -41,8 +42,8 @@ void Level::loadFromFile(const std::string& filePath) {
             "#                                                          #",
             "#        ?  B  M  F                                        #",
             "#                                                          #",
-            "#                                 T                        #",
-            "#                                                          #",
+            "#                   H             T                        #",
+            "#                                            V             #",
             "#    P       G       K           ###         I             #",
             "############################################################"
         };
