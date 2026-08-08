@@ -30,81 +30,31 @@ void Level::loadFromFile(const std::string& filePath) {
 
     std::vector<std::string> lines;
     
-    if (filePath == "RANDOM" || filePath == "assets/levels/random_level.txt") {
-        int width = 100;
-        int height = 15;
-        lines = std::vector<std::string>(height, std::string(width, '.'));
-        
-        srand((unsigned int)time(NULL));
-
-        // Right boundary wall & ground
-        for (int r = 0; r < height; ++r) {
-            lines[r][width - 1] = '#';
-        }
-        for (int c = 0; c < width; ++c) {
-            lines[height - 1][c] = '#';
-            lines[height - 2][c] = '#';
-        }
-
-        // Random pit gaps in ground
-        for (int c = 18; c < width - 15; c += 16 + rand() % 8) {
-            int pitWidth = 2 + rand() % 3;
-            for (int p = 0; p < pitWidth && c + p < width - 10; ++p) {
-                lines[height - 1][c + p] = '.';
-                lines[height - 2][c + p] = '.';
-            }
-        }
-
-        // Spawn & Exit Pipe
-        lines[height - 3][3] = 'P';
-        lines[height - 3][width - 3] = 'W';
-
-        // Random platforms, items, and enemies
-        for (int c = 10; c < width - 10; ++c) {
-            if (rand() % 7 == 0) {
-                int r = height - 6 - (rand() % 3);
-                lines[r][c] = (rand() % 2 == 0) ? '?' : 'B';
-                if (rand() % 4 == 0) lines[r][c] = 'M';
-                else if (rand() % 5 == 0) lines[r][c] = 'F';
-                else if (rand() % 9 == 0) lines[r][c] = 'S';
-            }
-            
-            // Enemy spawns on solid ground
-            if (rand() % 10 == 0 && lines[height - 1][c] == '#') {
-                int enemyChoice = rand() % 4;
-                if (enemyChoice == 0) lines[height - 3][c] = 'G';
-                else if (enemyChoice == 1) lines[height - 3][c] = 'K';
-                else if (enemyChoice == 2) lines[height - 3][c] = 'I';
-                else if (enemyChoice == 3 && c % 18 == 0) lines[1][c] = 'T';
-            }
-        }
+    if (!file.is_open()) {
+        std::cerr << "Level file not found: " << filePath << ". Loading fallback level." << std::endl;
+        // Fallback grid
+        lines = {
+            "############################################################",
+            "#                                                          #",
+            "#                                                          #",
+            "#                                                          #",
+            "#                                                          #",
+            "#        ?  B  M  F                                        #",
+            "#                                                          #",
+            "#                                 T                        #",
+            "#                                                          #",
+            "#    P       G       K           ###         I             #",
+            "############################################################"
+        };
     } else {
-        std::ifstream file(filePath);
-        if (!file.is_open()) {
-            std::cerr << "Level file not found: " << filePath << ". Loading fallback level." << std::endl;
-            lines = {
-                "############################################################",
-                "#                                                          #",
-                "#                                                          #",
-                "#                                                          #",
-                "#                                                          #",
-                "#        ?  B  M  F                                        #",
-                "#                                                          #",
-                "#                                 T                        #",
-                "#                                                          #",
-                "#    P       G       K           ###         I             #",
-                "############################################################"
-            };
-        } else {
-            std::string line;
-            while (std::getline(file, line)) {
-                if (!line.empty() && line.back() == '\r') {
-                    line.pop_back(); // Clean carriage return in Windows text files
-                }
-                lines.push_back(line);
+        std::string line;
+        while (std::getline(file, line)) {
+            if (!line.empty() && line.back() == '\r') {
+                line.pop_back(); // Clean carriage return in Windows text files
             }
-            file.close();
+            lines.push_back(line);
         }
+        file.close();
     }
 
     if (lines.empty()) return;

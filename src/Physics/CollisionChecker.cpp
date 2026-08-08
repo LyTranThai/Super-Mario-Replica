@@ -1,5 +1,6 @@
 #include "CollisionChecker.h"
 #include "Entities/DynamicEntity.h"
+#include "Entities/MovingPlatform.h"
 #include "Entities/Player.h"
 #include <cmath>
 
@@ -101,6 +102,27 @@ void CollisionChecker::sweepEntity(DynamicEntity* dyn, const std::vector<std::un
 }
 
 void CollisionChecker::updatePhysics(std::vector<std::unique_ptr<Entity>>& entities, Player& player, float dt) {
+    // Platforms update before physics. Carry a rider by the exact distance the
+    // platform moved this frame, using its previous bounds for contact.
+    if (player.isActive() && player.getVelocity().y >= 0.0f) {
+        Rectangle playerBounds = player.getBoundingBox();
+        for (auto const& entity : entities) {
+            MovingPlatform* platform = dynamic_cast<MovingPlatform*>(entity.get());
+            if (!platform || !platform->isActive()) {
+                continue;
+            }
+
+            if (platform->wasStandingOn(playerBounds)) {
+                Vector2 playerPosition = player.getPosition();
+                Vector2 platformMovement = platform->getFrameMovement();
+                playerPosition.x += platformMovement.x;
+                playerPosition.y += platformMovement.y;
+                player.setPosition(playerPosition);
+                break;
+            }
+        }
+    }
+
     // Handle Player stand up logic first
     if (player.isActive() && player.getWantToStandUp()) {
         Vector2 baseSpriteSize, baseHitboxSize, baseHitboxOffset;
