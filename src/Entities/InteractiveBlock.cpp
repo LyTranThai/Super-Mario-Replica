@@ -31,23 +31,33 @@ void InteractiveBlock::update(float dt) {
 }
 
 void InteractiveBlock::draw() {
-    Texture2D tex;
     if (blockType == InteractiveBlockType::Question && isUsed) {
         // Draw the hit empty question block texture (represented by solid block asset)
-        tex = AssetManager::getInstance().getTexture("solid");
-    } else {
-        tex = AssetManager::getInstance().getTexture(textureID);
+        Texture2D tex = AssetManager::getInstance().getTexture("solid");
+        if (tex.id != 0) {
+            Rectangle source = { 0.0f, 0.0f, (float)tex.width, (float)tex.height };
+            Rectangle dest = getSpriteBox();
+            DrawTexturePro(tex, source, dest, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        } else {
+            DrawRectangleRec(getBoundingBox(), GRAY);
+            DrawRectangleLinesEx(getBoundingBox(), 1.0f, BLACK);
+        }
+        return;
     }
 
-    if (tex.id != 0) {
-        Rectangle source = { 0.0f, 0.0f, (float)tex.width, (float)tex.height };
+    Texture2D worldTex = AssetManager::getInstance().getTexture("world");
+    if (worldTex.id != 0) {
+        Rectangle source;
+        if (blockType == InteractiveBlockType::Question) {
+            source = { 256.0f, 144.0f, 16.0f, 16.0f };
+        } else {
+            source = { 320.0f, 144.0f, 16.0f, 16.0f };
+        }
         Rectangle dest = getSpriteBox();
-        Vector2 origin = { 0.0f, 0.0f };
-        DrawTexturePro(tex, source, dest, origin, 0.0f, WHITE);
+        DrawTexturePro(worldTex, source, dest, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     } else {
         // Fallback outline/box
-        Color color = (blockType == InteractiveBlockType::Question && isUsed) ? GRAY : debugColor;
-        DrawRectangleRec(getBoundingBox(), color);
+        DrawRectangleRec(getBoundingBox(), debugColor);
         DrawRectangleLinesEx(getBoundingBox(), 1.0f, BLACK);
     }
 }
