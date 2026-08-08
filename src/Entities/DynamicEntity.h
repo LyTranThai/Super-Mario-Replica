@@ -3,14 +3,6 @@
 
 #include "Entity.h"
 
-enum class CollisionSide {
-    None,
-    Top,
-    Bottom,
-    Left,
-    Right
-};
-
 class DynamicEntity : public Entity {
 protected:
     Vector2 velocity;
@@ -27,6 +19,7 @@ public:
     virtual ~DynamicEntity() override = default;
 
     virtual void onCollision(Entity& other, CollisionSide side) = 0;
+    virtual void resolveOverlap(Entity& other, float overlap, CollisionSide side);
     
     void applyGravity(float dt);
 

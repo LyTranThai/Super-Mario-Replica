@@ -38,10 +38,10 @@ void Enemy::onCollision(Entity& other, CollisionSide side) {
         }
     } 
     else if (other.isSolid()) {
-        if (side == CollisionSide::Left || side == CollisionSide::Right) {
-            //std::cout << "[DEBUG]   -> Case: Solid block side collision. Reversing walking direction." << std::endl;
-            velocity.x = -velocity.x;
-            facingRight = (velocity.x > 0.0f);
+        if (side == CollisionSide::Left) {
+            facingRight = true;
+        } else if (side == CollisionSide::Right) {
+            facingRight = false;
         }
     }
     else if (Fireball* fireball = dynamic_cast<Fireball*>(&other))
