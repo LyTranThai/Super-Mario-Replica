@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "EntityFactory.h"
+#include "Entities/Block.h"
 #include "Entities/RockHead.h"
 #include "Core/EventSystem.h"
 #include "Core/GameEngine.h"
@@ -127,6 +128,12 @@ void Level::loadFromFile(const std::string& filePath) {
                 // Spawn environment/enemy blocks via factory
                 auto ent = EntityFactory::createEntity(type, x, y);
                 if (ent) {
+                    if (type == '#') {
+                        bool isGround = (row >= lines.size() - 2);
+                        if (Block* b = dynamic_cast<Block*>(ent.get())) {
+                            b->blockType = isGround ? Block::Type::Ground : Block::Type::Brick;
+                        }
+                    }
                     entities.push_back(std::move(ent));
                 }
             }

@@ -5,7 +5,10 @@
 
 class Block : public StaticEntity {
 public:
-    Block(Vector2 pos, const std::string& texID, Color dbgColor = DARKGRAY);
+    enum class Type { Ground, Brick };
+    Type blockType;
+
+    Block(Vector2 pos, Type t = Type::Ground, const std::string& texID = "solid", Color dbgColor = DARKGRAY);
     ~Block() override = default;
 
     void update(float dt) override;
