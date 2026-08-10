@@ -11,10 +11,10 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
     Vector2 pos = { x, y };
     switch (type) {
         case '#': // Solid ground Block
-            return std::make_unique<Block>(pos, Block::Type::Ground, "world", WHITE);
+            return std::make_unique<Block>(pos, Block::Type::Ground, true, "world", WHITE);
             
         case 'X': // Normal brick (for stairs/walls)
-            return std::make_unique<Block>(pos, Block::Type::Brick, "world", WHITE);
+            return std::make_unique<Block>(pos, Block::Type::Brick, true, "world", WHITE);
         
         case 'B': // Breakable brick block
             return std::make_unique<InteractiveBlock>(pos, InteractiveBlockType::Brick);

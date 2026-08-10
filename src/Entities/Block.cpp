@@ -1,8 +1,8 @@
 #include "Block.h"
 #include "Core/AssetManager.h"
 
-Block::Block(Vector2 pos, Type t, const std::string& texID, Color dbgColor)
-    : StaticEntity(pos, Vector2{ 32.0f, 32.0f }, Vector2{ 32.0f, 32.0f }, Vector2{ 0.0f, 0.0f }, texID, dbgColor), blockType(t) {}
+Block::Block(Vector2 pos, Type t, bool top, const std::string& texID, Color dbgColor)
+    : StaticEntity(pos, Vector2{ 32.0f, 32.0f }, Vector2{ 32.0f, 32.0f }, Vector2{ 0.0f, 0.0f }, texID, dbgColor), blockType(t), isTopGround(top) {}
 
 void Block::update(float dt) {
     (void)dt;
@@ -17,14 +17,13 @@ void Block::draw() {
     if (worldTex.id != 0) {
         Rectangle source;
         if (blockType == Type::Brick) {
-            // Normal brick that stacks
             source = { 2192.0f, 144.0f, 16.0f, 16.0f };
         } else {
-            // Ground floor slice (0,208) -> (1103, 239)
-            // Just one layer: top grass (208 to 223)
             int col = (int)(position.x / 32.0f);
             float srcX = (float)((col * 16) % 1104);
-            source = { srcX, 208.0f, 16.0f, 16.0f };
+            // Grass on top, dirt on bottom
+            float srcY = isTopGround ? 208.0f : 224.0f;
+            source = { srcX, srcY, 16.0f, 16.0f };
         }
         
         Rectangle dest = getSpriteBox();

@@ -128,6 +128,12 @@ void Level::loadFromFile(const std::string& filePath) {
                 // Spawn environment/enemy blocks via factory
                 auto ent = EntityFactory::createEntity(type, x, y);
                 if (ent) {
+                    if (type == '#') {
+                        bool isTop = (row == 0 || col >= lines[row-1].length() || lines[row-1][col] != '#');
+                        if (Block* b = dynamic_cast<Block*>(ent.get())) {
+                            b->isTopGround = isTop;
+                        }
+                    }
                     entities.push_back(std::move(ent));
                 }
             }
@@ -153,9 +159,9 @@ void Level::loadFromFile(const std::string& filePath) {
             float y = topRow * TILE_SIZE;
             
             if (col % 22 == 15) {
-                sceneryBush1.push_back(Vector2{ x, y - 18.0f });
+                sceneryBush1.push_back(Vector2{ x, y - 16.0f });
             } else if (col % 16 == 5) {
-                sceneryBush2.push_back(Vector2{ x, y - 20.0f });
+                sceneryBush2.push_back(Vector2{ x, y - 19.0f });
             } else if (col % 28 == 0) {
                 sceneryBigHills.push_back(Vector2{ x - 16.0f, y - 37.0f });
             } else if (col % 28 == 10) {
