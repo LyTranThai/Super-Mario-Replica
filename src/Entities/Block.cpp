@@ -15,8 +15,8 @@ void Block::onInteract(Player& player) {
 void Block::draw() {
     Texture2D worldTex = AssetManager::getInstance().getTexture("world");
     if (worldTex.id != 0) {
-        // Platform below sprite: (0, 208) -> (15, 223)
-        Rectangle source = { 0.0f, 208.0f, 16.0f, 16.0f };
+        // Ground brick: (2192,144) -> (2207,159)
+        Rectangle source = { 2192.0f, 144.0f, 16.0f, 16.0f };
         Rectangle dest = getSpriteBox();
         Vector2 origin = { 0.0f, 0.0f };
         DrawTexturePro(worldTex, source, dest, origin, 0.0f, WHITE);

@@ -49,6 +49,7 @@ void GameEngine::init() {
     AssetManager::getInstance().loadTexture("mario", "assets/textures/player.png");
     AssetManager::getInstance().loadTexture("luigi", "assets/textures/player.png");
     AssetManager::getInstance().loadTexture("enemy", "assets/textures/mobs.png");
+    AssetManager::getInstance().loadTexture("world", "assets/textures/overworld1.png");
     AssetManager::getInstance().loadTexture("thwomp", "assets/textures/thwomp.png");
     AssetManager::getInstance().loadTexture("brick", "assets/textures/brick.png");
     AssetManager::getInstance().loadTexture("question", "assets/textures/question.png");

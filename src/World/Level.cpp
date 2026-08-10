@@ -247,11 +247,11 @@ void Level::drawScenery() {
     Texture2D worldTex = AssetManager::getInstance().getTexture("world");
     if (worldTex.id == 0) return;
 
-    // Source rects in World.png
-    Rectangle srcBigHill   = { 0.0f, 171.0f, 80.0f, 37.0f };
+    // Source rects in overworld1.png
+    Rectangle srcBigHill   = { 0.0f, 171.0f, 80.0f, 37.0f }; // Using old hill coords just in case
     Rectangle srcSmallHill = { 250.0f, 181.0f, 54.0f, 27.0f };
-    Rectangle srcBush1     = { 179.0f, 190.0f, 70.0f, 18.0f };
-    Rectangle srcBush2     = { 370.0f, 188.0f, 40.0f, 20.0f };
+    Rectangle srcBush1     = { 182.0f, 193.0f, 67.0f, 16.0f }; // (182,193) -> (248,208)
+    Rectangle srcBush2     = { 1431.0f, 190.0f, 52.0f, 19.0f }; // (1431,190) -> (1482,208)
     Rectangle srcCloud     = { 128.0f, 48.0f, 48.0f, 32.0f };
 
     for (const auto& pos : sceneryBigHills) {
@@ -264,11 +264,11 @@ void Level::drawScenery() {
     }
     for (const auto& pos : sceneryBush1) {
         Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcBush1, Rectangle{ off.x, off.y, 70.0f, 18.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        DrawTexturePro(worldTex, srcBush1, Rectangle{ off.x, off.y, 67.0f, 16.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
     for (const auto& pos : sceneryBush2) {
         Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcBush2, Rectangle{ off.x, off.y, 40.0f, 20.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        DrawTexturePro(worldTex, srcBush2, Rectangle{ off.x, off.y, 52.0f, 19.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
     for (const auto& pos : sceneryClouds) {
         Vector2 off = camera.applyOffset(pos);
