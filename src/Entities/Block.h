@@ -10,6 +10,7 @@ public:
 
     void update(float dt) override;
     void onInteract(Player& player) override;
+    void draw() override;
 };
 
 #endif // BLOCK_H

@@ -11,8 +11,11 @@
 
 class InputManager;
 
+enum class CharacterType { Mario, Luigi };
+
 class Player : public DynamicEntity {
 private:
+    CharacterType charType;
     int lives;
     int score;
     int coins;
@@ -25,10 +28,14 @@ private:
     bool wantToStandUp;
     static constexpr float crouchHeightPercentage = 0.6f;
     std::unique_ptr<PlayerActionState> actionState;
+    float speed = 250.0f;
+    float jumpForce = 420.0f;
 
 public:
-    Player(Vector2 pos);
+    Player(Vector2 pos, CharacterType type = CharacterType::Mario);
     ~Player() override;
+
+    CharacterType getCharacterType() const { return charType; }
 
     void update(float dt) override;
     void draw() override;
@@ -79,7 +86,7 @@ public:
     void applyHitboxDimensions();
     void configureAnimations();  // Setup spritesheet frames for current power state
     Rectangle getSpriteBox() const override;
-    float getJumpForce() const { return 420.0f; }
+    float getJumpForce() const { return jumpForce; }
 };
 
 #endif // PLAYER_H

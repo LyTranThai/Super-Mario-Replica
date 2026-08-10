@@ -5,7 +5,7 @@
 #include <iostream>
 
 PiranhaPlant::PiranhaPlant(Vector2 pos)
-    : Enemy(pos, Vector2{ 32.0f, 48.0f }, Vector2{ 24.0f, 40.0f }, Vector2{ 4.0f, 8.0f }, "piranha", RED),
+    : Enemy(pos, Vector2{ 32.0f, 48.0f }, Vector2{ 24.0f, 40.0f }, Vector2{ 4.0f, 8.0f }, "enemy", RED),
       plantState(PlantState::Hidden), timer(2.0f), pipePosition(pos), currentYOffset(0.0f) {
     // Delete base patrol strategy (Piranha Plants are anchored in space)
     delete aiStrategy;

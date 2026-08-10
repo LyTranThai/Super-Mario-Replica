@@ -12,10 +12,18 @@ struct FireballSpawnData {
     bool facingRight;
 };
 
-Player::Player(Vector2 pos) 
-    : DynamicEntity(pos, Vector2{ 32.0f, 32.0f }, Vector2{ 20.0f, 26.0f }, Vector2{ 6.0f, 6.0f }, "mario", RED),
-      lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false) {
+Player::Player(Vector2 pos, CharacterType type) 
+    : DynamicEntity(pos, Vector2{ 32.0f, 32.0f }, Vector2{ 20.0f, 26.0f }, Vector2{ 6.0f, 6.0f }, (type == CharacterType::Luigi ? "luigi" : "mario"), (type == CharacterType::Luigi ? GREEN : RED)),
+      charType(type), lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false) {
     
+    if (charType == CharacterType::Luigi) {
+        jumpForce = 480.0f; // Luigi jumps higher!
+        speed = 230.0f;     // Slightly slower speed
+    } else {
+        jumpForce = 420.0f; // Mario standard jump
+        speed = 250.0f;
+    }
+
     powerState = new SmallState();
     specialMove = std::make_unique<FireballMove>();
     animator = std::make_unique<SpriteAnimator>();
@@ -53,6 +61,11 @@ void Player::update(float dt) {
 
 void Player::draw() {
     Texture2D tex = AssetManager::getInstance().getTexture(textureID);
+    if (tex.id == 0 && charType == CharacterType::Luigi) {
+        // Fallback to mario texture if luigi texture is not loaded
+        tex = AssetManager::getInstance().getTexture("mario");
+    }
+
     if (tex.id != 0) {
         // Get the current animation frame from the spritesheet
         Rectangle source = animator ? animator->getCurrentFrame() : Rectangle{0,0,16,16};
@@ -76,23 +89,23 @@ void Player::draw() {
         
         Rectangle dest = { destX, destY, destWidth, destHeight };
 
-        if (facingRight) {
-            source.width = -source.width;  // Flip horizontally because sheet faces left
+        if (!facingRight) {
+            source.width = -source.width;  // Flip horizontally when facing left
         }
         
         Vector2 origin = { 0.0f, 0.0f };
 
-        Color tint = WHITE;
+        Color tint = (charType == CharacterType::Luigi) ? Color{ 120, 255, 120, 255 } : WHITE;
         if (isInvincible()) {
             // Flashes the alpha
             if (((int)(invincibilityTimer * 15) % 2) == 0) {
-                tint = Fade(WHITE, 0.2f);
+                tint = Fade(tint, 0.2f);
             }
         }
         DrawTexturePro(tex, source, dest, origin, 0.0f, tint);
     } else {
         // Draw debug fallback box
-        Color color = isInvincible() ? ORANGE : RED;
+        Color color = isInvincible() ? ORANGE : (charType == CharacterType::Luigi ? GREEN : RED);
         DrawRectangleRec(getBoundingBox(), color);
         DrawRectangleLinesEx(getBoundingBox(), 1.0f, BLACK);
     }
@@ -311,36 +324,35 @@ void Player::configureAnimations() {
     PowerStateType type = powerState->getType();
 
     if (type == PowerStateType::Small) {
-        // --- Small Luigi/Mario frames from Row 0 (y=0, h=16) and Row 1 (y=39, h=17) ---
-        // Idle (standing) â€” index 0 (x=5)
+        // --- Small Luigi/Mario frames specified by user ---
+        // Idle (standing): (0,8) -> (15,23)
         static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle",
-            { Rectangle{5, 0, 11, 16} }, 1.0f);
+            { Rectangle{ 0.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
 
-        // Walk cycle â€” 3 frames (index 1, 2, 3)
+        // Walk cycle: (20,8) -> (35,23) and (38,8) -> (53,23)
         static_cast<SpriteAnimator*>(animator.get())->addAnimation("walk",
-            { Rectangle{34, 0, 14, 16},
-              Rectangle{93, 0, 16, 16},
-              Rectangle{154, 0, 13, 16} }, 0.08f);
+            { Rectangle{ 20.0f, 8.0f, 16.0f, 16.0f },
+              Rectangle{ 56.0f, 8.0f, 16.0f, 16.0f } }, 0.1f);
 
-        // Jump â€” index 5 (x=213)
+        // Jump: (116,8) -> (131,23)
         static_cast<SpriteAnimator*>(animator.get())->addAnimation("jump",
-            { Rectangle{213, 0, 15, 16} }, 1.0f);
+            { Rectangle{ 116.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
 
-        // Fall â€” same as jump
+        // Fall: (136,8) -> (151,23)
         static_cast<SpriteAnimator*>(animator.get())->addAnimation("fall",
-            { Rectangle{213, 0, 15, 16} }, 1.0f);
+            { Rectangle{ 136.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
 
-        // Skid/turn â€” index 4 (x=183)
+        // Skid/turn
         static_cast<SpriteAnimator*>(animator.get())->addAnimation("skid",
-            { Rectangle{183, 0, 16, 16} }, 1.0f);
+            { Rectangle{ 116.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
 
-        // Die â€” Row 1, index 8 (x=423)
+        // Die
         static_cast<SpriteAnimator*>(animator.get())->addAnimation("die",
-            { Rectangle{423, 39, 16, 17} }, 1.0f, false);
+            { Rectangle{ 136.0f, 8.0f, 16.0f, 16.0f } }, 1.0f, false);
 
-        // Crouch â€” index 6 (x=244)
+        // Crouch
         static_cast<SpriteAnimator*>(animator.get())->addAnimation("crouch",
-            { Rectangle{244, 0, 14, 16} }, 1.0f);
+            { Rectangle{ 0.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
 
     } else if (type == PowerStateType::Super) {
         // --- Super Luigi/Mario frames from Row 2 (y=68, h=40) and Row 3 (y=112, h=31) ---
