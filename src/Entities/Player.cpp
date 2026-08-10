@@ -316,35 +316,23 @@ void Player::configureAnimations() {
     PowerStateType type = powerState->getType();
 
     if (type == PowerStateType::Small) {
-        // --- Small Luigi/Mario frames specified by user ---
-        // Idle (standing): (0,8) -> (15,23)
-        animator.addAnimation(AnimState::Idle,
-            { Rectangle{ 0.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
-
-        // Walk cycle: (20,8) -> (35,23) and (38,8) -> (53,23)
-        animator.addAnimation(AnimState::Walk,
-            { Rectangle{ 20.0f, 8.0f, 16.0f, 16.0f },
-              Rectangle{ 56.0f, 8.0f, 16.0f, 16.0f } }, 0.1f);
-
-        // Jump: (116,8) -> (131,23)
-        animator.addAnimation(AnimState::Jump,
-            { Rectangle{ 116.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
-
-        // Fall: (136,8) -> (151,23)
-        animator.addAnimation(AnimState::Fall,
-            { Rectangle{ 136.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
-
-        // Skid/turn
-        animator.addAnimation(AnimState::Skid,
-            { Rectangle{ 116.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
-
-        // Die
-        animator.addAnimation(AnimState::Die,
-            { Rectangle{ 136.0f, 8.0f, 16.0f, 16.0f } }, 1.0f, false);
-
-        // Crouch
-        animator.addAnimation(AnimState::Crouch,
-            { Rectangle{ 0.0f, 8.0f, 16.0f, 16.0f } }, 1.0f);
+        if (charType == CharacterType::Luigi) {
+            animator.addAnimation(AnimState::Idle, { Rectangle{ 215.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Walk, { Rectangle{ 239.0f, 24.0f, 16.0f, 16.0f }, Rectangle{ 256.0f, 24.0f, 16.0f, 16.0f } }, 0.1f);
+            animator.addAnimation(AnimState::Jump, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Fall, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Skid, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Die, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f, false);
+            animator.addAnimation(AnimState::Crouch, { Rectangle{ 235.0f, 53.0f, 13.0f, 16.0f } }, 1.0f);
+        } else {
+            animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Walk, { Rectangle{ 26.0f, 24.0f, 16.0f, 16.0f }, Rectangle{ 43.0f, 24.0f, 16.0f, 16.0f } }, 0.1f);
+            animator.addAnimation(AnimState::Jump, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Fall, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Skid, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Die, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f, false);
+            animator.addAnimation(AnimState::Crouch, { Rectangle{ 19.0f, 53.0f, 16.0f, 16.0f } }, 1.0f);
+        }
 
     } else if (type == PowerStateType::Super) {
         // --- Super Luigi/Mario frames from Row 2 (y=68, h=40) and Row 3 (y=112, h=31) ---
