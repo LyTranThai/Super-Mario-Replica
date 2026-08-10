@@ -6,7 +6,6 @@
 
 class Goomba : public Enemy {
 private:
-    SpriteAnimator animator;
     float deathTimer;
     bool isDead;
 public:

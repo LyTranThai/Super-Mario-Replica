@@ -9,7 +9,7 @@ private:
     bool inShell;
     bool shellMoving;
     bool carried;
-    SpriteAnimator animator;
+
 
 public:
     Koopa(Vector2 pos);
