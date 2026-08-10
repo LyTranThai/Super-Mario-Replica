@@ -21,11 +21,10 @@ void Block::draw() {
             source = { 2192.0f, 144.0f, 16.0f, 16.0f };
         } else {
             // Ground floor slice (0,208) -> (1103, 239)
+            // Just one layer: top grass (208 to 223)
             int col = (int)(position.x / 32.0f);
             float srcX = (float)((col * 16) % 1104);
-            // Use top half (208) for simplicity, or we could alternate based on Y. Let's use 208.
-            float srcY = 208.0f; 
-            source = { srcX, srcY, 16.0f, 16.0f };
+            source = { srcX, 208.0f, 16.0f, 16.0f };
         }
         
         Rectangle dest = getSpriteBox();

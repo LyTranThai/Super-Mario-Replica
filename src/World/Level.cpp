@@ -38,13 +38,13 @@ void Level::loadFromFile(const std::string& filePath) {
         
         srand((unsigned int)time(NULL));
 
-        // Right boundary wall & ground
+        // Right boundary wall
         for (int r = 0; r < height; ++r) {
-            lines[r][width - 1] = '#';
+            lines[r][width - 1] = 'X';
         }
+        // Ground floor (1 layer)
         for (int c = 0; c < width; ++c) {
             lines[height - 1][c] = '#';
-            lines[height - 2][c] = '#';
         }
 
         // Random pit gaps in ground
@@ -84,16 +84,16 @@ void Level::loadFromFile(const std::string& filePath) {
         if (!file.is_open()) {
             std::cerr << "Level file not found: " << filePath << ". Loading fallback level." << std::endl;
             lines = {
-                "############################################################",
-                "#                                                          #",
-                "#                                                          #",
-                "#                                                          #",
-                "#                                                          #",
-                "#        ?  B  M  F                                        #",
-                "#                                                          #",
-                "#                                 T                        #",
-                "#                                                          #",
-                "#    P       G       K           ###         I             #",
+                "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                "X                                                          X",
+                "X                                                          X",
+                "X                                                          X",
+                "X                                                          X",
+                "X        ?  B  M  F                                        X",
+                "X                                                          X",
+                "X                                 T                        X",
+                "X                                                          X",
+                "X    P       G       K           XXX         I             X",
                 "############################################################"
             };
         } else {
@@ -128,12 +128,6 @@ void Level::loadFromFile(const std::string& filePath) {
                 // Spawn environment/enemy blocks via factory
                 auto ent = EntityFactory::createEntity(type, x, y);
                 if (ent) {
-                    if (type == '#') {
-                        bool isGround = (row >= lines.size() - 2);
-                        if (Block* b = dynamic_cast<Block*>(ent.get())) {
-                            b->blockType = isGround ? Block::Type::Ground : Block::Type::Brick;
-                        }
-                    }
                     entities.push_back(std::move(ent));
                 }
             }

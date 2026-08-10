@@ -12,8 +12,8 @@ Koopa::Koopa(Vector2 pos)
       inShell(false), shellMoving(false), carried(false) {
     
     animator.addAnimation(AnimState::Walk, {
-        Rectangle{ 0.0f, 112.0f, 16.0f, 24.0f },
-        Rectangle{ 18.0f, 112.0f, 16.0f, 24.0f }
+        Rectangle{ 52.0f, 37.0f, 16.0f, 24.0f },
+        Rectangle{ 69.0f, 37.0f, 16.0f, 24.0f }
     }, 0.2f);
     animator.addAnimation(AnimState::Crouch, {
         Rectangle{ 72.0f, 120.0f, 16.0f, 16.0f }
