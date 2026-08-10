@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Core/EventSystem.h"
 #include "Core/AssetManager.h"
+#include "SpriteAnimator.h"
 #include <iostream>
 #include <cmath>
 
@@ -14,9 +15,21 @@ InteractiveBlock::InteractiveBlock(Vector2 pos, InteractiveBlockType type, ItemT
     : StaticEntity(pos, Vector2{ 32.0f, 32.0f }, Vector2{ 32.0f, 32.0f }, Vector2{ 0.0f, 0.0f }, 
                    (type == InteractiveBlockType::Question) ? "question" : "brick", 
                    (type == InteractiveBlockType::Question) ? GOLD : ORANGE),
-      blockType(type), hiddenItem(item), isUsed(false), bounceTimer(0.0f), originalPosition(pos) {}
+      blockType(type), hiddenItem(item), isUsed(false), bounceTimer(0.0f), originalPosition(pos) {
+          
+    animator = std::make_unique<SpriteAnimator>();
+    if (type == InteractiveBlockType::Question) {
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle", {{0, 0, 16, 16}, {16, 0, 16, 16}, {32, 0, 16, 16}}, 5.0f);
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("used", {{48, 0, 16, 16}}, 1.0f);
+    } else {
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle", {{80, 0, 16, 16}}, 1.0f);
+    }
+    static_cast<SpriteAnimator*>(animator.get())->setState("idle");
+}
 
 void InteractiveBlock::update(float dt) {
+    if (animator) animator->update(dt);
+    
     if (bounceTimer > 0.0f) {
         bounceTimer -= dt;
         
@@ -30,27 +43,6 @@ void InteractiveBlock::update(float dt) {
     }
 }
 
-void InteractiveBlock::draw() {
-    Texture2D tex;
-    if (blockType == InteractiveBlockType::Question && isUsed) {
-        // Draw the hit empty question block texture (represented by solid block asset)
-        tex = AssetManager::getInstance().getTexture("solid");
-    } else {
-        tex = AssetManager::getInstance().getTexture(textureID);
-    }
-
-    if (tex.id != 0) {
-        Rectangle source = { 0.0f, 0.0f, (float)tex.width, (float)tex.height };
-        Rectangle dest = getSpriteBox();
-        Vector2 origin = { 0.0f, 0.0f };
-        DrawTexturePro(tex, source, dest, origin, 0.0f, WHITE);
-    } else {
-        // Fallback outline/box
-        Color color = (blockType == InteractiveBlockType::Question && isUsed) ? GRAY : debugColor;
-        DrawRectangleRec(getBoundingBox(), color);
-        DrawRectangleLinesEx(getBoundingBox(), 1.0f, BLACK);
-    }
-}
 
 void InteractiveBlock::onInteract(Player& player) {
     hit(player);
@@ -73,7 +65,8 @@ void InteractiveBlock::hit(Player& player) {
         if (!isUsed) {
             isUsed = true;
             bounceTimer = 0.15f;
-
+            static_cast<SpriteAnimator*>(animator.get())->setState("used");
+            
             if (hiddenItem == ItemType::Coin) {
                 player.addCoin();
                 player.addScore(200);

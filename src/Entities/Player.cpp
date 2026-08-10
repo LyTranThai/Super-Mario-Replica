@@ -3,6 +3,8 @@
 #include "Core/EventSystem.h"
 #include "Core/AssetManager.h"
 #include "Koopa.h"
+#include "SpriteAnimator.h"
+#include "PlayerStates.h"
 #include <iostream>
 
 struct FireballSpawnData {
@@ -16,6 +18,9 @@ Player::Player(Vector2 pos)
     
     powerState = new SmallState();
     specialMove = std::make_unique<FireballMove>();
+    animator = std::make_unique<SpriteAnimator>();
+    actionState = std::make_unique<PlayerIdleState>();
+    actionState->enter(*this);
     applyHitboxDimensions();
     configureAnimations();
 }
@@ -29,10 +34,16 @@ void Player::update(float dt) {
         invincibilityTimer -= dt;
     }
 
-    powerState->update(*this, dt);
     applyHitboxDimensions();
-    updateAnimationState();
-    animator.update(dt);
+    
+    // Update Action State (Physics & Transitions)
+    if (PlayerActionState* newState = actionState->update(*this, dt)) {
+        actionState.reset(newState);
+        actionState->enter(*this);
+    }
+    
+    // Update Animator based on current state
+    if (animator) animator->update(dt);
     
     if (carriedEntity) {
         float offsetX = facingRight ? hitboxSize.x + 2.0f : -carriedEntity->getHitboxSize().x - 2.0f;
@@ -44,7 +55,7 @@ void Player::draw() {
     Texture2D tex = AssetManager::getInstance().getTexture(textureID);
     if (tex.id != 0) {
         // Get the current animation frame from the spritesheet
-        Rectangle source = animator.getCurrentFrame();
+        Rectangle source = animator ? animator->getCurrentFrame() : Rectangle{0,0,16,16};
         float srcWidth = std::abs(source.width);
         float srcHeight = std::abs(source.height);
         
@@ -104,19 +115,6 @@ void Player::handleInput(const InputManager& input) {
         throwCarriedEntity();
     }
 
-    if (input.isActionJustPressed(Action::Crouch)) {
-        if (isCrouching) {
-            wantToStandUp = true;
-        } else {
-            isCrouching = true;
-            wantToStandUp = false;
-        }
-    }
-    if (input.isActionJustPressed(Action::Jump)) {
-        if (isCrouching) {
-            wantToStandUp = true;
-        }
-    }
     if (input.isActionJustPressed(Action::Shoot)) {
         if (carriedEntity != nullptr) {
             throwCarriedEntity();
@@ -125,23 +123,26 @@ void Player::handleInput(const InputManager& input) {
         }
     }
 
-    powerState->handleInput(*this, input);
+    if (PlayerActionState* newState = actionState->handleInput(*this, input)) {
+        actionState.reset(newState);
+        actionState->enter(*this);
+    }
 }
 
 void Player::jump() {
     if (onGround) {
-        velocity.y = -jumpForce;
+        velocity.y = -getJumpForce();
         onGround = false;
         jumpCount = 1;
         EventManager::getInstance().broadcast(EventType::PlayerJump);
     } else if (jumpCount == 0) {
         // Mid-air jump after falling/bouncing off enemy
-        velocity.y = -jumpForce;
+        velocity.y = -getJumpForce();
         jumpCount = 1;
         EventManager::getInstance().broadcast(EventType::PlayerJump);
     } else if (jumpCount == 1) {
         // Double jump!
-        velocity.y = -jumpForce;
+        velocity.y = -getJumpForce();
         jumpCount = 2;
         EventManager::getInstance().broadcast(EventType::PlayerJump);
     }
@@ -156,6 +157,20 @@ void Player::takeDamage() {
 
     powerState->onDamage(*this);
     invincibilityTimer = 2.0f; // 2 seconds of recovery invincibility
+    
+    // Enter damage state unless we died
+    if (getPowerType() != PowerStateType::Small) {
+        actionState.reset(new PlayerTakeDamageState());
+        actionState->enter(*this);
+    }
+}
+
+void Player::die() {
+    lives--;
+    std::cout << "[DEBUG] Player died! Lives remaining: " << lives << std::endl;
+    actionState.reset(new PlayerDieState());
+    actionState->enter(*this);
+    // Remove active/physics checks when really dying in a full game loop
 }
 
 void Player::powerUp(PowerStateType type) {
@@ -226,18 +241,10 @@ void Player::onCollision(Entity& other, CollisionSide side) {
         jumpCount = 0;
     }
 
-    // Stomp logic
-    DynamicEntity* dynOther = dynamic_cast<DynamicEntity*>(&other);
-    if (dynOther && !other.isSolid()) {
-        if (side == CollisionSide::Bottom && velocity.y > 0.0f) {
-            float playerBottom = getBoundingBox().y + getBoundingBox().height;
-            float enemyMiddle = other.getBoundingBox().y + other.getBoundingBox().height / 2.0f;
-            
-            if (playerBottom < enemyMiddle) {
-                // Stomp! Bounce player upward
-                velocity.y = -350.0f;
-            }
-        }
+    // Delegate to the current action state
+    if (PlayerActionState* newState = actionState->onCollision(*this, other, side)) {
+        actionState.reset(newState);
+        actionState->enter(*this);
     }
 }
 
@@ -298,126 +305,105 @@ Rectangle Player::getSpriteBox() const {
 // ============================================================
 
 void Player::configureAnimations() {
-    animator.clearAnimations();
+    if (!animator) return;
+    animator->clearAnimations();
 
     PowerStateType type = powerState->getType();
 
     if (type == PowerStateType::Small) {
         // --- Small Luigi/Mario frames from Row 0 (y=0, h=16) and Row 1 (y=39, h=17) ---
         // Idle (standing) â€” index 0 (x=5)
-        animator.addAnimation(AnimState::Idle,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle",
             { Rectangle{5, 0, 11, 16} }, 1.0f);
 
         // Walk cycle â€” 3 frames (index 1, 2, 3)
-        animator.addAnimation(AnimState::Walk,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("walk",
             { Rectangle{34, 0, 14, 16},
               Rectangle{93, 0, 16, 16},
               Rectangle{154, 0, 13, 16} }, 0.08f);
 
         // Jump â€” index 5 (x=213)
-        animator.addAnimation(AnimState::Jump,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("jump",
             { Rectangle{213, 0, 15, 16} }, 1.0f);
 
         // Fall â€” same as jump
-        animator.addAnimation(AnimState::Fall,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("fall",
             { Rectangle{213, 0, 15, 16} }, 1.0f);
 
         // Skid/turn â€” index 4 (x=183)
-        animator.addAnimation(AnimState::Skid,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("skid",
             { Rectangle{183, 0, 16, 16} }, 1.0f);
 
         // Die â€” Row 1, index 8 (x=423)
-        animator.addAnimation(AnimState::Die,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("die",
             { Rectangle{423, 39, 16, 17} }, 1.0f, false);
 
         // Crouch â€” index 6 (x=244)
-        animator.addAnimation(AnimState::Crouch,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("crouch",
             { Rectangle{244, 0, 14, 16} }, 1.0f);
 
     } else if (type == PowerStateType::Super) {
         // --- Super Luigi/Mario frames from Row 2 (y=68, h=40) and Row 3 (y=112, h=31) ---
         // Idle â€” Row 2, index 0 (x=4)
-        animator.addAnimation(AnimState::Idle,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle",
             { Rectangle{4, 68, 14, 40} }, 1.0f);
 
         // Walk cycle â€” 3 frames (Row 2, index 1, 2, 3)
-        animator.addAnimation(AnimState::Walk,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("walk",
             { Rectangle{33, 68, 16, 40},
               Rectangle{63, 68, 16, 40},
               Rectangle{93, 68, 16, 40} }, 0.08f);
 
         // Jump â€” Row 2, index 5 (x=153)
-        animator.addAnimation(AnimState::Jump,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("jump",
             { Rectangle{153, 68, 16, 40} }, 1.0f);
 
         // Fall â€” same as jump
-        animator.addAnimation(AnimState::Fall,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("fall",
             { Rectangle{153, 68, 16, 40} }, 1.0f);
 
         // Skid â€” Row 2, index 4 (x=124)
-        animator.addAnimation(AnimState::Skid,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("skid",
             { Rectangle{124, 68, 14, 40} }, 1.0f);
 
         // Crouch â€” Row 3, index 0 (x=2, h=31)
-        animator.addAnimation(AnimState::Crouch,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("crouch",
             { Rectangle{2, 112, 18, 31} }, 1.0f);
 
         // Die â€” Row 1, index 8 (x=423)
-        animator.addAnimation(AnimState::Die,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("die",
             { Rectangle{423, 39, 16, 17} }, 1.0f, false);
 
     } else if (type == PowerStateType::Fire) {
         // --- Fire Luigi/Mario frames from Row 4 (y=148, h=40) and Row 5 (y=192, h=31) ---
         // Idle
-        animator.addAnimation(AnimState::Idle,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle",
             { Rectangle{4, 148, 14, 40} }, 1.0f);
 
         // Walk cycle â€” 3 frames
-        animator.addAnimation(AnimState::Walk,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("walk",
             { Rectangle{33, 148, 16, 40},
               Rectangle{63, 148, 16, 40},
               Rectangle{93, 148, 16, 40} }, 0.08f);
 
         // Jump
-        animator.addAnimation(AnimState::Jump,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("jump",
             { Rectangle{153, 148, 16, 40} }, 1.0f);
 
         // Fall
-        animator.addAnimation(AnimState::Fall,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("fall",
             { Rectangle{153, 148, 16, 40} }, 1.0f);
 
         // Skid
-        animator.addAnimation(AnimState::Skid,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("skid",
             { Rectangle{124, 148, 14, 40} }, 1.0f);
 
         // Crouch
-        animator.addAnimation(AnimState::Crouch,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("crouch",
             { Rectangle{2, 192, 18, 31} }, 1.0f);
 
         // Die
-        animator.addAnimation(AnimState::Die,
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("die",
             { Rectangle{423, 39, 16, 17} }, 1.0f, false);
-    }
-}
-
-void Player::updateAnimationState() {
-    if (!onGround) {
-        if (velocity.y < 0.0f) {
-            animator.setState(AnimState::Jump);
-        } else {
-            animator.setState(AnimState::Fall);
-        }
-    } else if (isCrouching) {
-        animator.setState(AnimState::Crouch);
-    } else if (velocity.x != 0.0f) {
-        // Check for skid: moving one direction but facing the other
-        bool movingRight = velocity.x > 0.0f;
-        if (movingRight != facingRight) {
-            animator.setState(AnimState::Skid);
-        } else {
-            animator.setState(AnimState::Walk);
-        }
-    } else {
-        animator.setState(AnimState::Idle);
     }
 }

@@ -18,6 +18,9 @@ void Enemy::update(float dt) {
     if (aiStrategy) {
         aiStrategy->updateAI(*this, dt);
     }
+    if (animator) {
+        animator->update(dt);
+    }
 }
 
 void Enemy::takeDamage() {

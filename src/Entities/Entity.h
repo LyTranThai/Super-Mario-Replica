@@ -2,7 +2,9 @@
 #define ENTITY_H
 
 #include "raylib.h"
+#include "Animator.h"
 #include <string>
+#include <memory>
 
 enum class CollisionSide {
     None,
@@ -21,6 +23,7 @@ protected:
     std::string textureID; // Asset manager cache key
     Color debugColor;      // Fallback debug render color
     bool active;           // Lifecycle flag
+    std::unique_ptr<Animator> animator; // Generic animator for all entities
 
 public:
     Entity(Vector2 pos, Vector2 sprSize, Vector2 hitSize, Vector2 hitOffset, const std::string& texID, Color dbgColor = RED);
@@ -45,6 +48,9 @@ public:
     virtual bool isSolid() const { return false; } // Handled dynamically
     virtual bool isSolidFrom(CollisionSide side, Entity* collider) const { return isSolid(); }
     virtual bool isCarried() const { return false; }
+    virtual bool isFacingRight() const { return true; } // Used for sprite rendering flip
+    
+    Animator* getAnimator() const { return animator.get(); }
 };
 
 #endif // ENTITY_H

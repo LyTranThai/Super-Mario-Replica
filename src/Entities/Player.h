@@ -3,7 +3,8 @@
 
 #include "DynamicEntity.h"
 #include "PlayerPowerState.h"
-#include "SpriteAnimator.h"
+#include "Animator.h"
+#include "PlayerActionState.h"
 #include "SpecialMove.h"
 #include <memory>
 #include <iostream>
@@ -23,11 +24,7 @@ private:
     bool isCrouching;
     bool wantToStandUp;
     static constexpr float crouchHeightPercentage = 0.6f;
-    SpriteAnimator animator;
-
-    // Movement rates constants
-    static constexpr float speed = 250.0f;
-    static constexpr float jumpForce = 420.0f;
+    std::unique_ptr<PlayerActionState> actionState;
 
 public:
     Player(Vector2 pos);
@@ -42,6 +39,7 @@ public:
     int getjumpCount() const {return jumpCount;};
     void setjumpCount(int s) {jumpCount = s < 0 ? 1 : std::min(s, jumpCount);};
     void takeDamage();
+    void die();
     void powerUp(PowerStateType type);
     void shootFireball();
     
@@ -69,6 +67,7 @@ public:
 
     bool isInvincible() const { return invincibilityTimer > 0.0f; }
     PowerStateType getPowerType() const { return powerState->getType(); }
+    PlayerPowerState* getPowerState() const { return powerState; }
     void changePowerState(PlayerPowerState* newState);
     void setOnGround(bool state) override;
 
@@ -79,8 +78,8 @@ public:
     void getPowerStateDimensions(Vector2& outSpriteSize, Vector2& outHitboxSize, Vector2& outHitboxOffset) const;
     void applyHitboxDimensions();
     void configureAnimations();  // Setup spritesheet frames for current power state
-    void updateAnimationState(); // Pick animation based on physics state
     Rectangle getSpriteBox() const override;
+    float getJumpForce() const { return 420.0f; }
 };
 
 #endif // PLAYER_H

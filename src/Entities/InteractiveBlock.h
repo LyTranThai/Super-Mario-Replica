@@ -29,7 +29,6 @@ public:
     ~InteractiveBlock() override = default;
 
     void update(float dt) override;
-    void draw() override;
     void onInteract(Player& player) override; // Hitting from below
 
     void hit(Player& player);

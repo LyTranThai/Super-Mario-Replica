@@ -20,8 +20,8 @@ set(USE_AUDIO ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(raylib)
 
 # Gather source and header files recursively
-file(GLOB_RECURSE SOURCES "src/*.cpp")
-file(GLOB_RECURSE HEADERS "src/*.h")
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp")
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS "src/*.h")
 
 add_executable(MarioGame main.cpp ${SOURCES} ${HEADERS})
 

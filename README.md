@@ -171,3 +171,39 @@ src/
 - **Shoot Fireball**: `F` or `Left Shift` (when in Fire state)
 - **Pause Game**: `P` or `Escape`
 - **Settings Rebinding**: Accessible from the Settings menu in `MainMenuState` or `PauseState` to customize key setups.
+
+---
+
+## 6. Animation Status
+
+### Animated Objects
+- **Player (Mario)**
+  - Small State:
+    - Idle: (5, 0) to (16, 16)
+    - Walk: (34, 0) to (48, 16), (93, 0) to (109, 16), (154, 0) to (167, 16)
+    - Jump / Fall: (213, 0) to (228, 16)
+    - Skid: (183, 0) to (199, 16)
+    - Die: (423, 39) to (439, 56)
+    - Crouch: (244, 0) to (258, 16)
+  - Super State:
+    - Idle: (4, 68) to (18, 108)
+    - Walk: (33, 68) to (49, 108), (63, 68) to (79, 108), (93, 68) to (109, 108)
+    - Jump / Fall: (153, 68) to (169, 108)
+    - Skid: (124, 68) to (138, 108)
+    - Crouch: (2, 112) to (20, 143)
+  - Fire State:
+    - Idle: (4, 148) to (18, 188)
+    - Walk: (33, 148) to (49, 188), (63, 148) to (79, 188), (93, 148) to (109, 188)
+    - Jump / Fall: (153, 148) to (169, 188)
+    - Skid: (124, 148) to (138, 188)
+    - Crouch: (2, 192) to (20, 223)
+
+### Unanimated Objects
+- Goomba
+- Koopa (and Koopa Shell)
+- PiranhaPlant
+- RockHead (Thwomp)
+- Item (Mushroom, FireFlower, Star, Coin)
+- Block (Brick, Solid)
+- InteractiveBlock (Question Block)
+- Fireball

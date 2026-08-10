@@ -3,11 +3,23 @@
 #include "Core/EventSystem.h"
 #include "Core/GameEngine.h"
 #include "Fireball.h"
+#include "SpriteAnimator.h"
 #include <iostream>
+#include <memory>
 
 Koopa::Koopa(Vector2 pos)
     : Enemy(pos, Vector2{ 32.0f, 48.0f }, Vector2{ 24.0f, 40.0f }, Vector2{ 4.0f, 8.0f }, "koopa", GREEN),
-      inShell(false), shellMoving(false), carried(false) {}
+      inShell(false), shellMoving(false), carried(false) {
+          
+    animator = std::make_unique<SpriteAnimator>();
+    SpriteAnimator* sprAnim = static_cast<SpriteAnimator*>(animator.get());
+    
+    // Setup animations based on estimated spritesheet coordinates
+    sprAnim->addAnimation("walk", { Rectangle{90, 0, 16, 24}, Rectangle{120, 0, 16, 24} }, 0.15f);
+    sprAnim->addAnimation("shell", { Rectangle{330, 8, 16, 16} }, 1.0f);
+    
+    sprAnim->setState("walk");
+}
 
 void Koopa::update(float dt) {
     if (carried) {
@@ -38,7 +50,8 @@ void Koopa::takeDamage() {
         spriteSize = Vector2{ 32.0f, 32.0f };
         hitboxSize = Vector2{ 24.0f, 24.0f };
         hitboxOffset = Vector2{ 4.0f, 8.0f };
-        textureID = "koopa_shell";
+        
+        if (animator) animator->setState("shell");
         
         std::cout << "[DEBUG] Koopa (" << textureID << ") took damage and retreated to shell." << std::endl;
         EventManager::getInstance().broadcast(EventType::EnemyStomped);

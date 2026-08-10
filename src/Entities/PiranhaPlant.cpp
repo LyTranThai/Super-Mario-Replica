@@ -1,5 +1,6 @@
 #include "PiranhaPlant.h"
 #include "Player.h"
+#include "SpriteAnimator.h"
 #include <cmath>
 #include <iostream>
 
@@ -11,9 +12,15 @@ PiranhaPlant::PiranhaPlant(Vector2 pos)
     aiStrategy = nullptr;
     velocity = Vector2{ 0.0f, 0.0f };
     onGround = true; // Prevents gravity calculations
+
+    animator = std::make_unique<SpriteAnimator>();
+    static_cast<SpriteAnimator*>(animator.get())->addAnimation("bite", {{192, 0, 16, 24}, {208, 0, 16, 24}}, 6.0f);
+    static_cast<SpriteAnimator*>(animator.get())->setState("bite");
 }
 
 void PiranhaPlant::update(float dt) {
+    if (animator) animator->update(dt);
+    
     timer -= dt;
     switch (plantState) {
         case PlantState::Hidden:

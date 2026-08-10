@@ -1,20 +1,10 @@
 #ifndef SPRITE_ANIMATOR_H
 #define SPRITE_ANIMATOR_H
 
-#include "raylib.h"
+#include "Animator.h"
 #include <vector>
 #include <unordered_map>
-
-// Animation state names for the player
-enum class AnimState {
-    Idle,
-    Walk,
-    Jump,
-    Fall,
-    Crouch,
-    Die,
-    Skid
-};
+#include <string>
 
 // A single animation: a sequence of source-rectangle frames on a spritesheet
 struct Animation {
@@ -28,22 +18,21 @@ struct Animation {
 };
 
 // Drives frame-based sprite animation from a spritesheet
-class SpriteAnimator {
+class SpriteAnimator : public Animator {
 private:
-    // Use int as key for unordered_map compatibility
-    std::unordered_map<int, Animation> animations;
-    AnimState currentState;
+    std::unordered_map<std::string, Animation> animations;
+    std::string currentState;
     int currentFrame;
     float timer;
 
 public:
-    SpriteAnimator() : currentState(AnimState::Idle), currentFrame(0), timer(0.0f) {}
+    SpriteAnimator() : currentState(""), currentFrame(0), timer(0.0f) {}
 
-    void addAnimation(AnimState state, const std::vector<Rectangle>& frames, float frameTime = 0.1f, bool loop = true) {
-        animations[static_cast<int>(state)] = Animation(frames, frameTime, loop);
+    void addAnimation(const std::string& state, const std::vector<Rectangle>& frames, float frameTime = 0.1f, bool loop = true) {
+        animations[state] = Animation(frames, frameTime, loop);
     }
 
-    void setState(AnimState state) {
+    void setState(const std::string& state) override {
         if (state != currentState) {
             currentState = state;
             currentFrame = 0;
@@ -51,8 +40,8 @@ public:
         }
     }
 
-    void update(float dt) {
-        auto it = animations.find(static_cast<int>(currentState));
+    void update(float dt) override {
+        auto it = animations.find(currentState);
         if (it == animations.end() || it->second.frames.empty()) return;
 
         const Animation& anim = it->second;
@@ -71,8 +60,8 @@ public:
     }
 
     // Returns the source rectangle on the spritesheet for the current frame
-    Rectangle getCurrentFrame() const {
-        auto it = animations.find(static_cast<int>(currentState));
+    Rectangle getCurrentFrame() const override {
+        auto it = animations.find(currentState);
         if (it == animations.end() || it->second.frames.empty()) {
             return Rectangle{ 0, 0, 16, 16 }; // fallback
         }
@@ -81,10 +70,10 @@ public:
         return frames[idx];
     }
 
-    AnimState getState() const { return currentState; }
+    std::string getState() const override { return currentState; }
 
     // Clear all animations (used when switching power states)
-    void clearAnimations() {
+    void clearAnimations() override {
         animations.clear();
         currentFrame = 0;
         timer = 0.0f;

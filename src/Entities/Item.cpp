@@ -1,6 +1,7 @@
 #include "Item.h"
 #include "Player.h"
 #include "Core/EventSystem.h"
+#include "SpriteAnimator.h"
 #include <iostream>
 
 Item::Item(Vector2 pos, ItemType type, const std::string& texID, Color dbgColor)
@@ -11,9 +12,25 @@ Item::Item(Vector2 pos, ItemType type, const std::string& texID, Color dbgColor)
     position.y += 16.0f;
     velocity = Vector2{ 0.0f, 0.0f };
     onGround = true; // Stay stationary during spawn rising
+    
+    animator = std::make_unique<SpriteAnimator>();
+    if (type == ItemType::Mushroom) {
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle", {{192, 32, 16, 16}}, 1.0f);
+    } else if (type == ItemType::FireFlower) {
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle", {{0, 64, 16, 16}, {16, 64, 16, 16}, {32, 64, 16, 16}, {48, 64, 16, 16}}, 10.0f);
+    } else if (type == ItemType::Star) {
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle", {{0, 96, 16, 16}, {16, 96, 16, 16}, {32, 96, 16, 16}, {48, 96, 16, 16}}, 10.0f);
+    } else if (type == ItemType::Coin) {
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle", {{160, 32, 16, 16}, {176, 32, 16, 16}, {192, 32, 16, 16}, {208, 32, 16, 16}}, 10.0f);
+    } else {
+        static_cast<SpriteAnimator*>(animator.get())->addAnimation("idle", {{0, 0, 16, 16}}, 1.0f);
+    }
+    static_cast<SpriteAnimator*>(animator.get())->setState("idle");
 }
 
 void Item::update(float dt) {
+    if (animator) animator->update(dt);
+    
     if (spawnRiseTimer > 0.0f) {
         spawnRiseTimer -= dt;
         // Slowly rise out of block

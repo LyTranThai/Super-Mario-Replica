@@ -32,7 +32,7 @@ public:
     bool isOnGround() const { return onGround; }
     virtual void setOnGround(bool state) { onGround = state; }
 
-    bool isFacingRight() const { return facingRight; }
+    bool isFacingRight() const override { return facingRight; }
     void setFacingRight(bool state) { facingRight = state; }
 };
 
