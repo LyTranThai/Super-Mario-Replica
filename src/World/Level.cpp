@@ -83,17 +83,18 @@ void Level::loadFromFile(const std::string& filePath) {
         std::ifstream file(filePath);
         if (!file.is_open()) {
             std::cerr << "Level file not found: " << filePath << ". Loading fallback level." << std::endl;
+            // Fallback grid
             lines = {
-                "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-                "X                                                          X",
-                "X                                                          X",
-                "X                                                          X",
-                "X                                                          X",
-                "X        ?  B  M  F                                        X",
-                "X                                                          X",
-                "X                                 T                        X",
-                "X                                                          X",
-                "X    P       G       K           XXX         I             X",
+                "############################################################",
+                "#                                                          #",
+                "#                                                          #",
+                "#                                                          #",
+                "#                                                          #",
+                "#        ?  B  M  F                                        #",
+                "#                                                          #",
+                "#                                 T                        #",
+                "#                                                          #",
+                "#    P       G       K           ###         I             #",
                 "############################################################"
             };
         } else {
