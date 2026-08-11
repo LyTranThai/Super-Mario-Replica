@@ -21,12 +21,16 @@ void Block::draw() {
         } else {
             int col = (int)(position.x / 32.0f);
             float srcX = (float)((col * 16) % 1104);
-            // Grass on top, dirt on bottom
-            float srcY = isTopGround ? 208.0f : 224.0f;
-            source = { srcX, srcY, 16.0f, 16.0f };
+            // Grass on top (208 to 239, h=31), dirt on bottom (221 to 239, h=18)
+            float srcY = isTopGround ? 208.0f : 221.0f;
+            float srcH = isTopGround ? 31.0f : 18.0f;
+            source = { srcX, srcY, 16.0f, srcH };
         }
         
         Rectangle dest = getSpriteBox();
+        if (blockType == Type::Ground) {
+            dest.height = source.height * 2.0f; // Scale height by 2.0x just like width
+        }
         Vector2 origin = { 0.0f, 0.0f };
         DrawTexturePro(worldTex, source, dest, origin, 0.0f, WHITE);
     } else {

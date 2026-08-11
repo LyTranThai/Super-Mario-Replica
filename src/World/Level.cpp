@@ -163,9 +163,11 @@ void Level::loadFromFile(const std::string& filePath) {
             } else if (col % 16 == 5) {
                 sceneryBush2.push_back(Vector2{ x, y - 19.0f });
             } else if (col % 28 == 0) {
-                sceneryBigHills.push_back(Vector2{ x - 16.0f, y - 37.0f });
+                // Mountain (width 212, height 92) * 2x scale = 424 x 184
+                sceneryBigHills.push_back(Vector2{ x - 32.0f, y - 184.0f });
             } else if (col % 28 == 10) {
-                scenerySmallHills.push_back(Vector2{ x - 16.0f, y - 27.0f });
+                // Hill (width 120, height 94) * 2x scale = 240 x 188
+                scenerySmallHills.push_back(Vector2{ x - 16.0f, y - 188.0f });
             }
         }
         
@@ -251,35 +253,45 @@ void Level::update(float dt) {
 }
 
 void Level::drawScenery() {
-    Texture2D worldTex = AssetManager::getInstance().getTexture("world");
-    if (worldTex.id == 0) return;
+    Texture2D bgTex = AssetManager::getInstance().getTexture("background");
+    if (bgTex.id != 0) {
+        Rectangle srcBg = { 18.0f, 18.0f, 3071.0f, 238.0f }; // (18,18)->(3089,256)
+        Vector2 off = camera.applyOffset(Vector2{0.0f, 0.0f});
+        // Scroll the background relative to the camera by stretching it to levelWidth
+        DrawTexturePro(bgTex, srcBg, Rectangle{ off.x, 0.0f, (float)levelWidth, (float)levelHeight }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+    }
 
-    // Source rects in overworld1.png
-    Rectangle srcBigHill   = { 0.0f, 171.0f, 80.0f, 37.0f }; // Using old hill coords just in case
-    Rectangle srcSmallHill = { 250.0f, 181.0f, 54.0f, 27.0f };
-    Rectangle srcBush1     = { 182.0f, 193.0f, 67.0f, 16.0f }; // (182,193) -> (248,208)
-    Rectangle srcBush2     = { 1431.0f, 190.0f, 52.0f, 19.0f }; // (1431,190) -> (1482,208)
+    Texture2D worldTex = AssetManager::getInstance().getTexture("world");
+    Texture2D hillTex = AssetManager::getInstance().getTexture("hill");
+    Texture2D mountTex = AssetManager::getInstance().getTexture("mountain");
+
+    Rectangle srcBigHill   = { 12.0f, 139.0f, 212.0f, 92.0f }; // Mountain: (12,139) -> (224,231)
+    Rectangle srcSmallHill = { 48.0f, 160.0f, 120.0f, 94.0f }; // Hill: (48,160) -> (168,254)
+    Rectangle srcBush1     = { 182.0f, 193.0f, 67.0f, 16.0f };
+    Rectangle srcBush2     = { 1431.0f, 190.0f, 52.0f, 19.0f };
     Rectangle srcCloud     = { 128.0f, 48.0f, 48.0f, 32.0f };
 
     for (const auto& pos : sceneryBigHills) {
         Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcBigHill, Rectangle{ off.x, off.y, 80.0f, 37.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        if (mountTex.id != 0) DrawTexturePro(mountTex, srcBigHill, Rectangle{ off.x, off.y, 424.0f, 184.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
     for (const auto& pos : scenerySmallHills) {
         Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcSmallHill, Rectangle{ off.x, off.y, 54.0f, 27.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        if (hillTex.id != 0) DrawTexturePro(hillTex, srcSmallHill, Rectangle{ off.x, off.y, 240.0f, 188.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
-    for (const auto& pos : sceneryBush1) {
-        Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcBush1, Rectangle{ off.x, off.y, 67.0f, 16.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
-    }
-    for (const auto& pos : sceneryBush2) {
-        Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcBush2, Rectangle{ off.x, off.y, 52.0f, 19.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
-    }
-    for (const auto& pos : sceneryClouds) {
-        Vector2 off = camera.applyOffset(pos);
-        DrawTexturePro(worldTex, srcCloud, Rectangle{ off.x, off.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+    if (worldTex.id != 0) {
+        for (const auto& pos : sceneryBush1) {
+            Vector2 off = camera.applyOffset(pos);
+            DrawTexturePro(worldTex, srcBush1, Rectangle{ off.x, off.y, 67.0f, 16.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        }
+        for (const auto& pos : sceneryBush2) {
+            Vector2 off = camera.applyOffset(pos);
+            DrawTexturePro(worldTex, srcBush2, Rectangle{ off.x, off.y, 52.0f, 19.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        }
+        for (const auto& pos : sceneryClouds) {
+            Vector2 off = camera.applyOffset(pos);
+            DrawTexturePro(worldTex, srcCloud, Rectangle{ off.x, off.y, 96.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        }
     }
 }
 
