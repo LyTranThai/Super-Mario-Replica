@@ -171,19 +171,34 @@ void Level::loadFromFile(const std::string& filePath) {
         }
 
         if (groundTopRow != -1) {
+            auto checkFlatGround = [&](int startCol, int widthTiles) {
+                for (int c = startCol; c < startCol + widthTiles && c < maxCols; ++c) {
+                    int cRow = -1;
+                    for (int r = (int)lines.size() - 1; r >= 0; --r) {
+                        if (c < lines[r].length() && lines[r][c] == '#') {
+                            cRow = r;
+                        } else {
+                            break;
+                        }
+                    }
+                    if (cRow != groundTopRow) return false;
+                }
+                return true;
+            };
+
             float x = col * TILE_SIZE;
             float y = groundTopRow * TILE_SIZE;
             
             if (col % 22 == 15) {
-                sceneryBush1.push_back(Vector2{ x, y - 16.0f });
+                if (checkFlatGround(col, 3)) sceneryBush1.push_back(Vector2{ x, y - 16.0f });
             } else if (col % 16 == 5) {
-                sceneryBush2.push_back(Vector2{ x, y - 19.0f });
+                if (checkFlatGround(col, 2)) sceneryBush2.push_back(Vector2{ x, y - 19.0f });
             } else if (col % 28 == 0) {
                 // Mountain (width 212, height 92) * 2x scale = 424 x 184
-                sceneryBigHills.push_back(Vector2{ x - 32.0f, y - 184.0f });
+                if (checkFlatGround(col - 1, 14)) sceneryBigHills.push_back(Vector2{ x - 32.0f, y - 184.0f });
             } else if (col % 28 == 10) {
                 // Hill (width 120, height 94) * 2x scale = 240 x 188
-                scenerySmallHills.push_back(Vector2{ x - 16.0f, y - 188.0f });
+                if (checkFlatGround(col, 8)) scenerySmallHills.push_back(Vector2{ x - 16.0f, y - 188.0f });
             }
         }
         
@@ -276,6 +291,10 @@ void Level::drawScenery() {
         // Scroll the background relative to the camera by stretching it to levelWidth
         DrawTexturePro(bgTex, srcBg, Rectangle{ off.x, 0.0f, (float)levelWidth, (float)levelHeight }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
+
+    // Fill the lower layer below the ground
+    float groundBottomY = camera.applyOffset(Vector2{0.0f, (float)levelHeight}).y;
+    DrawRectangle(0, (int)groundBottomY, GetScreenWidth(), GetScreenHeight(), Color{ 192, 248, 248, 255 });
 
     Texture2D worldTex = AssetManager::getInstance().getTexture("world");
     Texture2D hillTex = AssetManager::getInstance().getTexture("hill");
