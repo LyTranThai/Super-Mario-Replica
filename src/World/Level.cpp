@@ -130,8 +130,22 @@ void Level::loadFromFile(const std::string& filePath) {
                 if (ent) {
                     if (type == '#') {
                         bool isTop = (row == 0 || col >= lines[row-1].length() || lines[row-1][col] != '#');
+                        
+                        // Check if floating: trace down to bottom
+                        bool isFloating = true;
+                        for (size_t r = row; r < lines.size(); ++r) {
+                            if (col < lines[r].length() && lines[r][col] == '#') {
+                                if (r == lines.size() - 1) isFloating = false; // Reached bottom
+                            } else {
+                                break; // Gap found, it's floating
+                            }
+                        }
+                        
                         if (Block* b = dynamic_cast<Block*>(ent.get())) {
                             b->isTopGround = isTop;
+                            if (isFloating) {
+                                b->blockType = Block::Type::FlyingBrick;
+                            }
                         }
                     }
                     entities.push_back(std::move(ent));
@@ -146,17 +160,19 @@ void Level::loadFromFile(const std::string& filePath) {
 
     // Calculate scenery positions based on ground topology
     for (int col = 0; col < maxCols; ++col) {
-        int topRow = -1;
-        for (size_t row = 0; row < lines.size(); ++row) {
+        int groundTopRow = -1;
+        // Scan from bottom up to find the true continuous ground floor
+        for (int row = (int)lines.size() - 1; row >= 0; --row) {
             if (col < lines[row].length() && lines[row][col] == '#') {
-                topRow = (int)row;
-                break;
+                groundTopRow = row;
+            } else {
+                break; // Stop at first gap!
             }
         }
 
-        if (topRow != -1) {
+        if (groundTopRow != -1) {
             float x = col * TILE_SIZE;
-            float y = topRow * TILE_SIZE;
+            float y = groundTopRow * TILE_SIZE;
             
             if (col % 22 == 15) {
                 sceneryBush1.push_back(Vector2{ x, y - 16.0f });

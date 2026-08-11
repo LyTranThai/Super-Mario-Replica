@@ -18,6 +18,8 @@ void Block::draw() {
         Rectangle source;
         if (blockType == Type::Brick) {
             source = { 2192.0f, 144.0f, 16.0f, 16.0f };
+        } else if (blockType == Type::FlyingBrick) {
+            source = { 320.0f, 144.0f, 16.0f, 16.0f };
         } else {
             int col = (int)(position.x / 32.0f);
             float srcX = (float)((col * 16) % 1104);

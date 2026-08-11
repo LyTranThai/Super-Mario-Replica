@@ -5,7 +5,7 @@
 
 class Block : public StaticEntity {
 public:
-    enum class Type { Ground, Brick };
+    enum class Type { Ground, Brick, FlyingBrick };
     Type blockType;
     bool isTopGround;
 
