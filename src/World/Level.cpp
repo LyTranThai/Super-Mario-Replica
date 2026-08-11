@@ -288,8 +288,12 @@ void Level::drawScenery() {
     if (bgTex.id != 0) {
         Rectangle srcBg = { 18.0f, 18.0f, 3071.0f, 238.0f }; // (18,18)->(3089,256)
         Vector2 off = camera.applyOffset(Vector2{0.0f, 0.0f});
+        
+        float destHeight = 238.0f * 2.0f; // 476.0f
+        float destY = GetScreenHeight() - destHeight;
+        
         // Scroll the background relative to the camera by stretching it to levelWidth
-        DrawTexturePro(bgTex, srcBg, Rectangle{ off.x, 0.0f, (float)levelWidth, (float)levelHeight }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        DrawTexturePro(bgTex, srcBg, Rectangle{ off.x, destY, (float)levelWidth, destHeight }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
 
     // Fill the lower layer below the ground
@@ -331,7 +335,7 @@ void Level::drawScenery() {
 }
 
 void Level::draw() {
-    ClearBackground(Color{ 92, 148, 252, 255 });
+    ClearBackground(Color{ 80, 136, 160, 255 });
 
     // 0. Draw background scenery (mountains, trees, bushes, clouds)
     drawScenery();

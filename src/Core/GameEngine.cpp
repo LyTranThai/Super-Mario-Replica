@@ -86,7 +86,7 @@ void GameEngine::run() {
 
         // 3. Frame Rendering
         BeginDrawing();
-        ClearBackground(Color{ 92, 148, 252, 255 });
+        ClearBackground(Color{ 80, 136, 160, 255 });
 
         stateManager.draw();
 
