@@ -203,7 +203,11 @@ void Level::loadFromFile(const std::string& filePath) {
         }
         
         if (col % 12 == 0) {
-            sceneryClouds.push_back(Vector2{ (float)col * TILE_SIZE, 40.0f + (col % 3) * 20.0f });
+            sceneryClouds.push_back(Vector2{ (float)col * TILE_SIZE, 60.0f + (col % 3) * 20.0f });
+        } else if (col % 18 == 6) {
+            sceneryNbClouds1.push_back(Vector2{ (float)col * TILE_SIZE, 10.0f + (col % 2) * 15.0f });
+        } else if (col % 24 == 14) {
+            sceneryNbClouds2.push_back(Vector2{ (float)col * TILE_SIZE, 20.0f + (col % 3) * 10.0f });
         }
     }
 
@@ -303,12 +307,15 @@ void Level::drawScenery() {
     Texture2D worldTex = AssetManager::getInstance().getTexture("world");
     Texture2D hillTex = AssetManager::getInstance().getTexture("hill");
     Texture2D mountTex = AssetManager::getInstance().getTexture("mountain");
+    Texture2D nbCloudTex = AssetManager::getInstance().getTexture("nobackgroundcloud");
 
     Rectangle srcBigHill   = { 12.0f, 139.0f, 212.0f, 92.0f }; // Mountain: (12,139) -> (224,231)
     Rectangle srcSmallHill = { 48.0f, 160.0f, 120.0f, 94.0f }; // Hill: (48,160) -> (168,254)
     Rectangle srcBush1     = { 182.0f, 193.0f, 67.0f, 16.0f };
     Rectangle srcBush2     = { 1431.0f, 190.0f, 52.0f, 19.0f };
     Rectangle srcCloud     = { 128.0f, 48.0f, 48.0f, 32.0f };
+    Rectangle srcNbCloud1  = { 388.0f, 15.0f, 108.0f, 77.0f };
+    Rectangle srcNbCloud2  = { 830.0f, 16.0f, 83.0f, 66.0f };
 
     for (const auto& pos : sceneryBigHills) {
         Vector2 off = camera.applyOffset(pos);
@@ -317,6 +324,16 @@ void Level::drawScenery() {
     for (const auto& pos : scenerySmallHills) {
         Vector2 off = camera.applyOffset(pos);
         if (hillTex.id != 0) DrawTexturePro(hillTex, srcSmallHill, Rectangle{ off.x, off.y, 240.0f, 188.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+    }
+    if (nbCloudTex.id != 0) {
+        for (const auto& pos : sceneryNbClouds1) {
+            Vector2 off = camera.applyOffset(pos);
+            DrawTexturePro(nbCloudTex, srcNbCloud1, Rectangle{ off.x, off.y, 216.0f, 154.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        }
+        for (const auto& pos : sceneryNbClouds2) {
+            Vector2 off = camera.applyOffset(pos);
+            DrawTexturePro(nbCloudTex, srcNbCloud2, Rectangle{ off.x, off.y, 166.0f, 132.0f }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+        }
     }
     if (worldTex.id != 0) {
         for (const auto& pos : sceneryBush1) {

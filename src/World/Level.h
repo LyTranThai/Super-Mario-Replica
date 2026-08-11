@@ -26,6 +26,8 @@ private:
     std::vector<Vector2> sceneryBush1;
     std::vector<Vector2> sceneryBush2;
     std::vector<Vector2> sceneryClouds;
+    std::vector<Vector2> sceneryNbClouds1;
+    std::vector<Vector2> sceneryNbClouds2;
 
     static constexpr float TILE_SIZE = 32.0f;
     void drawScenery();
