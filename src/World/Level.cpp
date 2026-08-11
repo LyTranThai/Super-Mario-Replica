@@ -284,6 +284,10 @@ void Level::update(float dt) {
 }
 
 void Level::drawScenery() {
+    // Fill the lower layer below the ground
+    float groundBottomY = camera.applyOffset(Vector2{0.0f, (float)levelHeight}).y;
+    DrawRectangle(0, (int)groundBottomY, GetScreenWidth(), GetScreenHeight(), Color{ 192, 248, 248, 255 });
+
     Texture2D bgTex = AssetManager::getInstance().getTexture("background");
     if (bgTex.id != 0) {
         Rectangle srcBg = { 18.0f, 18.0f, 3071.0f, 238.0f }; // (18,18)->(3089,256)
@@ -295,10 +299,6 @@ void Level::drawScenery() {
         // Scroll the background relative to the camera by stretching it to levelWidth
         DrawTexturePro(bgTex, srcBg, Rectangle{ off.x, destY, (float)levelWidth, destHeight }, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     }
-
-    // Fill the lower layer below the ground
-    float groundBottomY = camera.applyOffset(Vector2{0.0f, (float)levelHeight}).y;
-    DrawRectangle(0, (int)groundBottomY, GetScreenWidth(), GetScreenHeight(), Color{ 192, 248, 248, 255 });
 
     Texture2D worldTex = AssetManager::getInstance().getTexture("world");
     Texture2D hillTex = AssetManager::getInstance().getTexture("hill");
