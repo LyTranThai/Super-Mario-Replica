@@ -25,7 +25,7 @@ there's no official crouch in the sheet so I'm using from climb
 - Crouch: (235,53)-> (247,68)
 
 ## World
-- Fill color: (255,255)
+- Fill color: (255,255,255)
 
 - Bush 1: (182,193) -> (248,208)
 - Bush 2: (1431,190) -> (1482,208)
@@ -49,3 +49,18 @@ there's no official crouch in the sheet so I'm using from climb
 ### Koopa 
 - Move:(52,37) -> (67,60) ; (69,37)->(84,60)
 - Shell
+- 
+## Background:
+
+- Load from background.png
+- Full box: (18,18)->(3089,256) (shrink size to fit world if needed)
+- Fill lower color: (192,248,248)
+
+## Texture Background:
+- Fill color: (255,255,255)
+
+- Hill: (48,160) -> (168,254) 
+- Mountain: (12,139) -> (224,231)
+
+- Note: hill and mountain can be reused to create multiple versons, thereby enhancing the background
+  
