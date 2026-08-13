@@ -36,14 +36,17 @@ void Level::generateChunk(float startX, float endX) {
         lines[height - 1][c] = '#';
     }
     
-    for (int c = 0; c < width; ++c) {
+    int c = 0;
+    while (c < width) {
         int globalCol = startCol + c;
-        if (globalCol > 18 && globalCol % 24 == 0) { 
+        if (globalCol > 18 && (rand() % 15 == 0)) { 
             int pitWidth = 2 + rand() % 3;
             for (int p = 0; p < pitWidth && c + p < width; ++p) {
                 lines[height - 1][c + p] = '.';
                 lines[height - 2][c + p] = '.';
             }
+            c += pitWidth + (10 + rand() % 10);
+            continue;
         }
         
         if (globalCol > 10) {
@@ -60,9 +63,10 @@ void Level::generateChunk(float startX, float endX) {
                 if (enemyChoice == 0) lines[height - 3][c] = 'G';
                 else if (enemyChoice == 1) lines[height - 3][c] = 'K';
                 else if (enemyChoice == 2) lines[height - 3][c] = 'I';
-                else if (enemyChoice == 3 && globalCol % 18 == 0) lines[1][c] = 'T';
+                else if (enemyChoice == 3 && rand() % 10 == 0) lines[1][c] = 'T';
             }
         }
+        c++;
     }
     
     for (size_t row = 0; row < height; ++row) {
@@ -120,15 +124,15 @@ void Level::generateChunk(float startX, float endX) {
             float x = globalCol * TILE_SIZE;
             float y = groundTopRow * TILE_SIZE;
             
-            if (globalCol % 22 == 15 && checkFlatGround(c, 3)) sceneryBush1.push_back(Vector2{ x, y - 16.0f });
-            else if (globalCol % 16 == 5 && checkFlatGround(c, 2)) sceneryBush2.push_back(Vector2{ x, y - 19.0f });
-            else if (globalCol % 28 == 0 && c > 0 && checkFlatGround(c - 1, 14)) sceneryBigHills.push_back(Vector2{ x - 32.0f, y - 184.0f });
-            else if (globalCol % 28 == 10 && checkFlatGround(c, 8)) scenerySmallHills.push_back(Vector2{ x - 16.0f, y - 188.0f });
+            if (rand() % 25 == 0 && checkFlatGround(c, 3)) sceneryBush1.push_back(Vector2{ x, y - 16.0f });
+            else if (rand() % 20 == 0 && checkFlatGround(c, 2)) sceneryBush2.push_back(Vector2{ x, y - 19.0f });
+            else if (rand() % 35 == 0 && c > 0 && checkFlatGround(c - 1, 14)) sceneryBigHills.push_back(Vector2{ x - 32.0f, y - 184.0f });
+            else if (rand() % 30 == 0 && checkFlatGround(c, 8)) scenerySmallHills.push_back(Vector2{ x - 16.0f, y - 188.0f });
         }
         
-        if (globalCol % 12 == 0) sceneryClouds.push_back(Vector2{ (float)globalCol * TILE_SIZE, 60.0f + (globalCol % 3) * 20.0f });
-        else if (globalCol % 18 == 6) sceneryNbClouds1.push_back(Vector2{ (float)globalCol * TILE_SIZE, 10.0f + (globalCol % 2) * 15.0f });
-        else if (globalCol % 24 == 14) sceneryNbClouds2.push_back(Vector2{ (float)globalCol * TILE_SIZE, 20.0f + (globalCol % 3) * 10.0f });
+        if (rand() % 15 == 0) sceneryClouds.push_back(Vector2{ (float)globalCol * TILE_SIZE, 60.0f + (rand() % 3) * 20.0f });
+        else if (rand() % 20 == 0) sceneryNbClouds1.push_back(Vector2{ (float)globalCol * TILE_SIZE, 10.0f + (rand() % 2) * 15.0f });
+        else if (rand() % 25 == 0) sceneryNbClouds2.push_back(Vector2{ (float)globalCol * TILE_SIZE, 20.0f + (rand() % 3) * 10.0f });
     }
 }
 
