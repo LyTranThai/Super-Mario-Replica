@@ -15,7 +15,7 @@ public:
     GameCamera();
     GameCamera(Vector2 size, float leftBound, float rightBound);
 
-    void update(Vector2 targetPos);
+    void update(Vector2 targetPos, float dt);
     Vector2 applyOffset(Vector2 worldPos) const;
     Rectangle applyOffsetToRect(Rectangle worldRect) const;
 

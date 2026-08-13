@@ -5,16 +5,20 @@ GameCamera::GameCamera() : position{0.0f, 0.0f}, viewportSize{800.0f, 600.0f}, l
 GameCamera::GameCamera(Vector2 size, float leftBound, float rightBound) 
     : position{0.0f, 0.0f}, viewportSize(size), leftBoundary(leftBound), rightBoundary(rightBound), isLeftLocked(false) {}
 
-void GameCamera::update(Vector2 targetPos) {
+void GameCamera::update(Vector2 targetPos, float dt) {
     // Focus horizontally on target
     float targetX = targetPos.x - viewportSize.x / 2.0f;
 
-    // Apply left lock if enabled
-    if (isLeftLocked && targetX < position.x) {
-        targetX = position.x;
+    // Smooth lerp for camera
+    float lerpSpeed = 8.0f; // Adjust this value to make it more or less rigid
+    float nextPos = position.x + (targetX - position.x) * lerpSpeed * dt;
+
+    // Apply left lock if enabled (never allow camera to move left)
+    if (isLeftLocked && nextPos < position.x) {
+        nextPos = position.x;
     }
 
-    position.x = targetX;
+    position.x = nextPos;
 
     // Clamp within level boundaries
     if (position.x < leftBoundary) {

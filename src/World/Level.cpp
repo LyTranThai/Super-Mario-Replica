@@ -385,7 +385,7 @@ void Level::update(float dt) {
             }
         }
 
-        camera.update(player->getPosition());
+        camera.update(player->getPosition(), dt);
     }
 }
 void Level::drawScenery() {
