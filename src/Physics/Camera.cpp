@@ -6,12 +6,22 @@ GameCamera::GameCamera(Vector2 size, float leftBound, float rightBound)
     : position{0.0f, 0.0f}, viewportSize(size), leftBoundary(leftBound), rightBoundary(rightBound), isLeftLocked(false) {}
 
 void GameCamera::update(Vector2 targetPos, float dt) {
-    // Focus horizontally on target
-    float targetX = targetPos.x - viewportSize.x / 2.0f;
+    float centerX = viewportSize.x / 2.0f;
+    float deadzone = 50.0f; // pixels from center where camera won't move
+    
+    float screenX = targetPos.x - position.x;
+    float desiredX = position.x;
 
-    // Smooth lerp for camera
-    float lerpSpeed = 8.0f; // Adjust this value to make it more or less rigid
-    float nextPos = position.x + (targetX - position.x) * lerpSpeed * dt;
+    // Only move the camera if the character steps outside the deadzone
+    if (screenX > centerX + deadzone) {
+        desiredX = targetPos.x - (centerX + deadzone);
+    } else if (screenX < centerX - deadzone) {
+        desiredX = targetPos.x - (centerX - deadzone);
+    }
+
+    // Smooth lerp
+    float lerpSpeed = 5.0f;
+    float nextPos = position.x + (desiredX - position.x) * lerpSpeed * dt;
 
     // Apply left lock if enabled (never allow camera to move left)
     if (isLeftLocked && nextPos < position.x) {
