@@ -1,13 +1,20 @@
 #include "Camera.h"
 
-GameCamera::GameCamera() : position{0.0f, 0.0f}, viewportSize{800.0f, 600.0f}, leftBoundary(0.0f), rightBoundary(2000.0f) {}
+GameCamera::GameCamera() : position{0.0f, 0.0f}, viewportSize{800.0f, 600.0f}, leftBoundary(0.0f), rightBoundary(2000.0f), isLeftLocked(false) {}
 
 GameCamera::GameCamera(Vector2 size, float leftBound, float rightBound) 
-    : position{0.0f, 0.0f}, viewportSize(size), leftBoundary(leftBound), rightBoundary(rightBound) {}
+    : position{0.0f, 0.0f}, viewportSize(size), leftBoundary(leftBound), rightBoundary(rightBound), isLeftLocked(false) {}
 
 void GameCamera::update(Vector2 targetPos) {
     // Focus horizontally on target
-    position.x = targetPos.x - viewportSize.x / 2.0f;
+    float targetX = targetPos.x - viewportSize.x / 2.0f;
+
+    // Apply left lock if enabled
+    if (isLeftLocked && targetX < position.x) {
+        targetX = position.x;
+    }
+
+    position.x = targetX;
 
     // Clamp within level boundaries
     if (position.x < leftBoundary) {
@@ -33,4 +40,8 @@ Rectangle GameCamera::applyOffsetToRect(Rectangle worldRect) const {
 void GameCamera::setBoundaries(float leftBound, float rightBound) {
     leftBoundary = leftBound;
     rightBoundary = rightBound;
+}
+
+void GameCamera::setLeftLocked(bool locked) {
+    isLeftLocked = locked;
 }

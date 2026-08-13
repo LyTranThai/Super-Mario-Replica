@@ -9,6 +9,7 @@ private:
     Vector2 viewportSize;
     float leftBoundary;
     float rightBoundary;
+    bool isLeftLocked;
 
 public:
     GameCamera();
@@ -20,6 +21,8 @@ public:
 
     Vector2 getPosition() const { return position; }
     void setBoundaries(float leftBound, float rightBound);
+    void setLeftLocked(bool locked);
+    bool getIsLeftLocked() const { return isLeftLocked; }
 };
 
 #endif // CAMERA_H

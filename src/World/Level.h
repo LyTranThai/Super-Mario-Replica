@@ -20,6 +20,10 @@ private:
     int levelWidth;
     int levelHeight;
     bool isCompleted;
+    bool isInfinite;
+    float currentGenerationX;
+
+    void generateChunk(float startX, float endX);
 
     std::vector<Vector2> sceneryBigHills;
     std::vector<Vector2> scenerySmallHills;
