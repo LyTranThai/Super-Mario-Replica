@@ -9,17 +9,20 @@ private:
     Vector2 viewportSize;
     float leftBoundary;
     float rightBoundary;
+    bool isLeftLocked;
 
 public:
     GameCamera();
     GameCamera(Vector2 size, float leftBound, float rightBound);
 
-    void update(Vector2 targetPos);
+    void update(Vector2 targetPos, float dt);
     Vector2 applyOffset(Vector2 worldPos) const;
     Rectangle applyOffsetToRect(Rectangle worldRect) const;
 
     Vector2 getPosition() const { return position; }
     void setBoundaries(float leftBound, float rightBound);
+    void setLeftLocked(bool locked);
+    bool getIsLeftLocked() const { return isLeftLocked; }
 };
 
 #endif // CAMERA_H

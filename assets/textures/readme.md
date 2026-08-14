@@ -63,4 +63,5 @@ there's no official crouch in the sheet so I'm using from climb
 - Mountain: (12,139) -> (224,231)
 
 - Note: hill and mountain can be reused to create multiple versons, thereby enhancing the background
-  
+
+- Cloud (no background): (388,15) -> (496,92) ; (830,16) -> (913,82) 
