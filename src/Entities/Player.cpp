@@ -2,8 +2,11 @@
 #include "Core/InputManager.h"
 #include "Core/EventSystem.h"
 #include "Core/AssetManager.h"
+#include "Core/GameEngine.h"
 #include "Koopa.h"
 #include <iostream>
+#include <cmath>
+#include <algorithm>
 
 struct FireballSpawnData {
     Vector2 position;
@@ -206,15 +209,17 @@ void Player::setSpecialMove(std::unique_ptr<SpecialMove> move) {
 
 void Player::throwCarriedEntity() {
     if (carriedEntity) {
-        carriedEntity->setPosition(Vector2{ position.x + (facingRight ? hitboxSize.x + 5.0f : -carriedEntity->getHitboxSize().x - 5.0f), position.y });
-        carriedEntity->setVelocity(Vector2{ facingRight ? 400.0f : -400.0f, -100.0f });
+        bool drop = GameEngine::getInstance().getInputManager().isActionPressed(Action::Crouch);
         
-        Koopa* koopa = dynamic_cast<Koopa*>(carriedEntity);
-        if (koopa) {
-            koopa->setCarried(false);
-            koopa->setShellMoving(true);
-            koopa->setFacingRight(facingRight);
+        carriedEntity->setPosition(Vector2{ position.x + (facingRight ? hitboxSize.x + 5.0f : -carriedEntity->getHitboxSize().x - 5.0f), position.y });
+        
+        if (drop) {
+            carriedEntity->setVelocity(Vector2{ 0.0f, 0.0f });
+        } else {
+            carriedEntity->setVelocity(Vector2{ facingRight ? 400.0f : -400.0f, -100.0f });
         }
+        
+        // Base throwing logic; specific entities can check if they are carried inside their own updates
         
         carriedEntity = nullptr;
     }

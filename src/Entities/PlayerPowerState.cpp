@@ -31,8 +31,14 @@ void SmallState::update(Player& player, float dt) {
 }
 
 void SmallState::onDamage(Player& player) {
-    // Small Mario dies immediately
-    EventManager::getInstance().broadcast(EventType::PlayerDied);
+    // If Small Mario gets hit, we decrease a life but don't reset the level unless it's game over.
+    if (player.getLives() > 1) {
+        player.setLives(player.getLives() - 1);
+        // Player continues playing, invincibilityTimer handles the flickering.
+    } else {
+        // Game Over condition
+        EventManager::getInstance().broadcast(EventType::PlayerDied);
+    }
 }
 
 // --- SuperState ---
