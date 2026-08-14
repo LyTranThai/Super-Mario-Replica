@@ -16,7 +16,7 @@ Koopa::Koopa(Vector2 pos)
         Rectangle{ 69.0f, 37.0f, 16.0f, 24.0f }
     }, 0.2f);
     animator.addAnimation(AnimState::Crouch, {
-        Rectangle{ 72.0f, 120.0f, 16.0f, 16.0f }
+        Rectangle{ 107.0f, 44.0f, 16.0f, 16.0f }
     }, 1.0f);
     
     animator.setState(AnimState::Walk);
@@ -79,6 +79,12 @@ void Koopa::onCollision(Entity& other, CollisionSide side) {
     if (player) {
         if (side == CollisionSide::Top) {
             std::cout << "[DEBUG]   -> Case: Player stomped Koopa. Koopa taking damage." << std::endl;
+            
+            // If already in shell and stationary, make it slide away from player
+            if (inShell && !shellMoving) {
+                facingRight = (player->getPosition().x < position.x);
+            }
+            
             takeDamage();
             // Bounce player
             //player-> setjumpCount(0);
