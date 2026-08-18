@@ -17,6 +17,7 @@ InteractiveBlock::InteractiveBlock(Vector2 pos, InteractiveBlockType type, ItemT
       blockType(type), hiddenItem(item), isUsed(false), bounceTimer(0.0f), originalPosition(pos) {}
 
 void InteractiveBlock::update(float dt) {
+    
     if (bounceTimer > 0.0f) {
         bounceTimer -= dt;
         

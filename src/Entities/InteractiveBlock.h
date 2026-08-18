@@ -17,7 +17,7 @@ enum class ItemType {
 };
 
 class InteractiveBlock : public StaticEntity {
-private:
+protected:
     InteractiveBlockType blockType;
     ItemType hiddenItem;
     bool isUsed;
@@ -30,9 +30,9 @@ public:
 
     void update(float dt) override;
     void draw() override;
-    void onInteract(Player& player) override; // Hitting from below
+    virtual void onInteract(Player& player) override; // Hitting from below
 
-    void hit(Player& player);
+    virtual void hit(Player& player);
     
     bool isQuestionBlock() const { return blockType == InteractiveBlockType::Question; }
     bool isUsedUp() const { return isUsed; }

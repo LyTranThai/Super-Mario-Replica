@@ -10,6 +10,8 @@ include(FetchContent)
 FetchContent_Declare(
     raylib
     URL https://github.com/raysan5/raylib/archive/refs/tags/5.0.tar.gz
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE   # <-- Thêm dòng này để hết cảnh báo
+    TLS_VERIFY OFF
 )
 
 # Customize raylib build configuration (disable unused targets to speed up compilation)
