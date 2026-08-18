@@ -1,15 +1,26 @@
 #include "RockHead.h"
 #include "Player.h"
+#include "Core/AssetManager.h"
 #include <cmath>
 #include <iostream>
 
 RockHead::RockHead(Vector2 pos)
-    : Enemy(pos, Vector2{ 48.0f, 64.0f }, Vector2{ 40.0f, 56.0f }, Vector2{ 4.0f, 4.0f }, "thwomp", DARKGRAY),
+    : Enemy(pos, Vector2{ 48.0f, 64.0f }, Vector2{ 40.0f, 56.0f }, Vector2{ 4.0f, 4.0f }, "enemy", DARKGRAY),
       rockState(RockState::Idle), timer(0.0f), spawnPosition(pos) {
     delete aiStrategy;
     aiStrategy = nullptr;
     velocity = Vector2{ 0.0f, 0.0f };
     onGround = true; // Overrides default gravity
+
+    animator.addAnimation(AnimState::Idle, {
+        Rectangle{ 273.0f, 37.0f, 16.0f, 24.0f }
+    }, 1.0f);
+    
+    animator.addAnimation(AnimState::Fall, {
+        Rectangle{ 290.0f, 37.0f, 16.0f, 24.0f }
+    }, 1.0f);
+    
+    animator.setState(AnimState::Idle);
 }
 
 void RockHead::update(float dt) {
@@ -40,6 +51,13 @@ void RockHead::update(float dt) {
             }
             break;
     }
+
+    if (rockState == RockState::Slamming) {
+        animator.setState(AnimState::Fall);
+    } else {
+        animator.setState(AnimState::Idle);
+    }
+    animator.update(dt);
 }
 
 void RockHead::checkTrigger(Vector2 playerPos) {
@@ -70,5 +88,30 @@ void RockHead::onCollision(Entity& other, CollisionSide side) {
             timer = 1.0f; // Stay down for 1 second
             velocity.y = 0.0f;
         }
+    }
+}
+
+void RockHead::draw() {
+    Texture2D tex = AssetManager::getInstance().getTexture(textureID);
+    if (tex.id != 0) {
+        Rectangle source = animator.getCurrentFrame();
+        
+        float scale = 3.0f; // Scale 16x24 to approx 48x64
+        float destWidth = std::abs(source.width) * scale;
+        float destHeight = std::abs(source.height) * scale;
+        
+        float destX = position.x;
+        float destY = position.y + (64.0f - destHeight); // Align to bottom
+        
+        Rectangle dest = { destX, destY, destWidth, destHeight };
+        
+        if (!facingRight) {
+            source.width = -source.width;
+        }
+        
+        Vector2 origin = { 0.0f, 0.0f };
+        DrawTexturePro(tex, source, dest, origin, 0.0f, WHITE);
+    } else {
+        Enemy::draw();
     }
 }

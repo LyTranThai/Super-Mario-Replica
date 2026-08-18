@@ -49,7 +49,19 @@ there's no official crouch in the sheet so I'm using from climb
 ### Koopa 
 - Move:(52,37) -> (67,60) ; (69,37)->(84,60)
 - Shell
-- 
+
+### Goomba:
+- Move: (1,45) -> (16,60) ; (18,45) -> (33,60)
+- Crushed: (35,45) -> (50,60)
+
+### Falling Piranha
+- Open Mouth: (239,37) -> (254,60)
+- Closed mouth: (256,37) -> (271,60)
+
+### falling block:
+- Open: (273,37) -> (288,60)
+- Falling: (290,37) -> (305,60)
+
 ## Background:
 
 - Load from background.png

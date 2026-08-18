@@ -29,7 +29,10 @@ void Enemy::takeDamage() {
 void Enemy::onCollision(Entity& other, CollisionSide side) {
     if (!other.isActive()) return;
     if (Player* player = dynamic_cast<Player*>(&other)) {
-        if (side == CollisionSide::Top) {
+        float playerBottom = player->getBoundingBox().y + player->getBoundingBox().height;
+        float enemyMiddle = getBoundingBox().y + getBoundingBox().height / 2.0f;
+
+        if (side == CollisionSide::Top || playerBottom < enemyMiddle) {
             std::cout << "[DEBUG]   -> Case: Player stomped Enemy. Enemy taking damage." << std::endl;
             takeDamage();
         } else {

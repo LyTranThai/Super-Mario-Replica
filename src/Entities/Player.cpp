@@ -247,14 +247,12 @@ void Player::onCollision(Entity& other, CollisionSide side) {
     // Stomp logic
     DynamicEntity* dynOther = dynamic_cast<DynamicEntity*>(&other);
     if (dynOther && !other.isSolid()) {
-        if (side == CollisionSide::Bottom && velocity.y > 0.0f) {
-            float playerBottom = getBoundingBox().y + getBoundingBox().height;
-            float enemyMiddle = other.getBoundingBox().y + other.getBoundingBox().height / 2.0f;
-            
-            if (playerBottom < enemyMiddle) {
-                // Stomp! Bounce player upward
-                velocity.y = -350.0f;
-            }
+        float playerBottom = getBoundingBox().y + getBoundingBox().height;
+        float enemyMiddle = other.getBoundingBox().y + other.getBoundingBox().height / 2.0f;
+        
+        if (playerBottom < enemyMiddle && velocity.y > 0.0f) {
+            // Stomp! Bounce player upward
+            velocity.y = -350.0f;
         }
     }
 }

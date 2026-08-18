@@ -2,6 +2,7 @@
 #define PIRANHA_PLANT_H
 
 #include "Enemy.h"
+#include "SpriteAnimator.h"
 
 enum class PlantState {
     Hidden,
@@ -16,6 +17,7 @@ private:
     float timer;
     Vector2 pipePosition; // Base position (locked to top-middle of the pipe)
     float currentYOffset;
+    SpriteAnimator animator;
 
     static constexpr float maxOffset = 48.0f; // Height to slide up
 
@@ -24,6 +26,7 @@ public:
     ~PiranhaPlant() override = default;
 
     void update(float dt) override;
+    void draw() override;
     void onCollision(Entity& other, CollisionSide side) override;
 };
 
