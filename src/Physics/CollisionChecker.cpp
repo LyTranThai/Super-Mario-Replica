@@ -2,6 +2,7 @@
 #include "Entities/DynamicEntity.h"
 #include "Entities/MovingPlatform.h"
 #include "Entities/Player.h"
+#include "Entities/InteractiveBlock.h"
 #include <cmath>
 
 bool CollisionChecker::checkAABB(Rectangle r1, Rectangle r2) {
@@ -75,6 +76,11 @@ void CollisionChecker::sweepEntity(DynamicEntity* dyn, const std::vector<std::un
                         if (checkAABB(dBox, oBox)) {
                             if (dBox.y + dBox.height / 2.0f > oBox.y + oBox.height / 2.0f) {
                                 dyn->resolveOverlap(*other, overlapY, CollisionSide::Top);
+                                InteractiveBlock* block = dynamic_cast<InteractiveBlock*>(other);
+                                Player* p = dynamic_cast<Player*>(dyn);
+                                if (block && p) {
+                                    block->onInteract(*p);
+                                }
                             }
                         }
                     }
