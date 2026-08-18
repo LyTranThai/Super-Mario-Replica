@@ -21,6 +21,8 @@ public:
     void onCollision(Entity& other, CollisionSide side) override;
     void takeDamage() override;
 
+    bool avoidsCliffs() const override;
+
     bool isInShell() const { 
         return currentState == KoopaState::Shell || 
                currentState == KoopaState::PickedUp || 

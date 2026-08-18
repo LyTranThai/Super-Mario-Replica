@@ -16,6 +16,8 @@ public:
     void update(float dt) override;
     void draw() override;
     void takeDamage() override;
+
+    bool avoidsCliffs() const override { return !isDead; }
 };
 
 #endif // GOOMBA_H

@@ -50,7 +50,7 @@ void Level::generateChunk(float startX, float endX) {
         }
         
         if (globalCol > 10) {
-            if (rand() % 7 == 0) {
+            if (rand() % 3 == 0) {
                 int r = height - 6 - (rand() % 3);
                 lines[r][c] = (rand() % 2 == 0) ? '?' : 'B';
                 if (rand() % 4 == 0) lines[r][c] = 'M';
@@ -58,12 +58,12 @@ void Level::generateChunk(float startX, float endX) {
                 else if (rand() % 9 == 0) lines[r][c] = 'S';
             }
             
-            if (rand() % 10 == 0 && lines[height - 1][c] == '#') {
+            if (rand() % 4 == 0 && lines[height - 1][c] == '#') {
                 int enemyChoice = rand() % 4;
                 if (enemyChoice == 0) lines[height - 3][c] = 'G';
                 else if (enemyChoice == 1) lines[height - 3][c] = 'K';
                 else if (enemyChoice == 2) lines[height - 3][c] = 'I';
-                else if (enemyChoice == 3 && rand() % 10 == 0) lines[1][c] = 'T';
+                else if (enemyChoice == 3 && rand() % 3 == 0) lines[1][c] = 'T';
             }
         }
         c++;

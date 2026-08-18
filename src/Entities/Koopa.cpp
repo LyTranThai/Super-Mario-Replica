@@ -22,6 +22,10 @@ Koopa::Koopa(Vector2 pos)
     animator.setState(AnimState::Walk);
 }
 
+bool Koopa::avoidsCliffs() const {
+    return currentState == KoopaState::Moving;
+}
+
 void Koopa::update(float dt) {
     // Regardless of state, if it hits the left border, turn right
     if (position.x <= 0.0f) {
