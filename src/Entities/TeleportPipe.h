@@ -4,8 +4,9 @@
 #include "Entities/StaticEntity.h"
 
 class TeleportPipe : public StaticEntity {
+    bool isLong;
 public:
-    TeleportPipe(Vector2 pos);
+    TeleportPipe(Vector2 pos, bool isLong = false);
     ~TeleportPipe() override = default;
 
     void update(float dt) override;

@@ -304,13 +304,31 @@ void Level::loadFromFile(const std::string& filePath) {
             if (b->isTopGround && b->blockType == Block::Type::Ground) {
                 // Ensure it's not too close to the edges
                 if (b->getPosition().x > 200.0f && b->getPosition().x < levelWidth - 400.0f) {
-                    topGrounds.push_back(b);
+                    bool hasBlockAbove = false;
+                    for (auto& other : entities) {
+                        if (Block* ob = dynamic_cast<Block*>(other.get())) {
+                            if (ob != b && ob->getPosition().y < b->getPosition().y) {
+                                float pipeLeft = b->getPosition().x;
+                                float pipeRight = pipeLeft + 64.0f;
+                                float obLeft = ob->getPosition().x;
+                                float obRight = obLeft + 32.0f; // assuming standard block
+                                if (pipeLeft < obRight && pipeRight > obLeft) {
+                                    // Check within a reasonable height above the ground
+                                    if (ob->getPosition().y > b->getPosition().y - 160.0f) {
+                                        hasBlockAbove = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!hasBlockAbove) topGrounds.push_back(b);
                 }
             }
         }
     }
     
-    if (topGrounds.size() > 10) {
+    if (topGrounds.size() >= 2) {
         // Simple shuffle
         for (size_t i = 0; i < topGrounds.size(); ++i) {
             size_t j = i + rand() % (topGrounds.size() - i);
@@ -318,9 +336,10 @@ void Level::loadFromFile(const std::string& filePath) {
         }
         int numPipes = 2 + rand() % 2;
         for (int i = 0; i < numPipes && i < (int)topGrounds.size(); ++i) {
+            bool isLong = (rand() % 2 == 0); // Randomly choose Medium or Long
             Vector2 pos = topGrounds[i]->getPosition();
-            pos.y -= 64.0f; // Place on top of ground block
-            entities.push_back(std::make_unique<TeleportPipe>(pos));
+            pos.y -= isLong ? 96.0f : 64.0f;
+            entities.push_back(std::make_unique<TeleportPipe>(pos, isLong));
         }
     }
 }

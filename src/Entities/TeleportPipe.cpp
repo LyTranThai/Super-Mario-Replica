@@ -2,8 +2,8 @@
 #include "Core/AssetManager.h"
 #include "raylib.h"
 
-TeleportPipe::TeleportPipe(Vector2 pos)
-    : StaticEntity(pos, Vector2{ 64.0f, 64.0f }, Vector2{ 64.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, "world", BLUE) {
+TeleportPipe::TeleportPipe(Vector2 pos, bool isLong)
+    : StaticEntity(pos, Vector2{ 64.0f, isLong ? 96.0f : 64.0f }, Vector2{ 64.0f, isLong ? 96.0f : 64.0f }, Vector2{ 0.0f, 0.0f }, "world", BLUE), isLong(isLong) {
     solid = true;
 }
 

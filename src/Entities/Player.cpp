@@ -359,7 +359,7 @@ void Player::configureAnimations() {
             animator.addAnimation(AnimState::Skid, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
             animator.addAnimation(AnimState::Die, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f, false);
             animator.addAnimation(AnimState::Crouch, { Rectangle{ 19.0f, 53.0f, 16.0f, 16.0f } }, 1.0f);
-            animator.addAnimation(AnimState::Pipe, { Rectangle{ 56.0f, 53.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 71.0f, 53.0f, 16.0f, 16.0f } }, 1.0f);
         }
 
     } else if (type == PowerStateType::Super) {
