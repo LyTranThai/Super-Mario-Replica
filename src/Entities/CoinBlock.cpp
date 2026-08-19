@@ -1,4 +1,11 @@
 #include "CoinBlock.h"
+#include "Core/EventSystem.h"
+#include "Player.h"
+
+struct ItemSpawnData {
+    Vector2 position;
+    ItemType type;
+};
 
 CoinBlock::CoinBlock(Vector2 pos, int coins)
     : InteractiveBlock(pos, InteractiveBlockType::Question, ItemType::Coin), coinAmount(coins) {}
@@ -10,8 +17,9 @@ void CoinBlock::hit(Player& player) {
         coinAmount--;
         
         // Cộng điểm và coin cho Mario
-        // player.addCoin(1);
-        // player.addScore(200);
+        player.addCoin();
+        player.addScore(200);
+        EventManager::getInstance().broadcast(EventType::CoinCollected);
 
         spawnCoinAnimation(); // Hiện hiệu ứng đồng xu nảy lên
         
@@ -23,5 +31,8 @@ void CoinBlock::hit(Player& player) {
 }
 
 void CoinBlock::spawnCoinAnimation() {
-    // TODO: Tạo một hiệu ứng Coin nảy lên từ vị trí block rồi biến mất
+    // Tạo một hiệu ứng Coin nảy lên từ vị trí block
+    Vector2 spawnPos = { position.x, position.y - 32.0f };
+    ItemSpawnData spawnData = { spawnPos, ItemType::Coin };
+    EventManager::getInstance().broadcast(EventType::ItemSpawned, &spawnData);
 }

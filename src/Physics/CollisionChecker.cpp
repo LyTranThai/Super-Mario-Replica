@@ -199,7 +199,7 @@ void CollisionChecker::updatePhysics(std::vector<std::unique_ptr<Entity>>& entit
     }
 
     // 1. Sweep Player
-    if (player.isActive()) {
+    if (player.isActive() && !player.isPiping()) {
         sweepEntity(&player, entities, nullptr, dt);
     }
 

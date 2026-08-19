@@ -5,7 +5,7 @@
 #include "raylib.h"
 
 ExitBlock::ExitBlock(Vector2 pos)
-    : StaticEntity(pos, Vector2{ 32.0f, 64.0f }, Vector2{ 32.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, "pipe", GREEN) {
+    : StaticEntity(pos, Vector2{ 64.0f, 64.0f }, Vector2{ 64.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, "world", GREEN) {
     solid = true;
 }
 
@@ -16,7 +16,8 @@ void ExitBlock::update(float dt) {
 void ExitBlock::draw() {
     Texture2D tex = AssetManager::getInstance().getTexture(textureID);
     if (tex.id != 0) {
-        DrawTexturePro(tex, Rectangle{ 0, 0, (float)tex.width, (float)tex.height }, getSpriteBox(), Vector2{ 0, 0 }, 0.0f, WHITE);
+        Rectangle src = { 736.0f, 144.0f, 32.0f, 65.0f }; // Medium pipe from world texture
+        DrawTexturePro(tex, src, getSpriteBox(), Vector2{ 0, 0 }, 0.0f, WHITE);
     } else {
         // Render fallback Exit Warp Pipe / Door
         Rectangle rect = getSpriteBox();
@@ -33,7 +34,5 @@ void ExitBlock::draw() {
 }
 
 void ExitBlock::onInteract(Player& player) {
-    (void)player;
-    // Interacting with exit block triggers level completion
-    EventManager::getInstance().broadcast(EventType::LevelCompleted);
+    // Only interact if player presses down on top of it, but this is handled by Level::update now
 }

@@ -1,6 +1,8 @@
 #include "Level.h"
 #include <cmath>
 #include "Entities/ExitBlock.h"
+#include "Entities/TeleportPipe.h"
+#include "Core/InputManager.h"
 
 #include "EntityFactory.h"
 #include "Entities/Block.h"
@@ -294,6 +296,33 @@ void Level::loadFromFile(const std::string& filePath) {
         CharacterType cType = (selChar == "Luigi") ? CharacterType::Luigi : CharacterType::Mario;
         player = std::make_unique<Player>(Vector2{ 100.0f, 100.0f }, cType);
     }
+
+    // Add 2-3 random Teleport Pipes
+    std::vector<Block*> topGrounds;
+    for (auto& entity : entities) {
+        if (Block* b = dynamic_cast<Block*>(entity.get())) {
+            if (b->isTopGround && b->blockType == Block::Type::Ground) {
+                // Ensure it's not too close to the edges
+                if (b->getPosition().x > 200.0f && b->getPosition().x < levelWidth - 400.0f) {
+                    topGrounds.push_back(b);
+                }
+            }
+        }
+    }
+    
+    if (topGrounds.size() > 10) {
+        // Simple shuffle
+        for (size_t i = 0; i < topGrounds.size(); ++i) {
+            size_t j = i + rand() % (topGrounds.size() - i);
+            std::swap(topGrounds[i], topGrounds[j]);
+        }
+        int numPipes = 2 + rand() % 2;
+        for (int i = 0; i < numPipes && i < (int)topGrounds.size(); ++i) {
+            Vector2 pos = topGrounds[i]->getPosition();
+            pos.y -= 64.0f; // Place on top of ground block
+            entities.push_back(std::make_unique<TeleportPipe>(pos));
+        }
+    }
 }
 
 void Level::update(float dt) {
@@ -312,12 +341,37 @@ void Level::update(float dt) {
                 thwomp->checkTrigger(player->getPosition());
             }
             
+            bool crouchPressed = GameEngine::getInstance().getInputManager().isActionPressed(Action::Crouch);
+
             // Check Exit Pipe / Goal Door collision
             ExitBlock* exitBlock = dynamic_cast<ExitBlock*>(entity.get());
-            if (exitBlock && player->isActive()) {
-                if (CheckCollisionRecs(player->getBoundingBox(), exitBlock->getBoundingBox())) {
-                    isCompleted = true;
-                    EventManager::getInstance().broadcast(EventType::LevelCompleted);
+            if (exitBlock && player->isActive() && !player->isPiping()) {
+                Rectangle pBox = player->getBoundingBox();
+                pBox.height += 2.0f; // Inflate to detect standing
+                Rectangle tBox = exitBlock->getBoundingBox();
+                if (CheckCollisionRecs(pBox, tBox) && crouchPressed && std::abs((pBox.y + pBox.height - 2.0f) - tBox.y) < 5.0f) {
+                    player->startPiping(Vector2{0,0}, true);
+                }
+            }
+            
+            TeleportPipe* telePipe = dynamic_cast<TeleportPipe*>(entity.get());
+            if (telePipe && player->isActive() && !player->isPiping()) {
+                Rectangle pBox = player->getBoundingBox();
+                pBox.height += 2.0f; // Inflate to detect standing
+                Rectangle tBox = telePipe->getBoundingBox();
+                if (CheckCollisionRecs(pBox, tBox) && crouchPressed && std::abs((pBox.y + pBox.height - 2.0f) - tBox.y) < 5.0f) {
+                    std::vector<TeleportPipe*> allPipes;
+                    for (auto& e : entities) {
+                        if (auto p = dynamic_cast<TeleportPipe*>(e.get())) {
+                            if (p != telePipe) allPipes.push_back(p);
+                        }
+                    }
+                    Vector2 target = telePipe->getPosition(); // Fallback
+                    if (!allPipes.empty()) {
+                        int r = rand() % allPipes.size();
+                        target = allPipes[r]->getPosition();
+                    }
+                    player->startPiping(target, false);
                 }
             }
 
@@ -465,7 +519,17 @@ void Level::draw() {
     // 0. Draw background scenery (mountains, trees, bushes, clouds)
     drawScenery();
 
-    // 1. Draw entities relative to Camera offsets
+    // 1. Draw Player FIRST if piping so he appears behind pipes
+    bool playerPiping = player->isActive() && player->isPiping();
+    if (playerPiping) {
+        Vector2 origPos = player->getPosition();
+        Vector2 offsetPos = camera.applyOffset(origPos);
+        player->setPosition(offsetPos);
+        player->draw();
+        player->setPosition(origPos);
+    }
+
+    // 2. Draw entities relative to Camera offsets
     for (auto& entity : entities) {
         if (entity->isActive()) {
             Vector2 origPos = entity->getPosition();
@@ -478,8 +542,8 @@ void Level::draw() {
         }
     }
 
-    // 2. Draw Player relative to Camera offsets
-    if (player->isActive()) {
+    // 3. Draw Player AFTER entities if NOT piping
+    if (player->isActive() && !playerPiping) {
         Vector2 origPos = player->getPosition();
         Vector2 offsetPos = camera.applyOffset(origPos);
 

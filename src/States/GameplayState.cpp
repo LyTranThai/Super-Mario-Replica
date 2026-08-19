@@ -127,6 +127,9 @@ void GameplayState::onEvent(EventType type, void* data) {
                 } else if (spawn->type == ItemType::Star) {
                     tex = "star";
                     dbgCol = GOLD;
+                } else if (spawn->type == ItemType::Coin) {
+                    tex = "coin";
+                    dbgCol = YELLOW;
                 }
                 level->spawnEntity(std::make_unique<Item>(spawn->position, spawn->type, tex, dbgCol));
             }

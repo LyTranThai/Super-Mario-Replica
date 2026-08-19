@@ -36,6 +36,27 @@ Player::~Player() {
 }
 
 void Player::update(float dt) {
+    if (isPipingFlag) {
+        pipingTimer += dt;
+        velocity = Vector2{0.0f, 30.0f}; // Sink down slowly
+        position.y += velocity.y * dt;
+        
+        animator.setState(AnimState::Pipe);
+        animator.update(dt);
+        
+        if (pipingTimer >= 1.5f) {
+            isPipingFlag = false;
+            velocity = Vector2{0.0f, 0.0f};
+            if (isExitPipe) {
+                EventManager::getInstance().broadcast(EventType::LevelCompleted);
+            } else {
+                position = pipeTargetPos;
+                position.y -= 32.0f; // Pop out
+            }
+        }
+        return;
+    }
+
     if (invincibilityTimer > 0.0f) {
         invincibilityTimer -= dt;
     }
@@ -115,6 +136,8 @@ void Player::draw() {
 }
 
 void Player::handleInput(const InputManager& input) {
+    if (isPipingFlag) return;
+
     // Throw the carried entity if the player releases the Run button
     if (carriedEntity != nullptr && !input.isActionPressed(Action::Run)) {
         throwCarriedEntity();
@@ -327,6 +350,7 @@ void Player::configureAnimations() {
             animator.addAnimation(AnimState::Skid, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
             animator.addAnimation(AnimState::Die, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f, false);
             animator.addAnimation(AnimState::Crouch, { Rectangle{ 235.0f, 53.0f, 13.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 235.0f, 53.0f, 13.0f, 16.0f } }, 1.0f);
         } else {
             animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
             animator.addAnimation(AnimState::Walk, { Rectangle{ 26.0f, 24.0f, 16.0f, 16.0f }, Rectangle{ 43.0f, 24.0f, 16.0f, 16.0f } }, 0.1f);
@@ -335,6 +359,7 @@ void Player::configureAnimations() {
             animator.addAnimation(AnimState::Skid, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
             animator.addAnimation(AnimState::Die, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f, false);
             animator.addAnimation(AnimState::Crouch, { Rectangle{ 19.0f, 53.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 56.0f, 53.0f, 16.0f, 16.0f } }, 1.0f);
         }
 
     } else if (type == PowerStateType::Super) {
@@ -363,6 +388,8 @@ void Player::configureAnimations() {
 
         // Crouch â€” Row 3, index 0 (x=2, h=31)
         animator.addAnimation(AnimState::Crouch,
+            { Rectangle{2, 112, 18, 31} }, 1.0f);
+        animator.addAnimation(AnimState::Pipe,
             { Rectangle{2, 112, 18, 31} }, 1.0f);
 
         // Die â€” Row 1, index 8 (x=423)
@@ -395,6 +422,8 @@ void Player::configureAnimations() {
 
         // Crouch
         animator.addAnimation(AnimState::Crouch,
+            { Rectangle{2, 192, 18, 31} }, 1.0f);
+        animator.addAnimation(AnimState::Pipe,
             { Rectangle{2, 192, 18, 31} }, 1.0f);
 
         // Die

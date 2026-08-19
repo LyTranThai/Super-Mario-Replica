@@ -7,6 +7,7 @@
 #include "Entities/RockHead.h"
 #include "Entities/MovingPlatform.h"
 #include "Entities/ExitBlock.h"
+#include "Entities/TeleportPipe.h"
 
 std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y) {
     Vector2 pos = { x, y };
@@ -57,6 +58,9 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
                 Vector2{ 64.0f, 16.0f },
                 std::make_unique<VerticalMovingStrategy>(
                     y - 96.0f, y, 55.0f, -1));
+
+        case 'O': // Teleport Pipe
+            return std::make_unique<TeleportPipe>(pos);
 
         case 'E': // Exit Block / Pipe
         case 'W': // Warp Pipe Exit Goal

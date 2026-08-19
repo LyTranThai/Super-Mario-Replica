@@ -13,7 +13,8 @@ enum class AnimState {
     Fall,
     Crouch,
     Die,
-    Skid
+    Skid,
+    Pipe
 };
 
 // A single animation: a sequence of source-rectangle frames on a spritesheet

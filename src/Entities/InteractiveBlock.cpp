@@ -89,6 +89,11 @@ void InteractiveBlock::hit(Player& player) {
                 player.addCoin();
                 player.addScore(200);
                 EventManager::getInstance().broadcast(EventType::CoinCollected);
+
+                // Spawn visual coin popping out upward
+                Vector2 spawnPos = { originalPosition.x, originalPosition.y - 32.0f };
+                ItemSpawnData spawnData = { spawnPos, ItemType::Coin };
+                EventManager::getInstance().broadcast(EventType::ItemSpawned, &spawnData);
             } 
             else if (hiddenItem != ItemType::None) {
                 // Spawn item popping out upward

@@ -61,7 +61,7 @@ void GameEngine::init() {
     AssetManager::getInstance().loadTexture("mushroom", "assets/textures/mushroom.png");
     AssetManager::getInstance().loadTexture("flower", "assets/textures/flower.png");
     AssetManager::getInstance().loadTexture("star", "assets/textures/star.png");
-    AssetManager::getInstance().loadTexture("coin", "assets/textures/coin.png");
+    AssetManager::getInstance().loadTexture("coin", "assets/textures/coinblockreward.png");
     AssetManager::getInstance().loadTexture("fireball", "assets/textures/fireball.png");
 
     // Load initial screen state

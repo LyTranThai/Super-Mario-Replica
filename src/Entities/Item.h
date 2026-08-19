@@ -3,18 +3,21 @@
 
 #include "DynamicEntity.h"
 #include "InteractiveBlock.h"
+#include "SpriteAnimator.h"
 
 class Item : public DynamicEntity {
 protected:
     ItemType itemType;
     float spawnRiseTimer; // Visual effect popping out of block
     Vector2 targetSpawnPosition;
+    SpriteAnimator animator;
 
 public:
     Item(Vector2 pos, ItemType type, const std::string& texID, Color dbgColor);
     virtual ~Item() override = default;
 
     void update(float dt) override;
+    void draw() override;
     void onCollision(Entity& other, CollisionSide side) override;
 
     ItemType getItemType() const { return itemType; }

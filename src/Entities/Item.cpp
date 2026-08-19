@@ -1,6 +1,7 @@
 #include "Item.h"
 #include "Player.h"
 #include "Core/EventSystem.h"
+#include "Core/AssetManager.h"
 #include <iostream>
 
 Item::Item(Vector2 pos, ItemType type, const std::string& texID, Color dbgColor)
@@ -11,9 +12,25 @@ Item::Item(Vector2 pos, ItemType type, const std::string& texID, Color dbgColor)
     position.y += 16.0f;
     velocity = Vector2{ 0.0f, 0.0f };
     onGround = true; // Stay stationary during spawn rising
+
+    if (itemType == ItemType::Mushroom) {
+        textureID = "world";
+        animator.addAnimation(AnimState::Idle, {
+            Rectangle{ 0.0f, 176.0f, 16.0f, 16.0f },
+            Rectangle{ 16.0f, 176.0f, 16.0f, 16.0f }
+        }, 0.2f);
+        animator.setState(AnimState::Idle);
+    } else if (itemType == ItemType::Coin) {
+        textureID = "coin"; // Uses coinblockreward.png
+        animator.addAnimation(AnimState::Idle, {
+            Rectangle{ 243.0f, 66.0f, 10.0f, 15.0f }
+        }, 1.0f);
+        animator.setState(AnimState::Idle);
+    }
 }
 
 void Item::update(float dt) {
+    animator.update(dt);
     if (spawnRiseTimer > 0.0f) {
         spawnRiseTimer -= dt;
         // Slowly rise out of block
@@ -28,6 +45,9 @@ void Item::update(float dt) {
                 velocity.x = 120.0f;
                 facingRight = true;
                 velocity.y = -200.0f;
+            } else if (itemType == ItemType::Coin) {
+                // Coin disappears after popping up
+                active = false;
             }
         }
     } else {
@@ -79,5 +99,20 @@ void Item::onCollision(Entity& other, CollisionSide side) {
             velocity.x = -velocity.x;
             facingRight = (velocity.x > 0.0f);
         }
+    }
+}
+
+void Item::draw() {
+    if (itemType == ItemType::Mushroom || itemType == ItemType::Coin) {
+        Texture2D tex = AssetManager::getInstance().getTexture(textureID);
+        if (tex.id != 0) {
+            Rectangle source = animator.getCurrentFrame();
+            Rectangle dest = getSpriteBox();
+            DrawTexturePro(tex, source, dest, Vector2{0.0f, 0.0f}, 0.0f, WHITE);
+        } else {
+            DynamicEntity::draw();
+        }
+    } else {
+        DynamicEntity::draw();
     }
 }
