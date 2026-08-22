@@ -29,7 +29,7 @@ private:
     float pipingTimer = 0.0f;
     Vector2 pipeTargetPos;
     bool isExitPipe = false;
-    static constexpr float crouchHeightPercentage = 0.6f;
+    static constexpr float crouchHeightPercentage = 1.0f;
     SpriteAnimator animator;
 
     // Movement rates constants

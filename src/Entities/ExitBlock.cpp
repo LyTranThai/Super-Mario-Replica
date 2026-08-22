@@ -14,9 +14,9 @@ void ExitBlock::update(float dt) {
 }
 
 void ExitBlock::draw() {
-    Texture2D tex = AssetManager::getInstance().getTexture(textureID);
+    Texture2D tex = AssetManager::getInstance().getTexture("world11");
     if (tex.id != 0) {
-        Rectangle src = { 736.0f, 144.0f, 32.0f, 65.0f }; // Medium pipe from world texture
+        Rectangle src = { 448.0f, 176.0f, 32.0f, 32.0f }; // Short pipe from world11 texture
         DrawTexturePro(tex, src, getSpriteBox(), Vector2{ 0, 0 }, 0.0f, WHITE);
     } else {
         // Render fallback Exit Warp Pipe / Door

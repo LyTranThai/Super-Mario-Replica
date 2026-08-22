@@ -9,7 +9,10 @@ static float getPipeHeight(PipeSize size) {
 }
 
 TeleportPipe::TeleportPipe(Vector2 pos, PipeSize size)
-    : StaticEntity(pos, Vector2{ 64.0f, getPipeHeight(size) }, Vector2{ 64.0f, getPipeHeight(size) }, Vector2{ 0.0f, 0.0f }, "world11", BLUE), pipeSize(size) {
+    : StaticEntity(Vector2{pos.x, pos.y - (getPipeHeight(size) - 32.0f)}, 
+                   Vector2{ 64.0f, getPipeHeight(size) }, 
+                   Vector2{ 64.0f, getPipeHeight(size) }, 
+                   Vector2{ 0.0f, 0.0f }, "world11", BLUE), pipeSize(size) {
     solid = true;
 }
 

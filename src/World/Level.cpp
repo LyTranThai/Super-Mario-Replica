@@ -406,10 +406,7 @@ void Level::update(float dt) {
                 p.x = 0.0f;
                 player->setPosition(p);
             }
-            if (player->getPosition().x >= levelWidth - 64.0f) {
-                isCompleted = true;
-                EventManager::getInstance().broadcast(EventType::LevelCompleted);
-            }
+            // The player must use the exit pipe to win now
         }
 
         camera.update(player->getPosition(), dt);
