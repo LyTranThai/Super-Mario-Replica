@@ -63,6 +63,7 @@ void GameEngine::init() {
     AssetManager::getInstance().loadTexture("star", "assets/textures/star.png");
     AssetManager::getInstance().loadTexture("coin", "assets/textures/coinblockreward.png");
     AssetManager::getInstance().loadTexture("fireball", "assets/textures/fireball.png");
+    AssetManager::getInstance().loadTexture("world11", "assets/textures/world11.png");
 
     // Load initial screen state
     SetExitKey(KEY_NULL); // Prevent ESC key from closing window in Raylib

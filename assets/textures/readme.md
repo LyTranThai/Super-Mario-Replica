@@ -24,7 +24,7 @@ https://www.spriters-resource.com/snes/smassmb1/asset/83422/
 | Idle | `(2,24) -> (17,39)` |
 | Walk | `(26,24) -> (41,39)` ; `(43,24) -> (58,39)` |
 | Jump | `(109,24) -> (124,39)` |
-| Pipe | `(71,53) -> (86,68)` |
+| Pipe | `(71,53) -> (56,68)` |
 | Crouch | `(19,53) -> (34,68)` |
 
 **Note:**  
@@ -55,7 +55,8 @@ There's no official crouch in the sheet so I'm using from climb.
 | Ground floor | `(0,208) -> (1103,239)` |
 | No grass ground | `(0,221) -> (1103,239)` |
 | Short Pipe | `(448,175) -> (479,208)`|
-| Medium Pipe | `(736,144) -> (767,208)`|
+| Medium Pipe | `(608,160) -> (639,208)`|
+| Long Pipe | `(448,175) -> (479,208)`|
 
 
 ### Notes
@@ -90,22 +91,22 @@ There's no official crouch in the sheet so I'm using from climb.
 
 ---
 
-## 2.4 Reward for Flying Mystery Block
+## 2.4 Items (Rewards from Mystery Blocks)
 
-**Texture file:** `coinblockreward.png`
+**Texture file loaded:** `coinblockreward.png` (used for all item rewards)
 
 **Fill:** `(256,256,256)`
 
 **Note:**  
-Might appear after Mario hit the flying mystery blox.
+These items appear after Mario hits the flying mystery block.
 
-### Coin
+### Coin (Loaded from coinblockreward.png)
 
 - **Position:** `(243,66) -> (252,80)`
 
-### Little white monster
+### Mushroom / Little white monster (Loaded from coinblockreward.png)
 
-- `(0,176) -> (15,191)` ; `(16,176) -> (31,191)`
+- **Position:** `(0,176) -> (15,191)` ; `(16,176) -> (31,191)`
 
 ---
 
