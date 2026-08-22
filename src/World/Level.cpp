@@ -185,7 +185,7 @@ void Level::loadFromFile(const std::string& filePath) {
             "X                                                          X",
             "X                                 T                        X",
             "X                                                          X",
-            "X    P       G       K           XXX         I             X",
+            "X    P       G       C           XXX         N             X",
             "############################################################"
         };
     } else {
@@ -295,52 +295,6 @@ void Level::loadFromFile(const std::string& filePath) {
         std::string selChar = GameEngine::getInstance().getActiveAccount().getSelectedCharacter();
         CharacterType cType = (selChar == "Luigi") ? CharacterType::Luigi : CharacterType::Mario;
         player = std::make_unique<Player>(Vector2{ 100.0f, 100.0f }, cType);
-    }
-
-    // Add 2-3 random Teleport Pipes
-    std::vector<Block*> topGrounds;
-    for (auto& entity : entities) {
-        if (Block* b = dynamic_cast<Block*>(entity.get())) {
-            if (b->isTopGround && b->blockType == Block::Type::Ground) {
-                // Ensure it's not too close to the edges
-                if (b->getPosition().x > 200.0f && b->getPosition().x < levelWidth - 400.0f) {
-                    bool hasBlockAbove = false;
-                    for (auto& other : entities) {
-                        if (Block* ob = dynamic_cast<Block*>(other.get())) {
-                            if (ob != b && ob->getPosition().y < b->getPosition().y) {
-                                float pipeLeft = b->getPosition().x;
-                                float pipeRight = pipeLeft + 64.0f;
-                                float obLeft = ob->getPosition().x;
-                                float obRight = obLeft + 32.0f; // assuming standard block
-                                if (pipeLeft < obRight && pipeRight > obLeft) {
-                                    // Check within a reasonable height above the ground
-                                    if (ob->getPosition().y > b->getPosition().y - 160.0f) {
-                                        hasBlockAbove = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (!hasBlockAbove) topGrounds.push_back(b);
-                }
-            }
-        }
-    }
-    
-    if (topGrounds.size() >= 2) {
-        // Simple shuffle
-        for (size_t i = 0; i < topGrounds.size(); ++i) {
-            size_t j = i + rand() % (topGrounds.size() - i);
-            std::swap(topGrounds[i], topGrounds[j]);
-        }
-        int numPipes = 2 + rand() % 2;
-        for (int i = 0; i < numPipes && i < (int)topGrounds.size(); ++i) {
-            bool isLong = (rand() % 2 == 0); // Randomly choose Medium or Long
-            Vector2 pos = topGrounds[i]->getPosition();
-            pos.y -= isLong ? 96.0f : 64.0f;
-            entities.push_back(std::make_unique<TeleportPipe>(pos, isLong));
-        }
     }
 }
 

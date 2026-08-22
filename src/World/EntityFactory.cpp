@@ -36,14 +36,23 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
         case 'G': // Goomba Enemy
             return std::make_unique<Goomba>(pos);
         
-        case 'K': // Koopa Enemy
+        case 'C': // Koopa Enemy (Moved from K)
             return std::make_unique<Koopa>(pos);
         
         case 'T': // Thwomp / RockHead Enemy
             return std::make_unique<RockHead>(pos);
         
-        case 'I': // Piranha Plant Enemy
+        case 'N': // Piranha Plant Enemy (Moved from I)
             return std::make_unique<PiranhaPlant>(pos);
+
+        case 'I': // Short Pipe
+            return std::make_unique<TeleportPipe>(pos, PipeSize::Short);
+        
+        case 'J': // Medium Pipe
+            return std::make_unique<TeleportPipe>(pos, PipeSize::Medium);
+            
+        case 'K': // Long Pipe
+            return std::make_unique<TeleportPipe>(pos, PipeSize::Long);
 
         case 'H': // Horizontal moving platform
             return std::make_unique<MovingPlatform>(
@@ -58,9 +67,6 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
                 Vector2{ 64.0f, 16.0f },
                 std::make_unique<VerticalMovingStrategy>(
                     y - 96.0f, y, 55.0f, -1));
-
-        case 'O': // Teleport Pipe
-            return std::make_unique<TeleportPipe>(pos);
 
         case 'E': // Exit Block / Pipe
         case 'W': // Warp Pipe Exit Goal

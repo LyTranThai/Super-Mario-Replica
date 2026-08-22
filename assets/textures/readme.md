@@ -30,6 +30,18 @@ https://www.spriters-resource.com/snes/smassmb1/asset/83422/
 **Note:**  
 There's no official crouch in the sheet so I'm using from climb.
 
+### Mario Power State
+Fill color: (255,255,255)
+
+| Animation | Position |
+|---|---|
+| Idle | `(2,88) -> (33,119)` |
+| Walk | `(76,88) -> (107,119)` ; `(109,88) -> (140,119)` |
+| Jump | `(2,132) -> (33,163)` |
+| Pipe | `(2,176) -> (33,207)` |
+| Crouch | `(33,88) -> (70,119)` |
+
+
 ### Luigi
 
 | Animation | Position |
@@ -45,18 +57,18 @@ There's no official crouch in the sheet so I'm using from climb.
 
 **Fill color:** `(255,255,255)`
 
-| Object | Position |
-|---|---|
-| Bush 1 | `(182,193) -> (248,208)` |
-| Bush 2 | `(1431,190) -> (1482,208)` |
-| Flying Mystery Box | `(256,144) -> (271,159)` |
-| Flying Brick | `(320,144) -> (335,159)` |
-| Normal brick | `(2192,144) -> (2207,159)` |
-| Ground floor | `(0,208) -> (1103,239)` |
-| No grass ground | `(0,221) -> (1103,239)` |
-| Short Pipe | `(448,175) -> (479,208)`|
-| Medium Pipe | `(608,160) -> (639,208)`|
-| Long Pipe | `(448,175) -> (479,208)`|
+| Object | Position | Map Code (.txt) |
+|---|---|---|
+| Bush 1 | `(182,193) -> (248,208)` | N/A |
+| Bush 2 | `(1431,190) -> (1482,208)` | N/A |
+| Flying Mystery Box | `(256,144) -> (271,159)` | `?` `M` `F` `S` |
+| Flying Brick | `(320,144) -> (335,159)` | `B` |
+| Normal brick | `(2192,144) -> (2207,159)` | `X` |
+| Ground floor | `(0,208) -> (1103,239)` | `#` |
+| No grass ground | `(0,221) -> (1103,239)` | `#` |
+| Short Pipe | `(448,175) -> (479,208)`| `I` |
+| Medium Pipe | `(608,160) -> (639,208)`| `J` |
+| Long Pipe | `(736,144) -> (767,208)`| `K` |
 
 
 ### Notes
@@ -69,22 +81,22 @@ There's no official crouch in the sheet so I'm using from climb.
 
 **Fill color:** `(0,64,64)`
 
-### Koopa
+### Koopa (Map Code: `C`)
 
 - **Move:** `(52,37) -> (67,60)` ; `(69,37) -> (84,60)`
 - **Shell**
 
-### Goomba
+### Goomba (Map Code: `G`)
 
 - **Move:** `(1,45) -> (16,60)` ; `(18,45) -> (33,60)`
 - **Crushed:** `(35,45) -> (50,60)`
 
-### Falling Piranha
+### Falling Piranha (Map Code: `N`)
 
 - **Open Mouth:** `(239,37) -> (254,60)`
 - **Closed mouth:** `(256,37) -> (271,60)`
 
-### Falling block
+### Falling block (Map Code: `T`)
 
 - **Open:** `(273,37) -> (288,60)`
 - **Falling:** `(290,37) -> (305,60)`

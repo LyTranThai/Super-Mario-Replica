@@ -3,10 +3,16 @@
 
 #include "Entities/StaticEntity.h"
 
+enum class PipeSize {
+    Short,
+    Medium,
+    Long
+};
+
 class TeleportPipe : public StaticEntity {
-    bool isLong;
+    PipeSize pipeSize;
 public:
-    TeleportPipe(Vector2 pos, bool isLong = false);
+    TeleportPipe(Vector2 pos, PipeSize size = PipeSize::Short);
     ~TeleportPipe() override = default;
 
     void update(float dt) override;

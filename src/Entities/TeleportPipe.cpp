@@ -2,8 +2,14 @@
 #include "Core/AssetManager.h"
 #include "raylib.h"
 
-TeleportPipe::TeleportPipe(Vector2 pos, bool isLong)
-    : StaticEntity(pos, Vector2{ 64.0f, isLong ? 96.0f : 64.0f }, Vector2{ 64.0f, isLong ? 96.0f : 64.0f }, Vector2{ 0.0f, 0.0f }, "world", BLUE), isLong(isLong) {
+static float getPipeHeight(PipeSize size) {
+    if (size == PipeSize::Short) return 64.0f;
+    if (size == PipeSize::Medium) return 96.0f;
+    return 128.0f; // Long
+}
+
+TeleportPipe::TeleportPipe(Vector2 pos, PipeSize size)
+    : StaticEntity(pos, Vector2{ 64.0f, getPipeHeight(size) }, Vector2{ 64.0f, getPipeHeight(size) }, Vector2{ 0.0f, 0.0f }, "world11", BLUE), pipeSize(size) {
     solid = true;
 }
 
@@ -14,7 +20,11 @@ void TeleportPipe::update(float dt) {
 void TeleportPipe::draw() {
     Texture2D tex = AssetManager::getInstance().getTexture(textureID);
     if (tex.id != 0) {
-        Rectangle src = { 736.0f, 144.0f, 32.0f, 65.0f }; // Medium pipe from world texture
+        Rectangle src;
+        if (pipeSize == PipeSize::Short) src = { 448.0f, 175.0f, 32.0f, 34.0f }; // (448,175) -> (479,208)
+        else if (pipeSize == PipeSize::Medium) src = { 608.0f, 160.0f, 32.0f, 49.0f }; // (608,160) -> (639,208)
+        else src = { 736.0f, 144.0f, 32.0f, 65.0f }; // (736,144) -> (767,208)
+
         DrawTexturePro(tex, src, getSpriteBox(), Vector2{ 0, 0 }, 0.0f, WHITE);
     } else {
         Rectangle rect = getSpriteBox();
