@@ -36,7 +36,7 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
         case 'G': // Goomba Enemy
             return std::make_unique<Goomba>(pos);
         
-        case 'C': // Koopa Enemy (Moved from K)
+        case 'K': // Koopa Enemy (Moved from K)
             return std::make_unique<Koopa>(pos);
         
         case 'T': // Thwomp / RockHead Enemy
@@ -45,13 +45,13 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
         case 'N': // Piranha Plant Enemy (Moved from I)
             return std::make_unique<PiranhaPlant>(pos);
 
-        case 'I': // Short Pipe
+        case '1': // Short Pipe
             return std::make_unique<TeleportPipe>(pos, PipeSize::Short);
         
-        case 'J': // Medium Pipe
+        case '2': // Medium Pipe
             return std::make_unique<TeleportPipe>(pos, PipeSize::Medium);
             
-        case 'K': // Long Pipe
+        case '3': // Long Pipe
             return std::make_unique<TeleportPipe>(pos, PipeSize::Long);
 
         case 'H': // Horizontal moving platform

@@ -406,10 +406,14 @@ void Level::update(float dt) {
                 p.x = 0.0f;
                 player->setPosition(p);
             }
-            // The player must use the exit pipe to win now
         }
 
-        camera.update(player->getPosition(), dt);
+        if (player->getPosition().y > levelHeight + 100.0f) {
+            EventManager::getInstance().broadcast(EventType::PlayerDied);
+            player->setActive(false);
+        } else {
+            camera.update(player->getPosition(), dt);
+        }
     }
 }
 void Level::drawScenery() {

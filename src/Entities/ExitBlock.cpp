@@ -5,7 +5,7 @@
 #include "raylib.h"
 
 ExitBlock::ExitBlock(Vector2 pos)
-    : StaticEntity(pos, Vector2{ 64.0f, 64.0f }, Vector2{ 64.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, "world", GREEN) {
+    : StaticEntity(Vector2{pos.x, pos.y - 32.0f}, Vector2{ 64.0f, 64.0f }, Vector2{ 64.0f, 64.0f }, Vector2{ 0.0f, 0.0f }, "world11", GREEN) {
     solid = true;
 }
 
