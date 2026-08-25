@@ -41,8 +41,10 @@ else()
     target_compile_options(MarioGame PRIVATE -Wall -Wextra)
 endif()
 
+# Pass the project root directory to the code
+target_compile_definitions(MarioGame PRIVATE PROJECT_ROOT_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
+
 # Copy asset folders post build
 add_custom_command(TARGET MarioGame POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:MarioGame>/accounts
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/assets $<TARGET_FILE_DIR:MarioGame>/assets
 )

@@ -5,6 +5,8 @@
 #include <map>
 #include <string>
 
+#include <vector>
+
 class AssetManager {
 private:
     std::map<std::string, Texture2D> textures;
@@ -22,7 +24,7 @@ public:
 
     ~AssetManager();
 
-    bool loadTexture(const std::string& id, const std::string& filePath);
+    bool loadTexture(const std::string& id, const std::string& filePath, const std::vector<Color>& colorKeys = {});
     Texture2D getTexture(const std::string& id);
     void unloadTexture(const std::string& id);
     void clear();

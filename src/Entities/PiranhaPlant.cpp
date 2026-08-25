@@ -1,5 +1,6 @@
 #include "PiranhaPlant.h"
 #include "Player.h"
+#include "Core/AssetManager.h"
 #include <cmath>
 #include <iostream>
 
@@ -11,6 +12,12 @@ PiranhaPlant::PiranhaPlant(Vector2 pos)
     aiStrategy = nullptr;
     velocity = Vector2{ 0.0f, 0.0f };
     onGround = true; // Prevents gravity calculations
+
+    animator.addAnimation(AnimState::Idle, {
+        Rectangle{ 239.0f, 37.0f, 16.0f, 24.0f },
+        Rectangle{ 256.0f, 37.0f, 16.0f, 24.0f }
+    }, 0.2f);
+    animator.setState(AnimState::Idle);
 }
 
 void PiranhaPlant::update(float dt) {
@@ -49,6 +56,8 @@ void PiranhaPlant::update(float dt) {
     }
     // Update vertical coordinates
     position.y = pipePosition.y - currentYOffset;
+
+    animator.update(dt);
 }
 
 void PiranhaPlant::onCollision(Entity& other, CollisionSide side) {
@@ -60,5 +69,30 @@ void PiranhaPlant::onCollision(Entity& other, CollisionSide side) {
     if (player) {
         std::cout << "[DEBUG]   -> Case: Player touched Piranha Plant. Player taking damage." << std::endl;
         player->takeDamage();
+    }
+}
+
+void PiranhaPlant::draw() {
+    Texture2D tex = AssetManager::getInstance().getTexture(textureID);
+    if (tex.id != 0) {
+        Rectangle source = animator.getCurrentFrame();
+        
+        float scale = 2.0f; // Scale 16x24 sprite to 32x48 size
+        float destWidth = std::abs(source.width) * scale;
+        float destHeight = std::abs(source.height) * scale;
+        
+        float destX = position.x;
+        float destY = position.y + (48.0f - destHeight); // Align to bottom
+        
+        Rectangle dest = { destX, destY, destWidth, destHeight };
+        
+        if (facingRight) {
+            source.width = -source.width;
+        }
+        
+        Vector2 origin = { 0.0f, 0.0f };
+        DrawTexturePro(tex, source, dest, origin, 0.0f, WHITE);
+    } else {
+        Enemy::draw();
     }
 }

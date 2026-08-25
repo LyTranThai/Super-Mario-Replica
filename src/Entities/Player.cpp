@@ -2,8 +2,11 @@
 #include "Core/InputManager.h"
 #include "Core/EventSystem.h"
 #include "Core/AssetManager.h"
+#include "Core/GameEngine.h"
 #include "Koopa.h"
 #include <iostream>
+#include <cmath>
+#include <algorithm>
 
 struct FireballSpawnData {
     Vector2 position;
@@ -33,6 +36,27 @@ Player::~Player() {
 }
 
 void Player::update(float dt) {
+    if (isPipingFlag) {
+        pipingTimer += dt;
+        velocity = Vector2{0.0f, 30.0f}; // Sink down slowly
+        position.y += velocity.y * dt;
+        
+        animator.setState(AnimState::Pipe);
+        animator.update(dt);
+        
+        if (pipingTimer >= 1.5f) {
+            isPipingFlag = false;
+            velocity = Vector2{0.0f, 0.0f};
+            if (isExitPipe) {
+                EventManager::getInstance().broadcast(EventType::LevelCompleted);
+            } else {
+                position = pipeTargetPos;
+                position.y -= 32.0f; // Pop out
+            }
+        }
+        return;
+    }
+
     if (invincibilityTimer > 0.0f) {
         invincibilityTimer -= dt;
     }
@@ -112,6 +136,8 @@ void Player::draw() {
 }
 
 void Player::handleInput(const InputManager& input) {
+    if (isPipingFlag) return;
+
     // Throw the carried entity if the player releases the Run button
     if (carriedEntity != nullptr && !input.isActionPressed(Action::Run)) {
         throwCarriedEntity();
@@ -206,15 +232,17 @@ void Player::setSpecialMove(std::unique_ptr<SpecialMove> move) {
 
 void Player::throwCarriedEntity() {
     if (carriedEntity) {
-        carriedEntity->setPosition(Vector2{ position.x + (facingRight ? hitboxSize.x + 5.0f : -carriedEntity->getHitboxSize().x - 5.0f), position.y });
-        carriedEntity->setVelocity(Vector2{ facingRight ? 400.0f : -400.0f, -100.0f });
+        bool drop = GameEngine::getInstance().getInputManager().isActionPressed(Action::Crouch);
         
-        Koopa* koopa = dynamic_cast<Koopa*>(carriedEntity);
-        if (koopa) {
-            koopa->setCarried(false);
-            koopa->setShellMoving(true);
-            koopa->setFacingRight(facingRight);
+        carriedEntity->setPosition(Vector2{ position.x + (facingRight ? hitboxSize.x + 5.0f : -carriedEntity->getHitboxSize().x - 5.0f), position.y });
+        
+        if (drop) {
+            carriedEntity->setVelocity(Vector2{ 0.0f, 0.0f });
+        } else {
+            carriedEntity->setVelocity(Vector2{ facingRight ? 400.0f : -400.0f, -100.0f });
         }
+        
+        // Base throwing logic; specific entities can check if they are carried inside their own updates
         
         carriedEntity = nullptr;
     }
@@ -242,14 +270,12 @@ void Player::onCollision(Entity& other, CollisionSide side) {
     // Stomp logic
     DynamicEntity* dynOther = dynamic_cast<DynamicEntity*>(&other);
     if (dynOther && !other.isSolid()) {
-        if (side == CollisionSide::Bottom && velocity.y > 0.0f) {
-            float playerBottom = getBoundingBox().y + getBoundingBox().height;
-            float enemyMiddle = other.getBoundingBox().y + other.getBoundingBox().height / 2.0f;
-            
-            if (playerBottom < enemyMiddle) {
-                // Stomp! Bounce player upward
-                velocity.y = -350.0f;
-            }
+        float playerBottom = getBoundingBox().y + getBoundingBox().height;
+        float enemyMiddle = other.getBoundingBox().y + other.getBoundingBox().height / 2.0f;
+        
+        if (playerBottom < enemyMiddle && velocity.y > 0.0f) {
+            // Stomp! Bounce player upward
+            velocity.y = -350.0f;
         }
     }
 }
@@ -324,6 +350,7 @@ void Player::configureAnimations() {
             animator.addAnimation(AnimState::Skid, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
             animator.addAnimation(AnimState::Die, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f, false);
             animator.addAnimation(AnimState::Crouch, { Rectangle{ 235.0f, 53.0f, 13.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 235.0f, 53.0f, 13.0f, 16.0f } }, 1.0f);
         } else {
             animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
             animator.addAnimation(AnimState::Walk, { Rectangle{ 26.0f, 24.0f, 16.0f, 16.0f }, Rectangle{ 43.0f, 24.0f, 16.0f, 16.0f } }, 0.1f);
@@ -332,71 +359,30 @@ void Player::configureAnimations() {
             animator.addAnimation(AnimState::Skid, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
             animator.addAnimation(AnimState::Die, { Rectangle{ 109.0f, 24.0f, 16.0f, 16.0f } }, 1.0f, false);
             animator.addAnimation(AnimState::Crouch, { Rectangle{ 19.0f, 53.0f, 16.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 71.0f, 53.0f, 16.0f, 16.0f } }, 1.0f);
         }
 
     } else if (type == PowerStateType::Super) {
-        // --- Super Luigi/Mario frames from Row 2 (y=68, h=40) and Row 3 (y=112, h=31) ---
-        // Idle â€” Row 2, index 0 (x=4)
-        animator.addAnimation(AnimState::Idle,
-            { Rectangle{4, 68, 14, 40} }, 1.0f);
-
-        // Walk cycle â€” 3 frames (Row 2, index 1, 2, 3)
-        animator.addAnimation(AnimState::Walk,
-            { Rectangle{33, 68, 16, 40},
-              Rectangle{63, 68, 16, 40},
-              Rectangle{93, 68, 16, 40} }, 0.08f);
-
-        // Jump â€” Row 2, index 5 (x=153)
-        animator.addAnimation(AnimState::Jump,
-            { Rectangle{153, 68, 16, 40} }, 1.0f);
-
-        // Fall â€” same as jump
-        animator.addAnimation(AnimState::Fall,
-            { Rectangle{153, 68, 16, 40} }, 1.0f);
-
-        // Skid â€” Row 2, index 4 (x=124)
-        animator.addAnimation(AnimState::Skid,
-            { Rectangle{124, 68, 14, 40} }, 1.0f);
-
-        // Crouch â€” Row 3, index 0 (x=2, h=31)
-        animator.addAnimation(AnimState::Crouch,
-            { Rectangle{2, 112, 18, 31} }, 1.0f);
-
-        // Die â€” Row 1, index 8 (x=423)
-        animator.addAnimation(AnimState::Die,
-            { Rectangle{423, 39, 16, 17} }, 1.0f, false);
+        // --- Super Luigi/Mario frames from readme.md ---
+        animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
+        animator.addAnimation(AnimState::Walk, { Rectangle{ 76.0f, 88.0f, 32.0f, 32.0f }, Rectangle{ 109.0f, 88.0f, 32.0f, 32.0f } }, 0.1f);
+        animator.addAnimation(AnimState::Jump, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+        animator.addAnimation(AnimState::Fall, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+        animator.addAnimation(AnimState::Skid, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f); // Fallback to jump for skid
+        animator.addAnimation(AnimState::Die, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f, false);
+        animator.addAnimation(AnimState::Crouch, { Rectangle{ 33.0f, 88.0f, 38.0f, 32.0f } }, 1.0f);
+        animator.addAnimation(AnimState::Pipe, { Rectangle{ 2.0f, 176.0f, 32.0f, 32.0f } }, 1.0f);
 
     } else if (type == PowerStateType::Fire) {
-        // --- Fire Luigi/Mario frames from Row 4 (y=148, h=40) and Row 5 (y=192, h=31) ---
-        // Idle
-        animator.addAnimation(AnimState::Idle,
-            { Rectangle{4, 148, 14, 40} }, 1.0f);
-
-        // Walk cycle â€” 3 frames
-        animator.addAnimation(AnimState::Walk,
-            { Rectangle{33, 148, 16, 40},
-              Rectangle{63, 148, 16, 40},
-              Rectangle{93, 148, 16, 40} }, 0.08f);
-
-        // Jump
-        animator.addAnimation(AnimState::Jump,
-            { Rectangle{153, 148, 16, 40} }, 1.0f);
-
-        // Fall
-        animator.addAnimation(AnimState::Fall,
-            { Rectangle{153, 148, 16, 40} }, 1.0f);
-
-        // Skid
-        animator.addAnimation(AnimState::Skid,
-            { Rectangle{124, 148, 14, 40} }, 1.0f);
-
-        // Crouch
-        animator.addAnimation(AnimState::Crouch,
-            { Rectangle{2, 192, 18, 31} }, 1.0f);
-
-        // Die
-        animator.addAnimation(AnimState::Die,
-            { Rectangle{423, 39, 16, 17} }, 1.0f, false);
+        // --- Fire Luigi/Mario frames from readme.md (using Super as fallback for now) ---
+        animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
+        animator.addAnimation(AnimState::Walk, { Rectangle{ 76.0f, 88.0f, 32.0f, 32.0f }, Rectangle{ 109.0f, 88.0f, 32.0f, 32.0f } }, 0.1f);
+        animator.addAnimation(AnimState::Jump, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+        animator.addAnimation(AnimState::Fall, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+        animator.addAnimation(AnimState::Skid, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+        animator.addAnimation(AnimState::Die, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f, false);
+        animator.addAnimation(AnimState::Crouch, { Rectangle{ 33.0f, 88.0f, 38.0f, 32.0f } }, 1.0f);
+        animator.addAnimation(AnimState::Pipe, { Rectangle{ 2.0f, 176.0f, 32.0f, 32.0f } }, 1.0f);
     }
 }
 

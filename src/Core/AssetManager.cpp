@@ -5,17 +5,23 @@ AssetManager::~AssetManager() {
     clear();
 }
 
-bool AssetManager::loadTexture(const std::string& id, const std::string& filePath) {
-    // If texture is already loaded, return true
+bool AssetManager::loadTexture(const std::string& id, const std::string& filePath, const std::vector<Color>& colorKeys) {
     if (textures.find(id) != textures.end()) {
         return true;
     }
 
-    Texture2D tex = LoadTexture(filePath.c_str());
-    if (tex.id == 0) {
-        std::cerr << "Failed to load texture: " << filePath << std::endl;
+    Image img = LoadImage(filePath.c_str());
+    if (img.data == nullptr) {
+        std::cerr << "Failed to load image: " << filePath << std::endl;
         return false;
     }
+
+    for (Color c : colorKeys) {
+        ImageColorReplace(&img, c, BLANK);
+    }
+
+    Texture2D tex = LoadTextureFromImage(img);
+    UnloadImage(img);
 
     textures[id] = tex;
     return true;

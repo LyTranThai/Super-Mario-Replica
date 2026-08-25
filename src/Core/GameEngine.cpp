@@ -46,21 +46,31 @@ void GameEngine::init() {
     SoundManager::getInstance().loadSound("break", "assets/audio/break.wav");
 
     // Try to load textures
-    AssetManager::getInstance().loadTexture("mario", "assets/textures/player.png");
-    AssetManager::getInstance().loadTexture("luigi", "assets/textures/player.png");
-    AssetManager::getInstance().loadTexture("enemy", "assets/textures/mobs.png");
-    AssetManager::getInstance().loadTexture("world", "assets/textures/overworld1.png");
+    std::vector<Color> marioKeys = { Color{224, 104, 136, 255}, Color{255, 255, 255, 255} };
+    std::vector<Color> whiteKey = { Color{255, 255, 255, 255} };
+    std::vector<Color> mobKey = { Color{0, 64, 64, 255} };
+
+    AssetManager::getInstance().loadTexture("mario", "assets/textures/player.png", marioKeys);
+    AssetManager::getInstance().loadTexture("luigi", "assets/textures/player.png", marioKeys);
+    
+    AssetManager::getInstance().loadTexture("enemy", "assets/textures/mobs.png", mobKey);
+    AssetManager::getInstance().loadTexture("mobs", "assets/textures/mobs.png", mobKey);
+    
+    AssetManager::getInstance().loadTexture("world", "assets/textures/overworld1.png", whiteKey);
     AssetManager::getInstance().loadTexture("background", "assets/textures/Background.png");
-    AssetManager::getInstance().loadTexture("hill", "assets/textures/hill.png");
-    AssetManager::getInstance().loadTexture("mountain", "assets/textures/mountain.png");
+    AssetManager::getInstance().loadTexture("hill", "assets/textures/hill.png", whiteKey);
+    AssetManager::getInstance().loadTexture("mountain", "assets/textures/mountain.png", whiteKey);
+    AssetManager::getInstance().loadTexture("nobackgroundcloud", "assets/textures/nobackgroundcloud.png", whiteKey);
+    
     AssetManager::getInstance().loadTexture("thwomp", "assets/textures/thwomp.png");
     AssetManager::getInstance().loadTexture("brick", "assets/textures/brick.png");
     AssetManager::getInstance().loadTexture("question", "assets/textures/question.png");
     AssetManager::getInstance().loadTexture("mushroom", "assets/textures/mushroom.png");
     AssetManager::getInstance().loadTexture("flower", "assets/textures/flower.png");
     AssetManager::getInstance().loadTexture("star", "assets/textures/star.png");
-    AssetManager::getInstance().loadTexture("coin", "assets/textures/coin.png");
+    AssetManager::getInstance().loadTexture("coin", "assets/textures/coinblockreward.png", whiteKey);
     AssetManager::getInstance().loadTexture("fireball", "assets/textures/fireball.png");
+    AssetManager::getInstance().loadTexture("world11", "assets/textures/world11.png");
 
     // Load initial screen state
     SetExitKey(KEY_NULL); // Prevent ESC key from closing window in Raylib
@@ -86,7 +96,7 @@ void GameEngine::run() {
 
         // 3. Frame Rendering
         BeginDrawing();
-        ClearBackground(Color{ 92, 148, 252, 255 });
+        ClearBackground(Color{ 80, 136, 160, 255 });
 
         stateManager.draw();
 

@@ -33,10 +33,10 @@ void InteractiveBlock::update(float dt) {
 
 void InteractiveBlock::draw() {
     if (blockType == InteractiveBlockType::Question && isUsed) {
-        // Draw the hit empty question block texture (represented by solid block asset)
-        Texture2D tex = AssetManager::getInstance().getTexture("solid");
+        // Draw the hit empty question block texture
+        Texture2D tex = AssetManager::getInstance().getTexture("world11");
         if (tex.id != 0) {
-            Rectangle source = { 0.0f, 0.0f, (float)tex.width, (float)tex.height };
+            Rectangle source = { 3008.0f, 80.0f, 16.0f, 16.0f }; // (3008,80) -> (3023,96)
             Rectangle dest = getSpriteBox();
             DrawTexturePro(tex, source, dest, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
         } else {
@@ -89,6 +89,11 @@ void InteractiveBlock::hit(Player& player) {
                 player.addCoin();
                 player.addScore(200);
                 EventManager::getInstance().broadcast(EventType::CoinCollected);
+
+                // Spawn visual coin popping out upward
+                Vector2 spawnPos = { originalPosition.x, originalPosition.y - 32.0f };
+                ItemSpawnData spawnData = { spawnPos, ItemType::Coin };
+                EventManager::getInstance().broadcast(EventType::ItemSpawned, &spawnData);
             } 
             else if (hiddenItem != ItemType::None) {
                 // Spawn item popping out upward

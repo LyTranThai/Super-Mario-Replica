@@ -25,7 +25,11 @@ private:
     DynamicEntity* carriedEntity = nullptr;
     bool isCrouching;
     bool wantToStandUp;
-    static constexpr float crouchHeightPercentage = 0.6f;
+    bool isPipingFlag = false;
+    float pipingTimer = 0.0f;
+    Vector2 pipeTargetPos;
+    bool isExitPipe = false;
+    static constexpr float crouchHeightPercentage = 1.0f;
     SpriteAnimator animator;
 
     // Movement rates constants
@@ -81,6 +85,18 @@ public:
     void setCrouching(bool state) { isCrouching = state; }
     bool getWantToStandUp() const { return wantToStandUp; }
     void setWantToStandUp(bool state) { wantToStandUp = state; }
+
+    bool isPiping() const { return isPipingFlag; }
+    void startPiping(Vector2 target, bool isExit) {
+        isPipingFlag = true;
+        pipingTimer = 0.0f;
+        pipeTargetPos = target;
+        isExitPipe = isExit;
+        velocity = {0.0f, 0.0f};
+        isCrouching = false;
+        wantToStandUp = false;
+    }
+
     void getPowerStateDimensions(Vector2& outSpriteSize, Vector2& outHitboxSize, Vector2& outHitboxOffset) const;
     void applyHitboxDimensions();
     void configureAnimations();  // Setup spritesheet frames for current power state

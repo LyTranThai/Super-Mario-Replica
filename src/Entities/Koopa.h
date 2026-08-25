@@ -4,13 +4,14 @@
 #include "Enemy.h"
 #include "SpriteAnimator.h"
 
-class Koopa : public Enemy {
-private:
-    bool inShell;
-    bool shellMoving;
-    bool carried;
-    SpriteAnimator animator;
+enum class KoopaState {
+    Moving,
+    Shell,
+    PickedUp,
+    MovingShell
+};
 
+class Koopa : public Enemy {
 public:
     Koopa(Vector2 pos);
     ~Koopa() override = default;
@@ -19,14 +20,21 @@ public:
     void draw() override;
     void onCollision(Entity& other, CollisionSide side) override;
     void takeDamage() override;
-    
-    bool isInShell() const { return inShell; }
-    bool isShellMoving() const { return shellMoving; }
-    void setShellMoving(bool state) { shellMoving = state; }
-    
-    void setCarried(bool state) { carried = state; }
-    bool isCarried() const { return carried; }
-    void beingCarried(Entity& other);
+
+    bool avoidsCliffs() const override;
+
+    bool isInShell() const { 
+        return currentState == KoopaState::Shell || 
+               currentState == KoopaState::PickedUp || 
+               currentState == KoopaState::MovingShell; 
+    }
+    bool isShellMoving() const { 
+        return currentState == KoopaState::MovingShell; 
+    }
+
+private:
+    KoopaState currentState;
+    SpriteAnimator animator;
 };
 
 #endif // KOOPA_H

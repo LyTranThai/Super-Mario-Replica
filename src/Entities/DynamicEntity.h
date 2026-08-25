@@ -34,6 +34,8 @@ public:
 
     bool isFacingRight() const { return facingRight; }
     void setFacingRight(bool state) { facingRight = state; }
+
+    virtual bool avoidsCliffs() const { return false; }
 };
 
 #endif // DYNAMIC_ENTITY_H

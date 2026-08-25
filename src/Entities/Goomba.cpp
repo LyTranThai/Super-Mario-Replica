@@ -8,12 +8,12 @@ Goomba::Goomba(Vector2 pos)
       deathTimer(0.0f), isDead(false) {
     
     animator.addAnimation(AnimState::Walk, {
-        Rectangle{ 0.0f, 16.0f, 16.0f, 16.0f },
-        Rectangle{ 18.0f, 16.0f, 16.0f, 16.0f }
+        Rectangle{ 1.0f, 45.0f, 16.0f, 16.0f },
+        Rectangle{ 18.0f, 45.0f, 16.0f, 16.0f }
     }, 0.2f);
     
     animator.addAnimation(AnimState::Die, {
-        Rectangle{ 36.0f, 24.0f, 16.0f, 8.0f }
+        Rectangle{ 35.0f, 45.0f, 16.0f, 16.0f }
     }, 1.0f, false);
     
     animator.setState(AnimState::Walk);

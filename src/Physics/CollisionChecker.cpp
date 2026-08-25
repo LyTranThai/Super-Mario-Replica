@@ -98,6 +98,47 @@ void CollisionChecker::sweepEntity(DynamicEntity* dyn, const std::vector<std::un
     for (auto const& other : entities) processOverlap(other.get(), true);
     if (player) processOverlap(player, true);
 
+    // --- Ledge detection ---
+    if (dyn->avoidsCliffs() && dyn->isOnGround()) {
+        Rectangle dBox = dyn->getBoundingBox();
+        vel = dyn->getVelocity(); // Update vel in case processOverlap changed it
+        
+        Rectangle ledgeBox;
+        ledgeBox.width = 2.0f;
+        ledgeBox.height = 2.0f;
+        ledgeBox.y = dBox.y + dBox.height + 1.0f; // Just below the bounding box
+        
+        if (vel.x > 0) {
+            ledgeBox.x = dBox.x + dBox.width - 2.0f; // Front right edge
+        } else if (vel.x < 0) {
+            ledgeBox.x = dBox.x; // Front left edge
+        } else {
+            ledgeBox.width = 0; // Not moving, no check
+        }
+        
+        if (ledgeBox.width > 0) {
+            bool hasGround = false;
+            for (auto const& other : entities) {
+                if (other.get() != dyn && other->isSolidFrom(CollisionSide::Top, dyn)) {
+                    if (checkAABB(ledgeBox, other->getBoundingBox())) {
+                        hasGround = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (!hasGround) {
+                // Revert horizontal move and turn around
+                pos = dyn->getPosition(); // get current position
+                pos.x -= vel.x * dt;
+                dyn->setPosition(pos);
+                vel.x = -vel.x;
+                dyn->setVelocity(vel);
+                dyn->setFacingRight(vel.x > 0);
+            }
+        }
+    }
+
     // --- Move vertically ---
     pos.y += vel.y * dt;
     dyn->setPosition(pos);
@@ -158,7 +199,7 @@ void CollisionChecker::updatePhysics(std::vector<std::unique_ptr<Entity>>& entit
     }
 
     // 1. Sweep Player
-    if (player.isActive()) {
+    if (player.isActive() && !player.isPiping()) {
         sweepEntity(&player, entities, nullptr, dt);
     }
 

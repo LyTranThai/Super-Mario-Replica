@@ -22,8 +22,8 @@ struct ItemSpawnData {
 GameplayState::GameplayState() : GameplayState(0) {}
 
 GameplayState::GameplayState(int startLevelIndex) : currentLevelIndex(startLevelIndex) {
-    // Setup list of standard + custom levels
-    levelFiles = { "assets/levels/level1.txt", "assets/levels/level2.txt", "assets/levels/level3.txt", "assets/levels/custom_level.txt" };
+    // Setup list of standard + custom + random levels
+    levelFiles = { "assets/levels/level1.txt", "assets/levels/level2.txt", "assets/levels/level3.txt", "assets/levels/custom_level.txt", "RANDOM" };
 }
 
 GameplayState::~GameplayState() {
@@ -127,6 +127,9 @@ void GameplayState::onEvent(EventType type, void* data) {
                 } else if (spawn->type == ItemType::Star) {
                     tex = "star";
                     dbgCol = GOLD;
+                } else if (spawn->type == ItemType::Coin) {
+                    tex = "coin";
+                    dbgCol = YELLOW;
                 }
                 level->spawnEntity(std::make_unique<Item>(spawn->position, spawn->type, tex, dbgCol));
             }
