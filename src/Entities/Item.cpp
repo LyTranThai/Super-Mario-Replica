@@ -14,7 +14,7 @@ Item::Item(Vector2 pos, ItemType type, const std::string& texID, Color dbgColor)
     onGround = true; // Stay stationary during spawn rising
 
     if (itemType == ItemType::Mushroom) {
-        textureID = "world";
+        textureID = "coin"; // Uses coinblockreward.png
         animator.addAnimation(AnimState::Idle, {
             Rectangle{ 0.0f, 176.0f, 16.0f, 16.0f },
             Rectangle{ 16.0f, 176.0f, 16.0f, 16.0f }

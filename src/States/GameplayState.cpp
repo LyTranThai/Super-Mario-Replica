@@ -6,6 +6,7 @@
 #include "World/Level.h"
 #include "Entities/Fireball.h"
 #include "Entities/Item.h"
+#include "Entities/Mushroom.h"
 #include "Persistence/SaveManager.h"
 #include <iostream>
 
@@ -119,19 +120,23 @@ void GameplayState::onEvent(EventType type, void* data) {
         case EventType::ItemSpawned: {
             ItemSpawnData* spawn = static_cast<ItemSpawnData*>(data);
             if (spawn) {
-                std::string tex = "mushroom";
-                Color dbgCol = RED;
-                if (spawn->type == ItemType::FireFlower) {
-                    tex = "flower";
-                    dbgCol = ORANGE;
-                } else if (spawn->type == ItemType::Star) {
-                    tex = "star";
-                    dbgCol = GOLD;
-                } else if (spawn->type == ItemType::Coin) {
-                    tex = "coin";
-                    dbgCol = YELLOW;
+                if (spawn->type == ItemType::Mushroom) {
+                    level->spawnEntity(std::make_unique<Mushroom>(spawn->position));
+                } else {
+                    std::string tex = "mushroom";
+                    Color dbgCol = RED;
+                    if (spawn->type == ItemType::FireFlower) {
+                        tex = "flower";
+                        dbgCol = ORANGE;
+                    } else if (spawn->type == ItemType::Star) {
+                        tex = "star";
+                        dbgCol = GOLD;
+                    } else if (spawn->type == ItemType::Coin) {
+                        tex = "coin";
+                        dbgCol = YELLOW;
+                    }
+                    level->spawnEntity(std::make_unique<Item>(spawn->position, spawn->type, tex, dbgCol));
                 }
-                level->spawnEntity(std::make_unique<Item>(spawn->position, spawn->type, tex, dbgCol));
             }
             break;
         }

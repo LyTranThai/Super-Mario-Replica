@@ -98,6 +98,10 @@ void InteractiveBlock::hit(Player& player) {
             else if (hiddenItem != ItemType::None) {
                 // Spawn item popping out upward
                 Vector2 spawnPos = { originalPosition.x, originalPosition.y - 32.0f };
+                if (hiddenItem == ItemType::Mushroom) {
+                    spawnPos.x += 16.0f;
+                    spawnPos.y -= 16.0f;
+                }
                 ItemSpawnData spawnData = { spawnPos, hiddenItem };
                 EventManager::getInstance().broadcast(EventType::ItemSpawned, &spawnData);
             }
