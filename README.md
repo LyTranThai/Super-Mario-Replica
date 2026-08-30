@@ -31,11 +31,18 @@ cmake --build . --config Release
   - Independent 2D vectors (`Vector2`) calculate vertical gravity and horizontal speed separate from each other to ensure responsive movement weight.
   - Instantly stops and accelerates based on inputs (muscle memory feel) and caps vertical fall speed with a `terminalVelocity` ceiling to prevent solid block clipping.
   - Mid-air **Double Jump** tracked via jump counters.
+- **Interactive Environment & Block Mechanics**:
+
+   - Dynamic Polymorphic Blocks: Utilizes an InteractiveBlock base class to handle bottom-up hits. Small Mario triggers a smooth trigonometric bounce animation (bounceTimer), while Super/Fire Mario explicitly destroys BreakableBlock instances.
+
+   - Item & Coin Spawning: Hitting designated blocks seamlessly spawns hidden items. Coins feature custom kinematic overrides (popping up and despawning) without interfering with the standard gravity system.
 - **Fair-play Collision Manager (Look-Ahead & Recovery)**:
   - **Predictive Look-Ahead**: Separately checks projected horizontal and vertical coordinates relative to velocity vectors and delta times. Snaps vertical coordinates to solid ground tops and cancels sliding.
+  - **Dynamic Bottom-Up Triggers** : Explicitly detects upward velocity collisions (vel.y < 0.0f) to trigger polymorphic onInteract() events on specific environmental entities.
   - **Stuck Recovery (Push-out fallback)**: Evaluates Minimum Translation Vector overlays to push out any clipped entities along their shallowest axis.
   - **Solid Filtering**: Selectively checks collisions (e.g. allows emerging mushrooms or piranha plant pipe movements to bypass solid collisions temporarily).
   - **Visual vs. Hitbox Separation**: Hitboxes (`hitboxSize` and `hitboxOffset`) are decoupled and slightly smaller than visual sizes (`spriteSize`) for a lenient and forgiving gaming experience.
+- Efficient Memory Management (NEW): Safely deallocates inactive/destroyed entities (like broken bricks and collected coins) dynamically during the game loop using the modern C++ erase-remove idiom to prevent memory leaks and frame drops.
 - **Asset Fallback System**: If custom sprites (`.png`) or audio files (`.wav`) are missing from `/assets/`, the engine draws colored debug rectangles and bypasses audio checks, preventing runtime crashes.
 - **User Accounts and Progress Saving**: Local data persistence serializes profiles (key configuration, levels unlocked, and high scores) into simple text streams inside the `accounts/` directory.
 - **Decoupled Settings**: Rebind gameplay keys through the main menu settings screen, which automatically saves config settings to user profile text files.
@@ -105,14 +112,16 @@ src/
 │   │   └── RockHead.h / .cpp    # Vertical dropping crusher
 │   ├── StaticEntity.h / .cpp    # Base class for stationary blocks
 │   │   ├── Block.h / .cpp       # Immovable solid ground
-│   │   └── InteractiveBlock.h   # Breakable brick blocks and item spawner blocks
-│   └── Item.h / .cpp            # Mushrooms, Fire Flowers, Stars, and Coins
+│   │   ├── InteractiveBlock.h/.cpp # Base class for interactive bounceable blocks (NEW)
+│   │   ├── BreakableBlock.h/.cpp   # Destructible brick blocks (NEW)
+│   │   └── CoinBlock.h/.cpp        # Blocks yielding coins and items (NEW)
+│   └── Item.h / .cpp            # Mushrooms, Fire Flowers, Stars, and Coins (Updated Kinematics)
 ├── Persistence/
 │   ├── Account.h / .cpp         # Credentials, settings, and progress model
 │   └── SaveManager.h / .cpp     # File streams serializer writing to accounts/
 ├── Physics/
 │   ├── Camera.h / .cpp          # GameCamera clamped to level horizontal bounds
-│   └── CollisionManager.h/.cpp  # Predictor axis checker and MTV push-out solver
+│   └── CollisionManager.h/.cpp  # Predictor axis checker, MTV push-out solver, and Interaction Triggers
 ├── States/
 │   ├── MainMenuState.h / .cpp   # Login/Register UI, level selector, and settings rebind overlays
 │   ├── GameplayState.h / .cpp   # Level updates loop and camera viewport ticker
