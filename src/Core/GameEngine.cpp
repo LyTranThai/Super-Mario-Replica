@@ -67,7 +67,6 @@ void GameEngine::init() {
     AssetManager::getInstance().loadTexture("question", "assets/textures/question.png");
     AssetManager::getInstance().loadTexture("mushroom", "assets/textures/mushroom.png");
     AssetManager::getInstance().loadTexture("flower", "assets/textures/flower.png");
-    AssetManager::getInstance().loadTexture("star", "assets/textures/star.png");
     AssetManager::getInstance().loadTexture("coin", "assets/textures/coinblockreward.png", whiteKey);
     AssetManager::getInstance().loadTexture("fireball", "assets/textures/fireball.png");
     AssetManager::getInstance().loadTexture("world11", "assets/textures/world11.png");

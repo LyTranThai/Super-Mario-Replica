@@ -11,7 +11,6 @@ enum class InteractiveBlockType {
 enum class ItemType {
     Mushroom,
     FireFlower,
-    Star,
     Coin,
     None
 };

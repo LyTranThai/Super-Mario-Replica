@@ -30,9 +30,7 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
         case 'F': // Question Block with FireFlower
             return std::make_unique<InteractiveBlock>(pos, InteractiveBlockType::Question, ItemType::FireFlower);
         
-        case 'S': // Question Block with Star
-            return std::make_unique<InteractiveBlock>(pos, InteractiveBlockType::Question, ItemType::Star);
-        
+                
         case 'G': // Goomba Enemy
             return std::make_unique<Goomba>(pos);
         

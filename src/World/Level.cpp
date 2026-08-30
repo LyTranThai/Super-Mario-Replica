@@ -78,11 +78,7 @@ void Level::generateChunk(float startX, float endX) {
                         lines[newY][c + i] = 'B';
                     } else {
                         // Pick a random mysterious block
-                        int mysteryChoice = rand() % 4;
-                        if (mysteryChoice == 0) lines[newY][c + i] = '?';
-                        else if (mysteryChoice == 1) lines[newY][c + i] = 'M';
-                        else if (mysteryChoice == 2) lines[newY][c + i] = 'F';
-                        else lines[newY][c + i] = 'M'; // Replaced 'S' (Star) with 'M' (Mushroom)
+                        lines[newY][c + i] = 'M'; // Only spawn Mushroom to avoid debug rectangles
                     }
                 }
                 

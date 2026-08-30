@@ -41,10 +41,6 @@ void Item::update(float dt) {
             if (itemType == ItemType::Mushroom) {
                 velocity.x = 80.0f;
                 facingRight = true;
-            } else if (itemType == ItemType::Star) {
-                velocity.x = 120.0f;
-                facingRight = true;
-                velocity.y = -200.0f;
             } else if (itemType == ItemType::Coin) {
                 // Coin disappears after popping up
                 active = false;
@@ -60,13 +56,6 @@ void Item::update(float dt) {
             velocity = Vector2{ 0.0f, 0.0f };
             onGround = true; // No physics
         } 
-        else if (itemType == ItemType::Star) {
-            velocity.x = facingRight ? 120.0f : -120.0f;
-            if (onGround) {
-                velocity.y = -250.0f; // Bounce!
-                onGround = false;
-            }
-        }
     }
 }
 
@@ -85,14 +74,6 @@ void Item::onCollision(Entity& other, CollisionSide side) {
             player->powerUp(PowerStateType::Fire);
             EventManager::getInstance().broadcast(EventType::CoinCollected);
         } 
-        else if (itemType == ItemType::Star) {
-            // Invincibility star
-            player->addScore(1000);
-            // Toggle invincibility in player
-            // We set long invincibility frames (e.g. 10 seconds)
-            player->takeDamage(); // Set invincibility directly
-            EventManager::getInstance().broadcast(EventType::CoinCollected);
-        }
     } 
     else if (other.isSolid()) {
         if (side == CollisionSide::Left || side == CollisionSide::Right) {

@@ -128,9 +128,6 @@ void GameplayState::onEvent(EventType type, void* data) {
                     if (spawn->type == ItemType::FireFlower) {
                         tex = "flower";
                         dbgCol = ORANGE;
-                    } else if (spawn->type == ItemType::Star) {
-                        tex = "star";
-                        dbgCol = GOLD;
                     } else if (spawn->type == ItemType::Coin) {
                         tex = "coin";
                         dbgCol = YELLOW;
