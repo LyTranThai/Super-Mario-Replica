@@ -52,12 +52,46 @@ void Level::generateChunk(float startX, float endX) {
         }
         
         if (globalCol > 10) {
-            if (rand() % 3 == 0) {
-                int r = height - 6 - (rand() % 3);
-                lines[r][c] = (rand() % 2 == 0) ? '?' : 'B';
-                if (rand() % 4 == 0) lines[r][c] = 'M';
-                else if (rand() % 5 == 0) lines[r][c] = 'F';
-                else if (rand() % 9 == 0) lines[r][c] = 'S';
+            // New algorithm: check if we are far enough from the last segment
+            // "at least 20 greater than x, 20 smaller than y"
+            // Since columns are 32px, 20 columns would be huge. 
+            // We'll enforce a distance of at least 20 pixels in X (which is 1 column)
+            // But if they meant 20 columns, globalCol >= lastSegmentEndX + 20 does that.
+            // Let's assume they meant 20 pixels (~1 tile) for both, or 20 columns?
+            // We'll use 20 columns as X distance to space them out nicely, 
+            // and at least 20 pixels (~1 tile) higher in Y.
+            // To prevent going out of bounds at the top, we'll reset to bottom if needed.
+            if (globalCol >= lastSegmentEndX + 20) {
+                // Calculate new Y. "20 smaller than y" => y_pixel <= last_y_pixel - 20.
+                int newY = lastSegmentY - 1; // at least 1 tile (32px) higher, which is > 20px
+                if (newY < 2 || lastSegmentY == 0) {
+                    newY = height - 5 - (rand() % 4); // Reset height if it reaches the ceiling
+                }
+
+                int segmentLength = 1 + (rand() % 6); // Random length (1 to 6)
+                int startType = 1 + (rand() % 2); // 1 = Brick, 2 = Mystery
+
+                for (int i = 0; i < segmentLength && c + i < width; ++i) {
+                    bool isBrick = ((startType == 1 && i % 2 == 0) || (startType == 2 && i % 2 != 0));
+                    
+                    if (isBrick) {
+                        lines[newY][c + i] = 'B';
+                    } else {
+                        // Pick a random mysterious block
+                        int mysteryChoice = rand() % 4;
+                        if (mysteryChoice == 0) lines[newY][c + i] = '?';
+                        else if (mysteryChoice == 1) lines[newY][c + i] = 'M';
+                        else if (mysteryChoice == 2) lines[newY][c + i] = 'F';
+                        else lines[newY][c + i] = 'M'; // Replaced 'S' (Star) with 'M' (Mushroom)
+                    }
+                }
+                
+                lastSegmentEndX = globalCol + segmentLength - 1;
+                lastSegmentY = newY;
+                
+                // Skip the loop counter forward by the segment length we just drew
+                // (subtract 1 because the while loop does c++ later)
+                c += segmentLength - 1; 
             }
             
             if (rand() % 4 == 0 && lines[height - 1][c] == '#') {
@@ -151,6 +185,8 @@ void Level::loadFromFile(const std::string& filePath) {
 
     isInfinite = false;
     currentGenerationX = 0.0f;
+    lastSegmentEndX = 0;
+    lastSegmentY = 0;
     camera.setLeftLocked(false);
 
     if (filePath == "RANDOM" || filePath == "assets/levels/random_level.txt") {
@@ -415,6 +451,14 @@ void Level::update(float dt) {
             camera.update(player->getPosition(), dt);
         }
     }
+
+    // 6. Add any entities spawned during the update step to prevent iterator invalidation
+    if (!pendingEntities.empty()) {
+        for (auto& newEnt : pendingEntities) {
+            entities.push_back(std::move(newEnt));
+        }
+        pendingEntities.clear();
+    }
 }
 void Level::drawScenery() {
     // Fill the lower layer below the ground
@@ -541,6 +585,6 @@ void Level::draw() {
 
 void Level::spawnEntity(std::unique_ptr<Entity> newEntity) {
     if (newEntity) {
-        entities.push_back(std::move(newEntity));
+        pendingEntities.push_back(std::move(newEntity));
     }
 }

@@ -12,6 +12,7 @@
 class Level {
 private:
     std::vector<std::unique_ptr<Entity>> entities;
+    std::vector<std::unique_ptr<Entity>> pendingEntities;
     std::unique_ptr<Player> player;
     GameCamera camera;
     CollisionChecker collisionChecker;
@@ -22,6 +23,8 @@ private:
     bool isCompleted;
     bool isInfinite;
     float currentGenerationX;
+    int lastSegmentEndX;
+    int lastSegmentY;
 
     void generateChunk(float startX, float endX);
 
