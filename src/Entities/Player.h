@@ -10,9 +10,14 @@
 
 class InputManager;
 
-enum class CharacterType { Mario, Luigi };
+enum class CharacterType
+{
+    Mario,
+    Luigi
+};
 
-class Player : public DynamicEntity {
+class Player : public DynamicEntity
+{
 private:
     CharacterType charType;
     int lives;
@@ -20,9 +25,9 @@ private:
     int coins;
     int jumpCount;
     float invincibilityTimer;
-    PlayerPowerState* powerState;
+    PlayerPowerState *powerState;
     std::unique_ptr<SpecialMove> specialMove;
-    DynamicEntity* carriedEntity = nullptr;
+    DynamicEntity *carriedEntity = nullptr;
     bool isCrouching;
     bool wantToStandUp;
     bool isPipingFlag = false;
@@ -44,22 +49,22 @@ public:
 
     void update(float dt) override;
     void draw() override;
-    void onCollision(Entity& other, CollisionSide side) override;
+    void onCollision(Entity &other, CollisionSide side) override;
 
-    void handleInput(const InputManager& input);
+    void handleInput(const InputManager &input);
     void jump();
-    int getjumpCount() const {return jumpCount;};
-    void setjumpCount(int s) {jumpCount = s < 0 ? 1 : std::min(s, jumpCount);};
+    int getjumpCount() const { return jumpCount; };
+    void setjumpCount(int s) { jumpCount = s < 0 ? 1 : std::min(s, jumpCount); };
     void takeDamage();
     void powerUp(PowerStateType type);
     void shootFireball();
-    
+
     void setSpecialMove(std::unique_ptr<SpecialMove> move);
     void throwCarriedEntity();
 
     // Accessors
-    void setCarriedEntity(DynamicEntity* entity) { carriedEntity = entity; }
-    DynamicEntity* getCarriedEntity() const { return carriedEntity; }
+    void setCarriedEntity(DynamicEntity *entity) { carriedEntity = entity; }
+    DynamicEntity *getCarriedEntity() const { return carriedEntity; }
 
     int getLives() const { return lives; }
     void setLives(int l) { lives = l; }
@@ -68,9 +73,11 @@ public:
     void addScore(int s) { score += s; }
 
     int getCoins() const { return coins; }
-    void addCoin() { 
-        coins++; 
-        if (coins >= 100) {
+    void addCoin()
+    {
+        coins++;
+        if (coins >= 100)
+        {
             coins = 0;
             lives++;
         }
@@ -78,7 +85,7 @@ public:
 
     bool isInvincible() const { return invincibilityTimer > 0.0f; }
     PowerStateType getPowerType() const { return powerState->getType(); }
-    void changePowerState(PlayerPowerState* newState);
+    void changePowerState(PlayerPowerState *newState);
     void setOnGround(bool state) override;
 
     bool isPlayerCrouching() const { return isCrouching; }
@@ -87,7 +94,8 @@ public:
     void setWantToStandUp(bool state) { wantToStandUp = state; }
 
     bool isPiping() const { return isPipingFlag; }
-    void startPiping(Vector2 target, bool isExit) {
+    void startPiping(Vector2 target, bool isExit)
+    {
         isPipingFlag = true;
         pipingTimer = 0.0f;
         pipeTargetPos = target;
@@ -95,9 +103,10 @@ public:
         velocity = {0.0f, 0.0f};
         isCrouching = false;
         wantToStandUp = false;
+        EventManager::getInstance().broadcast(EventType::PipeWarp);
     }
 
-    void getPowerStateDimensions(Vector2& outSpriteSize, Vector2& outHitboxSize, Vector2& outHitboxOffset) const;
+    void getPowerStateDimensions(Vector2 &outSpriteSize, Vector2 &outHitboxSize, Vector2 &outHitboxOffset) const;
     void applyHitboxDimensions();
     void configureAnimations();  // Setup spritesheet frames for current power state
     void updateAnimationState(); // Pick animation based on physics state

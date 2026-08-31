@@ -18,6 +18,9 @@ FetchContent_Declare(
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(BUILD_GAMES OFF CACHE BOOL "" FORCE)
 set(USE_AUDIO ON CACHE BOOL "" FORCE)
+# Enable OGG/Vorbis audio format support
+set(SUPPORT_FILEFORMAT_OGG ON CACHE BOOL "" FORCE)
+set(SUPPORT_FILEFORMAT_FLAC ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(raylib)
 

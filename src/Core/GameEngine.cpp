@@ -19,12 +19,15 @@
 
 GameEngine::GameEngine() : isRunning(true), isInitialized(false) {}
 
-GameEngine::~GameEngine() {
+GameEngine::~GameEngine()
+{
     cleanup();
 }
 
-void GameEngine::init() {
-    if (isInitialized) return;
+void GameEngine::init()
+{
+    if (isInitialized)
+        return;
     const int screenWidth = 800;
     const int screenHeight = 600;
 
@@ -37,7 +40,7 @@ void GameEngine::init() {
 
     // Check directory folders
     // Create local directories if missing (will be handled by file structure, but verify)
-    // Try to load standard sound assets (optional: falls back if missing)
+    // Load sound effects (WAV files - high quality Raylib compatible)
     SoundManager::getInstance().loadSound("jump", "assets/audio/jump.wav");
     SoundManager::getInstance().loadSound("stomp", "assets/audio/stomp.wav");
     SoundManager::getInstance().loadSound("coin", "assets/audio/coin.wav");
@@ -45,23 +48,33 @@ void GameEngine::init() {
     SoundManager::getInstance().loadSound("die", "assets/audio/die.wav");
     SoundManager::getInstance().loadSound("break", "assets/audio/break.wav");
 
+    // Load additional sound effects for power-ups and events
+    SoundManager::getInstance().loadSound("power_up", "assets/audio/power_up.wav");
+    SoundManager::getInstance().loadSound("game_over", "assets/audio/game_over.wav");
+    SoundManager::getInstance().loadSound("koopa_kicked", "assets/audio/SMB_Kicked.wav");
+    SoundManager::getInstance().loadSound("pipe_warp", "assets/audio/PipeWarp.wav");
+
+    // Load background music (BGM)
+    SoundManager::getInstance().loadMusic("level_theme", "assets/audio/level_theme.wav");
+    SoundManager::getInstance().loadMusic("menu_theme", "assets/audio/level_theme.wav"); // Reuse for now
+
     // Try to load textures
-    std::vector<Color> marioKeys = { Color{224, 104, 136, 255}, Color{255, 255, 255, 255} };
-    std::vector<Color> whiteKey = { Color{255, 255, 255, 255} };
-    std::vector<Color> mobKey = { Color{0, 64, 64, 255} };
+    std::vector<Color> marioKeys = {Color{224, 104, 136, 255}, Color{255, 255, 255, 255}};
+    std::vector<Color> whiteKey = {Color{255, 255, 255, 255}};
+    std::vector<Color> mobKey = {Color{0, 64, 64, 255}};
 
     AssetManager::getInstance().loadTexture("mario", "assets/textures/player.png", marioKeys);
     AssetManager::getInstance().loadTexture("luigi", "assets/textures/player.png", marioKeys);
-    
+
     AssetManager::getInstance().loadTexture("enemy", "assets/textures/mobs.png", mobKey);
     AssetManager::getInstance().loadTexture("mobs", "assets/textures/mobs.png", mobKey);
-    
+
     AssetManager::getInstance().loadTexture("world", "assets/textures/overworld1.png", whiteKey);
     AssetManager::getInstance().loadTexture("background", "assets/textures/Background.png");
     AssetManager::getInstance().loadTexture("hill", "assets/textures/hill.png", whiteKey);
     AssetManager::getInstance().loadTexture("mountain", "assets/textures/mountain.png", whiteKey);
     AssetManager::getInstance().loadTexture("nobackgroundcloud", "assets/textures/nobackgroundcloud.png", whiteKey);
-    
+
     AssetManager::getInstance().loadTexture("thwomp", "assets/textures/thwomp.png");
     AssetManager::getInstance().loadTexture("brick", "assets/textures/brick.png");
     AssetManager::getInstance().loadTexture("question", "assets/textures/question.png");
@@ -77,8 +90,10 @@ void GameEngine::init() {
     stateManager.pushState(new MainMenuState());
 }
 
-void GameEngine::run() {
-    while (isRunning && !WindowShouldClose()) {
+void GameEngine::run()
+{
+    while (isRunning && !WindowShouldClose())
+    {
         stateManager.processPendingActions();
 
         // 1. Input Processing
@@ -88,14 +103,15 @@ void GameEngine::run() {
         // 2. Physics & Logic Update
         float dt = GetFrameTime();
         // Cap dt to prevent massive jumps when dragging window
-        if (dt > 0.1f) dt = 0.1f;
+        if (dt > 0.1f)
+            dt = 0.1f;
 
         stateManager.update(dt);
         SoundManager::getInstance().update(); // Update streaming music streams
 
         // 3. Frame Rendering
         BeginDrawing();
-        ClearBackground(Color{ 80, 136, 160, 255 });
+        ClearBackground(Color{80, 136, 160, 255});
 
         stateManager.draw();
 
@@ -103,8 +119,10 @@ void GameEngine::run() {
     }
 }
 
-void GameEngine::cleanup() {
-    if (!isInitialized) return;
+void GameEngine::cleanup()
+{
+    if (!isInitialized)
+        return;
     stateManager.clear();
     AssetManager::getInstance().clear();
     SoundManager::getInstance().cleanup();
@@ -112,24 +130,28 @@ void GameEngine::cleanup() {
     isInitialized = false;
 }
 
-void GameEngine::disableWindowIME() {
+void GameEngine::disableWindowIME()
+{
 #ifdef _WIN32
     // Safely attempt dynamic loading of imm32.dll
     HMODULE hImm32 = LoadLibraryA("imm32.dll");
-    if (hImm32) {
-        typedef BOOL (WINAPI *ImmDisableIMEPtr)(DWORD);
-        typedef HIMC (WINAPI *ImmAssociateContextPtr)(HWND, HIMC);
+    if (hImm32)
+    {
+        typedef BOOL(WINAPI * ImmDisableIMEPtr)(DWORD);
+        typedef HIMC(WINAPI * ImmAssociateContextPtr)(HWND, HIMC);
 
         // Cast through void* to suppress GCC incompatible function pointer cast warning
-        ImmDisableIMEPtr pImmDisableIME = (ImmDisableIMEPtr)(void*)GetProcAddress(hImm32, "ImmDisableIME");
-        ImmAssociateContextPtr pImmAssociateContext = (ImmAssociateContextPtr)(void*)GetProcAddress(hImm32, "ImmAssociateContext");
+        ImmDisableIMEPtr pImmDisableIME = (ImmDisableIMEPtr)(void *)GetProcAddress(hImm32, "ImmDisableIME");
+        ImmAssociateContextPtr pImmAssociateContext = (ImmAssociateContextPtr)(void *)GetProcAddress(hImm32, "ImmAssociateContext");
 
-        if (pImmDisableIME) {
+        if (pImmDisableIME)
+        {
             pImmDisableIME(-1); // Disable IME for all threads of this process
         }
 
         HWND hwnd = (HWND)GetWindowHandle();
-        if (hwnd && pImmAssociateContext) {
+        if (hwnd && pImmAssociateContext)
+        {
             pImmAssociateContext(hwnd, NULL); // Dissociate IME context for the game window
         }
     }
