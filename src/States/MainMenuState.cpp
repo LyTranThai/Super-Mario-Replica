@@ -37,6 +37,7 @@ void MainMenuState::handleInput(const InputManager& input) {
             if (currentAcc.getUsername().empty()) {
                 Account guest("Guest", "");
                 guest.loadKeySettings(activeAccount.getKeySettings());
+                guest.setSelectedCharacter(currentAcc.getSelectedCharacter());
                 GameEngine::getInstance().setActiveAccount(guest);
             }
             GameEngine::getInstance().getStateManager().pushState(new LevelSelectState());

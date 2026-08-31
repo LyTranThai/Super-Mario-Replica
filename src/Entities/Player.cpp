@@ -350,7 +350,7 @@ void Player::configureAnimations() {
             animator.addAnimation(AnimState::Skid, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
             animator.addAnimation(AnimState::Die, { Rectangle{ 322.0f, 24.0f, 16.0f, 16.0f } }, 1.0f, false);
             animator.addAnimation(AnimState::Crouch, { Rectangle{ 235.0f, 53.0f, 13.0f, 16.0f } }, 1.0f);
-            animator.addAnimation(AnimState::Pipe, { Rectangle{ 235.0f, 53.0f, 13.0f, 16.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 284.0f, 53.0f, 16.0f, 16.0f } }, 1.0f);
         } else {
             animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 24.0f, 16.0f, 16.0f } }, 1.0f);
             animator.addAnimation(AnimState::Walk, { Rectangle{ 26.0f, 24.0f, 16.0f, 16.0f }, Rectangle{ 43.0f, 24.0f, 16.0f, 16.0f } }, 0.1f);
