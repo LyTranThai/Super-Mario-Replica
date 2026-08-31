@@ -10,32 +10,41 @@
 #include "Persistence/SaveManager.h"
 #include <iostream>
 
-struct FireballSpawnData {
+struct FireballSpawnData
+{
     Vector2 position;
     bool facingRight;
 };
 
-struct ItemSpawnData {
+struct ItemSpawnData
+{
     Vector2 position;
     ItemType type;
 };
 
 GameplayState::GameplayState() : GameplayState(0) {}
 
-GameplayState::GameplayState(int startLevelIndex) : currentLevelIndex(startLevelIndex) {
+GameplayState::GameplayState(int startLevelIndex) : currentLevelIndex(startLevelIndex)
+{
     // Setup list of standard + custom + random levels
-    levelFiles = { "assets/levels/level1.txt", "assets/levels/level2.txt", "assets/levels/level3.txt", "assets/levels/custom_level.txt", "RANDOM" };
+    levelFiles = {"assets/levels/level1.txt", "assets/levels/level2.txt", "assets/levels/level3.txt", "assets/levels/custom_level.txt", "RANDOM"};
 }
 
-GameplayState::~GameplayState() {
+GameplayState::~GameplayState()
+{
     EventManager::getInstance().unsubscribe(EventType::FireballShot, this);
     EventManager::getInstance().unsubscribe(EventType::ItemSpawned, this);
     EventManager::getInstance().unsubscribe(EventType::LevelCompleted, this);
     EventManager::getInstance().unsubscribe(EventType::PlayerDied, this);
+
+    // Restore menu music when exiting gameplay
+    SoundManager::getInstance().playMusic("menu_theme");
 }
 
-void GameplayState::init() {
-    if (currentLevelIndex < 0 || currentLevelIndex >= (int)levelFiles.size()) {
+void GameplayState::init()
+{
+    if (currentLevelIndex < 0 || currentLevelIndex >= (int)levelFiles.size())
+    {
         currentLevelIndex = 0;
     }
 
@@ -48,149 +57,187 @@ void GameplayState::init() {
     EventManager::getInstance().subscribe(EventType::PlayerDied, this);
 }
 
-void GameplayState::loadLevel(int index) {
+void GameplayState::loadLevel(int index)
+{
     level = std::make_unique<Level>(levelFiles[index]);
-    
-    // Play level theme sound
-    SoundManager::getInstance().playMusic("level_theme");
+
+    // Stop background music during gameplay (avoid audio mixing with SFX)
+    SoundManager::getInstance().stopMusic();
 }
 
-void GameplayState::handleInput(const InputManager& input) {
-    if (input.isActionJustPressed(Action::Pause)) {
+void GameplayState::handleInput(const InputManager &input)
+{
+    if (input.isActionJustPressed(Action::Pause))
+    {
         // Toggle pause overlay
         GameEngine::getInstance().getStateManager().pushState(new PauseState());
-    } else {
-        if (level && level->getPlayer()) {
+    }
+    else
+    {
+        if (level && level->getPlayer())
+        {
             level->getPlayer()->handleInput(input);
         }
     }
 }
 
-void GameplayState::update(float dt) {
-    if (pendingGameOver) {
+void GameplayState::update(float dt)
+{
+    if (pendingGameOver)
+    {
         pendingGameOver = false;
-        GameStateManager& gsm = GameEngine::getInstance().getStateManager();
+        GameStateManager &gsm = GameEngine::getInstance().getStateManager();
         gsm.popState();
         gsm.pushState(new GameOverState(false, pendingScore));
         return;
     }
-    if (pendingWin) {
+    if (pendingWin)
+    {
         pendingWin = false;
-        GameStateManager& gsm = GameEngine::getInstance().getStateManager();
+        GameStateManager &gsm = GameEngine::getInstance().getStateManager();
         gsm.popState();
         gsm.pushState(new GameOverState(true, pendingScore));
         return;
     }
-    if (pendingReset) {
+    if (pendingReset)
+    {
         pendingReset = false;
         loadLevel(currentLevelIndex);
-        if (level && level->getPlayer()) {
+        if (level && level->getPlayer())
+        {
             level->getPlayer()->setLives(pendingLives);
             level->getPlayer()->addScore(pendingScore);
         }
         return;
     }
 
-    if (level) {
+    if (level)
+    {
         level->update(dt);
     }
 }
 
-void GameplayState::onBack() {
+void GameplayState::onBack()
+{
     GameEngine::getInstance().getStateManager().pushState(new PauseState());
 }
 
-void GameplayState::draw() {
-    if (level) {
+void GameplayState::draw()
+{
+    if (level)
+    {
         level->draw();
     }
 }
 
-void GameplayState::onEvent(EventType type, void* data) {
-    if (!level) return;
+void GameplayState::onEvent(EventType type, void *data)
+{
+    if (!level)
+        return;
 
-    switch (type) {
-        case EventType::FireballShot: {
-            FireballSpawnData* spawn = static_cast<FireballSpawnData*>(data);
-            if (spawn) {
-                level->spawnEntity(std::make_unique<Fireball>(spawn->position, spawn->facingRight));
-            }
-            break;
+    switch (type)
+    {
+    case EventType::FireballShot:
+    {
+        FireballSpawnData *spawn = static_cast<FireballSpawnData *>(data);
+        if (spawn)
+        {
+            level->spawnEntity(std::make_unique<Fireball>(spawn->position, spawn->facingRight));
         }
-        case EventType::ItemSpawned: {
-            ItemSpawnData* spawn = static_cast<ItemSpawnData*>(data);
-            if (spawn) {
-                if (spawn->type == ItemType::Mushroom) {
-                    level->spawnEntity(std::make_unique<Mushroom>(spawn->position));
-                } else {
-                    std::string tex = "mushroom";
-                    Color dbgCol = RED;
-                    if (spawn->type == ItemType::FireFlower) {
-                        tex = "flower";
-                        dbgCol = ORANGE;
-                    } else if (spawn->type == ItemType::Coin) {
-                        tex = "coin";
-                        dbgCol = YELLOW;
-                    }
-                    level->spawnEntity(std::make_unique<Item>(spawn->position, spawn->type, tex, dbgCol));
+        break;
+    }
+    case EventType::ItemSpawned:
+    {
+        ItemSpawnData *spawn = static_cast<ItemSpawnData *>(data);
+        if (spawn)
+        {
+            if (spawn->type == ItemType::Mushroom)
+            {
+                level->spawnEntity(std::make_unique<Mushroom>(spawn->position));
+            }
+            else
+            {
+                std::string tex = "mushroom";
+                Color dbgCol = RED;
+                if (spawn->type == ItemType::FireFlower)
+                {
+                    tex = "flower";
+                    dbgCol = ORANGE;
                 }
+                else if (spawn->type == ItemType::Coin)
+                {
+                    tex = "coin";
+                    dbgCol = YELLOW;
+                }
+                level->spawnEntity(std::make_unique<Item>(spawn->position, spawn->type, tex, dbgCol));
             }
-            break;
         }
-        case EventType::LevelCompleted: {
-            currentLevelIndex++;
-            Account& acc = GameEngine::getInstance().getActiveAccount();
-            
-            // Record level highscore
-            int completedIdx = currentLevelIndex - 1;
-            int currentScore = level->getPlayer()->getScore();
-            if (currentScore > acc.getLevelHighScore(completedIdx)) {
-                acc.setLevelHighScore(completedIdx, currentScore);
-            }
+        break;
+    }
+    case EventType::LevelCompleted:
+    {
+        currentLevelIndex++;
+        Account &acc = GameEngine::getInstance().getActiveAccount();
 
-            // Record overall highscore
-            if (currentScore > acc.getHighScore()) {
+        // Record level highscore
+        int completedIdx = currentLevelIndex - 1;
+        int currentScore = level->getPlayer()->getScore();
+        if (currentScore > acc.getLevelHighScore(completedIdx))
+        {
+            acc.setLevelHighScore(completedIdx, currentScore);
+        }
+
+        // Record overall highscore
+        if (currentScore > acc.getHighScore())
+        {
+            acc.setHighScore(currentScore);
+        }
+
+        // Update progress settings if it unlocks a new level
+        if (currentLevelIndex + 1 > acc.getCurrentLevel() && currentLevelIndex < (int)levelFiles.size())
+        {
+            acc.setCurrentLevel(currentLevelIndex + 1);
+        }
+        SaveManager sm;
+        sm.saveAccount(acc);
+
+        // Always transition to level ending screen on completing any level
+        pendingWin = true;
+        pendingScore = currentScore;
+        break;
+    }
+    case EventType::PlayerDied:
+    {
+        Player *p = level->getPlayer();
+        int currentLives = p->getLives() - 1;
+        if (currentLives <= 0)
+        {
+            // Trigger fail game over
+            Account &acc = GameEngine::getInstance().getActiveAccount();
+            int currentScore = p->getScore();
+            if (currentScore > acc.getLevelHighScore(currentLevelIndex))
+            {
+                acc.setLevelHighScore(currentLevelIndex, currentScore);
+            }
+            if (currentScore > acc.getHighScore())
+            {
                 acc.setHighScore(currentScore);
-            }
-
-            // Update progress settings if it unlocks a new level
-            if (currentLevelIndex + 1 > acc.getCurrentLevel() && currentLevelIndex < (int)levelFiles.size()) {
-                acc.setCurrentLevel(currentLevelIndex + 1);
             }
             SaveManager sm;
             sm.saveAccount(acc);
-            
-            // Always transition to level ending screen on completing any level
-            pendingWin = true;
+            pendingGameOver = true;
             pendingScore = currentScore;
-            break;
         }
-        case EventType::PlayerDied: {
-            Player* p = level->getPlayer();
-            int currentLives = p->getLives() - 1;
-            if (currentLives <= 0) {
-                // Trigger fail game over
-                Account& acc = GameEngine::getInstance().getActiveAccount();
-                int currentScore = p->getScore();
-                if (currentScore > acc.getLevelHighScore(currentLevelIndex)) {
-                    acc.setLevelHighScore(currentLevelIndex, currentScore);
-                }
-                if (currentScore > acc.getHighScore()) {
-                    acc.setHighScore(currentScore);
-                }
-                SaveManager sm;
-                sm.saveAccount(acc);
-                pendingGameOver = true;
-                pendingScore = currentScore;
-            } else {
-                // Respawn and reload level (deferred)
-                pendingReset = true;
-                pendingLives = currentLives;
-                pendingScore = p->getScore();
-            }
-            break;
+        else
+        {
+            // Respawn and reload level (deferred)
+            pendingReset = true;
+            pendingLives = currentLives;
+            pendingScore = p->getScore();
         }
-        default:
-            break;
+        break;
+    }
+    default:
+        break;
     }
 }

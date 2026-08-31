@@ -4,96 +4,119 @@
 #include "Core/AssetManager.h"
 #include <iostream>
 
-Item::Item(Vector2 pos, ItemType type, const std::string& texID, Color dbgColor)
-    : DynamicEntity(pos, Vector2{ 32.0f, 32.0f }, Vector2{ 24.0f, 24.0f }, Vector2{ 4.0f, 4.0f }, texID, dbgColor),
-      itemType(type), spawnRiseTimer(0.5f), targetSpawnPosition(pos) {
-    
+Item::Item(Vector2 pos, ItemType type, const std::string &texID, Color dbgColor)
+    : DynamicEntity(pos, Vector2{32.0f, 32.0f}, Vector2{24.0f, 24.0f}, Vector2{4.0f, 4.0f}, texID, dbgColor),
+      itemType(type), spawnRiseTimer(0.5f), targetSpawnPosition(pos)
+{
+
     // Slide up starting position slightly hidden inside the block
     position.y += 16.0f;
-    velocity = Vector2{ 0.0f, 0.0f };
+    velocity = Vector2{0.0f, 0.0f};
     onGround = true; // Stay stationary during spawn rising
 
-    if (itemType == ItemType::Mushroom) {
+    if (itemType == ItemType::Mushroom)
+    {
         textureID = "coin"; // Uses coinblockreward.png
-        animator.addAnimation(AnimState::Idle, {
-            Rectangle{ 0.0f, 176.0f, 16.0f, 16.0f },
-            Rectangle{ 16.0f, 176.0f, 16.0f, 16.0f }
-        }, 0.2f);
+        animator.addAnimation(AnimState::Idle, {Rectangle{0.0f, 176.0f, 16.0f, 16.0f}, Rectangle{16.0f, 176.0f, 16.0f, 16.0f}}, 0.2f);
         animator.setState(AnimState::Idle);
-    } else if (itemType == ItemType::Coin) {
+    }
+    else if (itemType == ItemType::Coin)
+    {
         textureID = "coin"; // Uses coinblockreward.png
-        animator.addAnimation(AnimState::Idle, {
-            Rectangle{ 243.0f, 66.0f, 10.0f, 15.0f }
-        }, 1.0f);
+        animator.addAnimation(AnimState::Idle, {Rectangle{243.0f, 66.0f, 10.0f, 15.0f}}, 1.0f);
         animator.setState(AnimState::Idle);
     }
 }
 
-void Item::update(float dt) {
+void Item::update(float dt)
+{
     animator.update(dt);
-    if (spawnRiseTimer > 0.0f) {
+    if (spawnRiseTimer > 0.0f)
+    {
         spawnRiseTimer -= dt;
         // Slowly rise out of block
         position.y -= 32.0f * dt / 0.5f;
-        if (spawnRiseTimer <= 0.0f) {
+        if (spawnRiseTimer <= 0.0f)
+        {
             position.y = targetSpawnPosition.y - 32.0f; // Snap to top of block
             onGround = false;
-            if (itemType == ItemType::Mushroom) {
+            if (itemType == ItemType::Mushroom)
+            {
                 velocity.x = 80.0f;
                 facingRight = true;
-            } else if (itemType == ItemType::Coin) {
+            }
+            else if (itemType == ItemType::Coin)
+            {
                 // Coin disappears after popping up
                 active = false;
             }
         }
-    } else {
+    }
+    else
+    {
         // Post spawn behaviors
-        if (itemType == ItemType::Mushroom) {
+        if (itemType == ItemType::Mushroom)
+        {
             velocity.x = facingRight ? 80.0f : -80.0f;
             // Let gravity apply
-        } 
-        else if (itemType == ItemType::FireFlower) {
-            velocity = Vector2{ 0.0f, 0.0f };
+        }
+        else if (itemType == ItemType::FireFlower)
+        {
+            velocity = Vector2{0.0f, 0.0f};
             onGround = true; // No physics
-        } 
+        }
     }
 }
 
-void Item::onCollision(Entity& other, CollisionSide side) {
-    if (!other.isActive()) return;
+void Item::onCollision(Entity &other, CollisionSide side)
+{
+    if (!other.isActive())
+        return;
 
-    Player* player = dynamic_cast<Player*>(&other);
-    if (player) {
+    Player *player = dynamic_cast<Player *>(&other);
+    if (player)
+    {
         // Collected by player!
         active = false;
-        if (itemType == ItemType::Mushroom) {
+        if (itemType == ItemType::Mushroom)
+        {
             player->powerUp(PowerStateType::Super);
-            EventManager::getInstance().broadcast(EventType::CoinCollected); // Reuse coin sound for simple powerups
-        } 
-        else if (itemType == ItemType::FireFlower) {
+            EventManager::getInstance().broadcast(EventType::PowerUpCollected);
+        }
+        else if (itemType == ItemType::FireFlower)
+        {
             player->powerUp(PowerStateType::Fire);
-            EventManager::getInstance().broadcast(EventType::CoinCollected);
-        } 
-    } 
-    else if (other.isSolid()) {
-        if (side == CollisionSide::Left || side == CollisionSide::Right) {
+            EventManager::getInstance().broadcast(EventType::PowerUpCollected);
+        }
+    }
+    else if (other.isSolid())
+    {
+        if (side == CollisionSide::Left || side == CollisionSide::Right)
+        {
             velocity.x = -velocity.x;
             facingRight = (velocity.x > 0.0f);
         }
     }
 }
 
-void Item::draw() {
-    if (itemType == ItemType::Mushroom || itemType == ItemType::Coin) {
+void Item::draw()
+{
+    if (itemType == ItemType::Mushroom || itemType == ItemType::Coin)
+    {
         Texture2D tex = AssetManager::getInstance().getTexture(textureID);
-        if (tex.id != 0) {
+        if (tex.id != 0)
+        {
             Rectangle source = animator.getCurrentFrame();
             Rectangle dest = getSpriteBox();
             DrawTexturePro(tex, source, dest, Vector2{0.0f, 0.0f}, 0.0f, WHITE);
-        } else {
+        }
+        else
+        {
             DynamicEntity::draw();
         }
-    } else {
+    }
+    else
+    {
         DynamicEntity::draw();
     }
 }
