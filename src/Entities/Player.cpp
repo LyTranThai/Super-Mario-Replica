@@ -363,26 +363,45 @@ void Player::configureAnimations() {
         }
 
     } else if (type == PowerStateType::Super) {
-        // --- Super Luigi/Mario frames from readme.md ---
-        animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
-        animator.addAnimation(AnimState::Walk, { Rectangle{ 76.0f, 88.0f, 32.0f, 32.0f }, Rectangle{ 109.0f, 88.0f, 32.0f, 32.0f } }, 0.1f);
-        animator.addAnimation(AnimState::Jump, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
-        animator.addAnimation(AnimState::Fall, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
-        animator.addAnimation(AnimState::Skid, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f); // Fallback to jump for skid
-        animator.addAnimation(AnimState::Die, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f, false);
-        animator.addAnimation(AnimState::Crouch, { Rectangle{ 33.0f, 88.0f, 38.0f, 32.0f } }, 1.0f);
-        animator.addAnimation(AnimState::Pipe, { Rectangle{ 2.0f, 176.0f, 32.0f, 32.0f } }, 1.0f);
-
+        if (charType == CharacterType::Luigi) {
+            animator.addAnimation(AnimState::Idle, { Rectangle{ 215.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Walk, { Rectangle{ 289.0f, 88.0f, 32.0f, 32.0f }, Rectangle{ 322.0f, 88.0f, 32.0f, 32.0f } }, 0.1f);
+            animator.addAnimation(AnimState::Jump, { Rectangle{ 215.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Fall, { Rectangle{ 215.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Skid, { Rectangle{ 215.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Die, { Rectangle{ 215.0f, 88.0f, 32.0f, 32.0f } }, 1.0f, false);
+            animator.addAnimation(AnimState::Crouch, { Rectangle{ 252.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 215.0f, 176.0f, 32.0f, 32.0f } }, 1.0f);
+        } else {
+            animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Walk, { Rectangle{ 76.0f, 88.0f, 32.0f, 32.0f }, Rectangle{ 109.0f, 88.0f, 32.0f, 32.0f } }, 0.1f);
+            animator.addAnimation(AnimState::Jump, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Fall, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Skid, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Die, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f, false);
+            animator.addAnimation(AnimState::Crouch, { Rectangle{ 33.0f, 88.0f, 38.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 2.0f, 176.0f, 32.0f, 32.0f } }, 1.0f);
+        }
     } else if (type == PowerStateType::Fire) {
-        // --- Fire Luigi/Mario frames from readme.md (using Super as fallback for now) ---
-        animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
-        animator.addAnimation(AnimState::Walk, { Rectangle{ 76.0f, 88.0f, 32.0f, 32.0f }, Rectangle{ 109.0f, 88.0f, 32.0f, 32.0f } }, 0.1f);
-        animator.addAnimation(AnimState::Jump, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
-        animator.addAnimation(AnimState::Fall, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
-        animator.addAnimation(AnimState::Skid, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
-        animator.addAnimation(AnimState::Die, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f, false);
-        animator.addAnimation(AnimState::Crouch, { Rectangle{ 33.0f, 88.0f, 38.0f, 32.0f } }, 1.0f);
-        animator.addAnimation(AnimState::Pipe, { Rectangle{ 2.0f, 176.0f, 32.0f, 32.0f } }, 1.0f);
+        if (charType == CharacterType::Luigi) {
+            animator.addAnimation(AnimState::Idle, { Rectangle{ 215.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Walk, { Rectangle{ 289.0f, 88.0f, 32.0f, 32.0f }, Rectangle{ 322.0f, 88.0f, 32.0f, 32.0f } }, 0.1f);
+            animator.addAnimation(AnimState::Jump, { Rectangle{ 215.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Fall, { Rectangle{ 215.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Skid, { Rectangle{ 215.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Die, { Rectangle{ 215.0f, 88.0f, 32.0f, 32.0f } }, 1.0f, false);
+            animator.addAnimation(AnimState::Crouch, { Rectangle{ 252.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 215.0f, 176.0f, 32.0f, 32.0f } }, 1.0f);
+        } else {
+            animator.addAnimation(AnimState::Idle, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Walk, { Rectangle{ 76.0f, 88.0f, 32.0f, 32.0f }, Rectangle{ 109.0f, 88.0f, 32.0f, 32.0f } }, 0.1f);
+            animator.addAnimation(AnimState::Jump, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Fall, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Skid, { Rectangle{ 2.0f, 132.0f, 32.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Die, { Rectangle{ 2.0f, 88.0f, 32.0f, 32.0f } }, 1.0f, false);
+            animator.addAnimation(AnimState::Crouch, { Rectangle{ 33.0f, 88.0f, 38.0f, 32.0f } }, 1.0f);
+            animator.addAnimation(AnimState::Pipe, { Rectangle{ 2.0f, 176.0f, 32.0f, 32.0f } }, 1.0f);
+        }
     }
 }
 
