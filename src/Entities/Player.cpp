@@ -45,6 +45,10 @@ void Player::update(float dt)
 {
     if (isPipingFlag)
     {
+        if (pipingTimer == 0.0f)
+        {
+            EventManager::getInstance().broadcast(EventType::PipeWarp);
+        }
         pipingTimer += dt;
         velocity = Vector2{0.0f, 30.0f}; // Sink down slowly
         position.y += velocity.y * dt;

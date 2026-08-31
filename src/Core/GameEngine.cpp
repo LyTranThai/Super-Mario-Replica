@@ -51,8 +51,8 @@ void GameEngine::init()
     // Load additional sound effects for power-ups and events
     SoundManager::getInstance().loadSound("power_up", "assets/audio/power_up.wav");
     SoundManager::getInstance().loadSound("game_over", "assets/audio/game_over.wav");
-    SoundManager::getInstance().loadSound("koopa_kicked", "assets/audio/SMB_Kicked.wav");
-    SoundManager::getInstance().loadSound("pipe_warp", "assets/audio/PipeWarp.wav");
+    SoundManager::getInstance().loadSound("koopa_kicked", "assets/audio/koopa_kicked.wav");
+    SoundManager::getInstance().loadSound("pipe_warp", "assets/audio/pipe_warp.wav");
 
     // Load background music (BGM)
     SoundManager::getInstance().loadMusic("level_theme", "assets/audio/level_theme.wav");

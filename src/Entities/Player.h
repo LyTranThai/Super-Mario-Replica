@@ -5,6 +5,7 @@
 #include "PlayerPowerState.h"
 #include "SpriteAnimator.h"
 #include "SpecialMove.h"
+#include "Core/EventSystem.h"
 #include <memory>
 #include <iostream>
 
@@ -96,6 +97,9 @@ public:
     bool isPiping() const { return isPipingFlag; }
     void startPiping(Vector2 target, bool isExit)
     {
+
+        if (isPipingFlag)
+            return;
         isPipingFlag = true;
         pipingTimer = 0.0f;
         pipeTargetPos = target;

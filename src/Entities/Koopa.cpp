@@ -112,28 +112,56 @@ void Koopa::onCollision(Entity &other, CollisionSide side)
     {
         if (currentState == KoopaState::Shell)
         {
-            // ALWAYS pick it up upon touching!
-            player->setCarriedEntity(this);
-            currentState = KoopaState::PickedUp;
-            return; // We handled it
+            bool isHoldingRun = GameEngine::getInstance().getInputManager().isActionPressed(Action::Run);
+
+            if (isHoldingRun)
+            {
+                player->setCarriedEntity(this);
+                currentState = KoopaState::PickedUp;
+            }
+            else
+            {
+                currentState = KoopaState::MovingShell;
+
+                // FIX LỖI 2: Dựa vào vận tốc của Mario thay vì tọa độ để tránh lỗi chạy xuyên
+                if (std::abs(player->getVelocity().x) > 0.1f)
+                {
+                    facingRight = (player->getVelocity().x > 0.0f);
+                }
+                else
+                {
+                    facingRight = (player->getPosition().x < position.x); // Dự phòng khi Mario đứng im
+                }
+
+                velocity.x = facingRight ? 400.0f : -400.0f;
+                EventManager::getInstance().broadcast(EventType::KoopaKicked);
+            }
+            return;
         }
 
         if (currentState == KoopaState::PickedUp)
         {
-            return; // Safe while carried
+            return;
         }
 
         if (currentState == KoopaState::MovingShell)
         {
             if (side == CollisionSide::Top)
             {
-                // Player stomped moving shell to stop it
-                currentState = KoopaState::Shell;
-                velocity.x = 0.0f;
-                return;
+                // FIX LỖI 1: Yêu cầu Mario phải thực sự "rơi từ trên xuống" (đáy của Mario cao hơn tâm mai rùa) mới tính là giẫm
+                float playerBottom = player->getBoundingBox().y + player->getBoundingBox().height;
+                float koopaMiddle = getBoundingBox().y + getBoundingBox().height / 2.0f;
+
+                if (playerBottom < koopaMiddle && player->getVelocity().y > 0.0f)
+                {
+                    currentState = KoopaState::Shell;
+                    velocity.x = 0.0f;
+                    EventManager::getInstance().broadcast(EventType::EnemyStomped);
+                    return;
+                }
             }
 
-            // Side collision: if moving away, it's right after a kick, don't hurt player
+            // Side collision: Nếu mai rùa đang di chuyển ra xa thì không gây sát thương cho Mario
             bool movingAway = (velocity.x > 0.0f && player->getPosition().x <= position.x + 5.0f) ||
                               (velocity.x < 0.0f && player->getPosition().x >= position.x - 5.0f);
             if (movingAway)
@@ -145,14 +173,14 @@ void Koopa::onCollision(Entity &other, CollisionSide side)
 
     if (currentState == KoopaState::MovingShell && other.isSolid())
     {
-        // Bounce off walls
+        // Đập tường dội lại
         if (side == CollisionSide::Left)
             facingRight = true;
         if (side == CollisionSide::Right)
             facingRight = false;
     }
 
-    // Normal enemy collision for everything else
+    // Xử lý va chạm bình thường cho các trường hợp khác
     Enemy::onCollision(other, side);
 }
 
