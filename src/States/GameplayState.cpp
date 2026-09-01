@@ -59,13 +59,12 @@ void GameplayState::handleInput(const InputManager &input)
     {
         if (level)
         {
-            if (level->getPlayer())
+            for (auto& p : level->getPlayers())
             {
-                level->getPlayer()->handleInput(input);
-            }
-            if (level->getPlayer2())
-            {
-                level->getPlayer2()->handleInput(input);
+                if (p && p->isActive())
+                {
+                    p->handleInput(input);
+                }
             }
         }
     }

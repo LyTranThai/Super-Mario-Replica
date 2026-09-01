@@ -10,7 +10,7 @@
 
 Player::Player(Vector2 pos, const std::string& textureId, Color debugColor)
     : DynamicEntity(pos, Vector2{32.0f, 32.0f}, Vector2{20.0f, 26.0f}, Vector2{6.0f, 6.0f}, textureId, debugColor),
-      lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false)
+      lives(5), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false)
 {
     powerState = new SmallState();
     applyHitboxDimensions();

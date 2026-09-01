@@ -13,10 +13,8 @@ class Level {
 private:
     std::vector<std::unique_ptr<Entity>> entities;
     std::vector<std::unique_ptr<Entity>> pendingEntities;
-    std::unique_ptr<Player> player;
-    std::unique_ptr<Player> player2;
-    float p1RespawnTimer = 0.0f;
-    float p2RespawnTimer = 0.0f;
+    std::vector<std::unique_ptr<Player>> players;
+    std::vector<float> respawnTimers;
     GameCamera camera;
     CollisionChecker collisionChecker;
     
@@ -52,8 +50,9 @@ public:
     void draw();
 
     void spawnEntity(std::unique_ptr<Entity> newEntity);
-    Player* getPlayer() const { return player.get(); }
-    Player* getPlayer2() const { return player2.get(); }
+    Player* getPlayer(size_t index = 0) const { return (index < players.size()) ? players[index].get() : nullptr; }
+    Player* getPlayer2() const { return getPlayer(1); }
+    const std::vector<std::unique_ptr<Player>>& getPlayers() const { return players; }
     GameCamera& getCamera() { return camera; }
 
     bool isLevelCompleted() const { return isCompleted; }

@@ -182,10 +182,8 @@ std::unique_ptr<Player> Level::createPlayer(Vector2 pos) {
 
 void Level::loadFromFile(const std::string& filePath) {
     entities.clear();
-    player.reset();
-    player2.reset();
-    p1RespawnTimer = 0.0f;
-    p2RespawnTimer = 0.0f;
+    players.clear();
+    respawnTimers.clear();
     sceneryBigHills.clear();
     scenerySmallHills.clear();
     sceneryBush1.clear();
@@ -209,12 +207,18 @@ void Level::loadFromFile(const std::string& filePath) {
         camera.setBoundaries(0.0f, 999999.0f);
         camera.setLeftLocked(true);
         
-        // Two-Player Co-op: Mario is Player 1, Luigi is Player 2
-        player = std::make_unique<Mario>(Vector2{ 100.0f, 100.0f });
-        player->setPlayerIndex(0);
+        // Two-Player Co-op: Mario is Player 1, Luigi is Player 2 (5 lives each)
+        auto mario = std::make_unique<Mario>(Vector2{ 100.0f, 100.0f });
+        mario->setPlayerIndex(0);
+        mario->setLives(5);
 
-        player2 = std::make_unique<Luigi>(Vector2{ 150.0f, 100.0f });
-        player2->setPlayerIndex(1);
+        auto luigi = std::make_unique<Luigi>(Vector2{ 150.0f, 100.0f });
+        luigi->setPlayerIndex(1);
+        luigi->setLives(5);
+
+        players.push_back(std::move(mario));
+        players.push_back(std::move(luigi));
+        respawnTimers.assign(players.size(), 0.0f);
         
         generateChunk(0.0f, 1600.0f);
         currentGenerationX = 1600.0f;
@@ -261,7 +265,12 @@ void Level::loadFromFile(const std::string& filePath) {
             float y = row * TILE_SIZE;
 
             if (type == 'P') {
-                player = createPlayer(Vector2{ x, y });
+                if (players.empty()) {
+                    auto p = createPlayer(Vector2{ x, y });
+                    p->setLives(5);
+                    players.push_back(std::move(p));
+                    respawnTimers.push_back(0.0f);
+                }
             } else if (type != ' ' && type != '\n') {
                 auto ent = EntityFactory::createEntity(type, x, y);
                 if (ent) {
@@ -339,20 +348,22 @@ void Level::loadFromFile(const std::string& filePath) {
         }
     }
 
-    if (!player) {
-        player = createPlayer(Vector2{ 100.0f, 100.0f });
+    if (players.empty()) {
+        auto p = createPlayer(Vector2{ 100.0f, 100.0f });
+        p->setLives(5);
+        players.push_back(std::move(p));
+        respawnTimers.push_back(0.0f);
     }
 }
 
 void Level::update(float dt) {
     if (isCompleted) return;
 
-    // 1. Update player coordinates
-    if (player && player->isActive()) {
-        player->update(dt);
-    }
-    if (player2 && player2->isActive()) {
-        player2->update(dt);
+    // 1. Update all players coordinates
+    for (auto& p : players) {
+        if (p && p->isActive()) {
+            p->update(dt);
+        }
     }
 
     // 2. Active triggering (e.g. check RockHead thwomp slam bounds)
@@ -360,15 +371,16 @@ void Level::update(float dt) {
         if (entity->isActive()) {
             RockHead* thwomp = dynamic_cast<RockHead*>(entity.get());
             if (thwomp) {
-                if (player && player->isActive()) thwomp->checkTrigger(player->getPosition());
-                if (player2 && player2->isActive()) thwomp->checkTrigger(player2->getPosition());
+                for (auto& p : players) {
+                    if (p && p->isActive()) thwomp->checkTrigger(p->getPosition());
+                }
             }
             
             // Check Exit Pipe / Goal Door collision
             ExitBlock* exitBlock = dynamic_cast<ExitBlock*>(entity.get());
             if (exitBlock) {
-                auto checkExit = [&](Player* p) {
-                    if (!p || !p->isActive() || p->isPiping()) return;
+                for (auto& p : players) {
+                    if (!p || !p->isActive() || p->isPiping()) continue;
                     bool crouchPressed = GameEngine::getInstance().getInputManager().isActionPressed(Action::Crouch, p->getPlayerIndex());
                     Rectangle pBox = p->getBoundingBox();
                     pBox.height += 2.0f;
@@ -376,15 +388,13 @@ void Level::update(float dt) {
                     if (CheckCollisionRecs(pBox, tBox) && crouchPressed && std::abs((pBox.y + pBox.height - 2.0f) - tBox.y) < 5.0f) {
                         p->startPiping(Vector2{0,0}, true);
                     }
-                };
-                checkExit(player.get());
-                checkExit(player2.get());
+                }
             }
             
             TeleportPipe* telePipe = dynamic_cast<TeleportPipe*>(entity.get());
             if (telePipe) {
-                auto checkTele = [&](Player* p) {
-                    if (!p || !p->isActive() || p->isPiping()) return;
+                for (auto& p : players) {
+                    if (!p || !p->isActive() || p->isPiping()) continue;
                     bool crouchPressed = GameEngine::getInstance().getInputManager().isActionPressed(Action::Crouch, p->getPlayerIndex());
                     Rectangle pBox = p->getBoundingBox();
                     pBox.height += 2.0f;
@@ -403,9 +413,7 @@ void Level::update(float dt) {
                         }
                         p->startPiping(target, false);
                     }
-                };
-                checkTele(player.get());
-                checkTele(player2.get());
+                }
             }
 
             entity->update(dt);
@@ -413,14 +421,19 @@ void Level::update(float dt) {
     }
 
     // 3. Evaluate and resolve AABB collisions
-    if (player && player->isActive()) {
-        collisionChecker.updatePhysics(entities, *player, dt);
+    for (auto& p : players) {
+        if (p && p->isActive()) {
+            collisionChecker.updatePhysics(entities, *p, dt);
+        }
     }
-    if (player2 && player2->isActive()) {
-        collisionChecker.updatePhysics(entities, *player2, dt);
-    }
-    if (player && player2 && player->isActive() && player2->isActive()) {
-        CollisionChecker::checkPlayerPlayerCollision(*player, *player2);
+
+    // Pairwise player-to-player collision (boost bounce on head)
+    for (size_t i = 0; i < players.size(); ++i) {
+        for (size_t j = i + 1; j < players.size(); ++j) {
+            if (players[i] && players[j] && players[i]->isActive() && players[j]->isActive()) {
+                CollisionChecker::checkPlayerPlayerCollision(*players[i], *players[j]);
+            }
+        }
     }
 
     // 4. Remove deactivated entities
@@ -434,8 +447,11 @@ void Level::update(float dt) {
     if (isInfinite) {
         // Chunk generation based on furthest active player
         float maxLeadX = 0.0f;
-        if (player && player->isActive()) maxLeadX = std::max(maxLeadX, player->getPosition().x);
-        if (player2 && player2->isActive()) maxLeadX = std::max(maxLeadX, player2->getPosition().x);
+        for (auto& p : players) {
+            if (p && p->isActive()) {
+                maxLeadX = std::max(maxLeadX, p->getPosition().x);
+            }
+        }
         
         if (maxLeadX + 1600.0f > currentGenerationX) {
             generateChunk(currentGenerationX, currentGenerationX + 800.0f);
@@ -460,34 +476,33 @@ void Level::update(float dt) {
         cullScenery(sceneryNbClouds2);
 
         // CAMERA MOVEMENT RULE:
-        // In order to move the camera right, both players have to simultaneously move right.
-        // If one player stands, and the other moves right, the camera doesn't move right.
-        bool p1MovingRight = (player && player->isActive() && player->getVelocity().x > 10.0f);
-        bool p2MovingRight = (player2 && player2->isActive() && player2->getVelocity().x > 10.0f);
+        // In order to move the camera right, all active players have to simultaneously move right.
+        // If one player stands, and another moves right, the camera doesn't move right.
+        int activeCount = 0;
+        int movingRightCount = 0;
+        float trailingX = 999999.0f;
 
-        if (player && player->isActive() && player2 && player2->isActive()) {
-            if (p1MovingRight && p2MovingRight) {
-                // Both moving right: advance camera tracking the trailing player
-                float trailingX = std::min(player->getPosition().x, player2->getPosition().x);
-                camera.update(Vector2{ trailingX + 200.0f, 0.0f }, dt);
-            }
-            // If one player stands or stops moving right, camera.update is NOT called!
-        } else if (player && player->isActive()) {
-            if (p1MovingRight) {
-                camera.update(player->getPosition(), dt);
-            }
-        } else if (player2 && player2->isActive()) {
-            if (p2MovingRight) {
-                camera.update(player2->getPosition(), dt);
+        for (auto& p : players) {
+            if (p && p->isActive()) {
+                activeCount++;
+                if (p->getVelocity().x > 10.0f) {
+                    movingRightCount++;
+                }
+                trailingX = std::min(trailingX, p->getPosition().x);
             }
         }
 
-        // Viewport clamping: keep both players within the visible screen frame
+        if (activeCount > 0 && movingRightCount == activeCount) {
+            // All active players are moving right simultaneously: advance camera tracking trailing player
+            camera.update(Vector2{ trailingX + 200.0f, 0.0f }, dt);
+        }
+
+        // Viewport clamping: keep all players within visible screen frame
         float screenLeft = camera.getPosition().x;
         float screenRight = camera.getPosition().x + (float)GetScreenWidth();
 
-        auto clampToScreen = [&](Player* p) {
-            if (!p || !p->isActive()) return;
+        for (auto& p : players) {
+            if (!p || !p->isActive()) continue;
             Vector2 pos = p->getPosition();
             Vector2 vel = p->getVelocity();
             if (pos.x < screenLeft) {
@@ -501,72 +516,78 @@ void Level::update(float dt) {
             }
             p->setPosition(pos);
             p->setVelocity(vel);
-        };
-
-        clampToScreen(player.get());
-        clampToScreen(player2.get());
+        }
 
         // Pit fall check & co-op respawn
-        if (player && player->isActive() && player->getPosition().y > levelHeight + 100.0f) {
-            player->setActive(false);
-            player->setLives(player->getLives() - 1);
-            p1RespawnTimer = 3.0f;
-        }
-        if (player2 && player2->isActive() && player2->getPosition().y > levelHeight + 100.0f) {
-            player2->setActive(false);
-            player2->setLives(player2->getLives() - 1);
-            p2RespawnTimer = 3.0f;
-        }
-
-        // Respawn player 1 near player 2
-        if (player && !player->isActive() && player2 && player2->isActive() && player->getLives() > 0) {
-            p1RespawnTimer -= dt;
-            if (p1RespawnTimer <= 0.0f) {
-                player->setActive(true);
-                Vector2 spawnPos = { player2->getPosition().x, std::max(50.0f, player2->getPosition().y - 80.0f) };
-                player->setPosition(spawnPos);
-                player->setVelocity(Vector2{ 0.0f, 0.0f });
-                player->addInvincibility(2.0f);
+        for (size_t i = 0; i < players.size(); ++i) {
+            auto& p = players[i];
+            if (p && p->isActive() && p->getPosition().y > levelHeight + 100.0f) {
+                p->setActive(false);
+                p->setLives(p->getLives() - 1);
+                if (i < respawnTimers.size()) {
+                    respawnTimers[i] = 3.0f;
+                }
             }
         }
 
-        // Respawn player 2 near player 1
-        if (player2 && !player2->isActive() && player && player->isActive() && player2->getLives() > 0) {
-            p2RespawnTimer -= dt;
-            if (p2RespawnTimer <= 0.0f) {
-                player2->setActive(true);
-                Vector2 spawnPos = { player->getPosition().x, std::max(50.0f, player->getPosition().y - 80.0f) };
-                player2->setPosition(spawnPos);
-                player2->setVelocity(Vector2{ 0.0f, 0.0f });
-                player2->addInvincibility(2.0f);
+        // Respawn inactive players who still have lives near an active teammate
+        for (size_t i = 0; i < players.size(); ++i) {
+            auto& p = players[i];
+            if (p && !p->isActive() && p->getLives() > 0) {
+                if (i < respawnTimers.size()) {
+                    respawnTimers[i] -= dt;
+                    if (respawnTimers[i] <= 0.0f) {
+                        Player* anchor = nullptr;
+                        for (auto& mate : players) {
+                            if (mate && mate->isActive()) {
+                                anchor = mate.get();
+                                break;
+                            }
+                        }
+                        if (anchor) {
+                            p->setActive(true);
+                            Vector2 spawnPos = { anchor->getPosition().x, std::max(50.0f, anchor->getPosition().y - 80.0f) };
+                            p->setPosition(spawnPos);
+                            p->setVelocity(Vector2{ 0.0f, 0.0f });
+                            p->addInvincibility(2.0f);
+                        }
+                    }
+                }
             }
         }
 
-        // Game Over when both are out of lives and inactive
-        if ((!player || (!player->isActive() && player->getLives() <= 0)) &&
-            (!player2 || (!player2->isActive() && player2->getLives() <= 0))) {
+        // Game Over when all players have zero lives and are inactive
+        bool anyCanPlay = false;
+        for (auto& p : players) {
+            if (p && (p->isActive() || p->getLives() > 0)) {
+                anyCanPlay = true;
+                break;
+            }
+        }
+        if (!anyCanPlay) {
             EventManager::getInstance().broadcast(EventType::PlayerDied);
         }
     } else {
         // Standard single player level logic
-        if (player && player->isActive()) {
-            float maxPlayerX = levelWidth - TILE_SIZE - player->getHitboxSize().x;
-            if (player->getPosition().x > maxPlayerX) {
-                Vector2 p = player->getPosition();
-                p.x = maxPlayerX;
-                player->setPosition(p);
+        Player* p = getPlayer(0);
+        if (p && p->isActive()) {
+            float maxPlayerX = levelWidth - TILE_SIZE - p->getHitboxSize().x;
+            if (p->getPosition().x > maxPlayerX) {
+                Vector2 pos = p->getPosition();
+                pos.x = maxPlayerX;
+                p->setPosition(pos);
             }
-            if (player->getPosition().x < 0.0f) {
-                Vector2 p = player->getPosition();
-                p.x = 0.0f;
-                player->setPosition(p);
+            if (p->getPosition().x < 0.0f) {
+                Vector2 pos = p->getPosition();
+                pos.x = 0.0f;
+                p->setPosition(pos);
             }
 
-            if (player->getPosition().y > levelHeight + 100.0f) {
+            if (p->getPosition().y > levelHeight + 100.0f) {
                 EventManager::getInstance().broadcast(EventType::PlayerDied);
-                player->setActive(false);
+                p->setActive(false);
             } else {
-                camera.update(player->getPosition(), dt);
+                camera.update(p->getPosition(), dt);
             }
         }
     }
@@ -657,7 +678,7 @@ void Level::draw() {
     drawScenery();
 
     // 1. Draw Players FIRST if piping so they appear behind pipes
-    auto drawPipingPlayer = [&](Player* p) {
+    for (auto& p : players) {
         if (p && p->isActive() && p->isPiping()) {
             Vector2 origPos = p->getPosition();
             Vector2 offsetPos = camera.applyOffset(origPos);
@@ -665,9 +686,7 @@ void Level::draw() {
             p->draw();
             p->setPosition(origPos);
         }
-    };
-    drawPipingPlayer(player.get());
-    drawPipingPlayer(player2.get());
+    }
 
     // 2. Draw entities relative to Camera offsets
     for (auto& entity : entities) {
@@ -683,7 +702,7 @@ void Level::draw() {
     }
 
     // 3. Draw Players AFTER entities if NOT piping
-    auto drawNormalPlayer = [&](Player* p) {
+    for (auto& p : players) {
         if (p && p->isActive() && !p->isPiping()) {
             Vector2 origPos = p->getPosition();
             Vector2 offsetPos = camera.applyOffset(origPos);
@@ -691,24 +710,25 @@ void Level::draw() {
             p->draw();
             p->setPosition(origPos);
         }
-    };
-    drawNormalPlayer(player.get());
-    drawNormalPlayer(player2.get());
+    }
 
     // 4. Draw static UI elements overlay (HUD) at fixed positions
     DrawRectangle(10, 10, 780, 40, Fade(BLACK, 0.45f));
     
-    if (player2) {
-        std::string mStr = "MARIO  LIVES: " + std::to_string(player ? player->getLives() : 0) + 
-                           "  SCORE: " + std::to_string(player ? player->getScore() : 0);
-        std::string lStr = "LUIGI  LIVES: " + std::to_string(player2->getLives()) + 
-                           "  SCORE: " + std::to_string(player2->getScore());
+    if (players.size() > 1) {
+        Player* p1 = getPlayer(0);
+        Player* p2 = getPlayer(1);
+        std::string mStr = "MARIO  LIVES: " + std::to_string(p1 ? p1->getLives() : 0) + 
+                           "  SCORE: " + std::to_string(p1 ? p1->getScore() : 0);
+        std::string lStr = "LUIGI  LIVES: " + std::to_string(p2 ? p2->getLives() : 0) + 
+                           "  SCORE: " + std::to_string(p2 ? p2->getScore() : 0);
         DrawText(mStr.c_str(), 30, 20, 18, RED);
         DrawText(lStr.c_str(), 430, 20, 18, GREEN);
     } else {
-        std::string scoreStr = "SCORE: " + std::to_string(player ? player->getScore() : 0);
-        std::string coinsStr = "COINS: " + std::to_string(player ? player->getCoins() : 0);
-        std::string livesStr = "LIVES: " + std::to_string(player ? player->getLives() : 0);
+        Player* p = getPlayer(0);
+        std::string scoreStr = "SCORE: " + std::to_string(p ? p->getScore() : 0);
+        std::string coinsStr = "COINS: " + std::to_string(p ? p->getCoins() : 0);
+        std::string livesStr = "LIVES: " + std::to_string(p ? p->getLives() : 0);
         
         DrawText(scoreStr.c_str(), 30, 20, 20, WHITE);
         DrawText(coinsStr.c_str(), 250, 20, 20, YELLOW);
