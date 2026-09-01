@@ -561,6 +561,27 @@ void Level::update(float dt) {
                             p->setPosition(spawnPos);
                             p->setVelocity(Vector2{ 0.0f, 0.0f });
                             p->addInvincibility(2.0f);
+                        } else {
+                            // Both players are inactive! Respawn at top-left of current screen
+                            p->setActive(true);
+                            float spawnX = camera.getPosition().x + 60.0f + i * 50.0f;
+                            
+                            // Check if spawnX is above a pit; if so, shift forward to safe ground
+                            bool groundBelow = false;
+                            for (auto const& ent : entities) {
+                                if (ent && ent->isSolid() && std::abs(ent->getPosition().x - spawnX) < 24.0f && ent->getPosition().y > 300.0f) {
+                                    groundBelow = true;
+                                    break;
+                                }
+                            }
+                            if (!groundBelow) {
+                                spawnX += 130.0f;
+                            }
+
+                            Vector2 spawnPos = { spawnX, 60.0f };
+                            p->setPosition(spawnPos);
+                            p->setVelocity(Vector2{ 0.0f, 0.0f });
+                            p->addInvincibility(3.0f);
                         }
                     }
                 }
