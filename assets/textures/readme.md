@@ -168,6 +168,11 @@ These items appear after Mario hits the flying mystery block.
 | Mountain | `(12,139) -> (224,231)` |
 | Cloud (no background) | `(388,15) -> (496,92)` ; `(830,16) -> (913,82)` |
 
+# 5. Main Menu
+**Fill color:** (0,165,165)
+
+- (233,28) -> (424,115)
+
 ### Note
 
 - Hill and mountain can be reused to create multiple versons, thereby enhancing the background.
