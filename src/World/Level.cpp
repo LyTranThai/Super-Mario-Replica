@@ -80,8 +80,19 @@ void Level::generateChunk(float startX, float endX) {
                     if (isBrick) {
                         lines[newY][c + i] = 'B';
                     } else {
-                        // Pick a random mysterious block
-                        lines[newY][c + i] = 'M'; // Only spawn Mushroom to avoid debug rectangles
+                        // 50% Coin ('?'), 20% Mushroom ('M'), 20% Fire Flower ('F'), 5% Star ('S'), 5% Heart ('L')
+                        int roll = rand() % 100;
+                        if (roll < 50) {
+                            lines[newY][c + i] = '?';
+                        } else if (roll < 70) {
+                            lines[newY][c + i] = 'M';
+                        } else if (roll < 90) {
+                            lines[newY][c + i] = 'F';
+                        } else if (roll < 95) {
+                            lines[newY][c + i] = 'S';
+                        } else {
+                            lines[newY][c + i] = 'L';
+                        }
                     }
                 }
                 
