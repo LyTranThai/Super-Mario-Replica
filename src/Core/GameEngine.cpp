@@ -47,6 +47,7 @@ void GameEngine::init()
     SoundManager::getInstance().loadSound("hurt", "assets/audio/hurt.wav");
     SoundManager::getInstance().loadSound("die", "assets/audio/die.wav");
     SoundManager::getInstance().loadSound("break", "assets/audio/break.wav");
+    SoundManager::getInstance().loadSound("fireball", "assets/audio/fireball.wav");
 
     // Load additional sound effects for power-ups and events
     SoundManager::getInstance().loadSound("power_up", "assets/audio/power_up.wav");
