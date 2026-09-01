@@ -85,6 +85,9 @@ void GameEngine::init()
     AssetManager::getInstance().loadTexture("fireball", "assets/textures/fireball.png");
     AssetManager::getInstance().loadTexture("world11", "assets/textures/world11.png");
 
+    std::vector<Color> menuKey = {Color{0, 165, 165, 255}};
+    AssetManager::getInstance().loadTexture("mainmenu", "assets/textures/mainmenu.png", menuKey);
+
     // Load initial screen state
     SetExitKey(KEY_NULL); // Prevent ESC key from closing window in Raylib
     isInitialized = true;

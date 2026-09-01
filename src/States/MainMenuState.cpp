@@ -9,6 +9,7 @@
 #include "States/RegisterState.h"
 #include "States/SettingsState.h"
 #include "Persistence/SaveManager.h"
+#include "Core/AssetManager.h"
 #include <iostream>
 
 MainMenuState::MainMenuState() 
@@ -81,15 +82,39 @@ void MainMenuState::update(float dt) {
 void MainMenuState::draw() {
     ClearBackground(RAYWHITE);
     
-    // Draw Title
-    DrawText("SUPER MARIO OOP", 150, 35, 46, MAROON);
-    DrawText("C++ & Raylib Project", 250, 85, 20, DARKGRAY);
+    Texture2D menuTex = AssetManager::getInstance().getTexture("mainmenu");
+    float menuStartY = 140.0f;
+    float optionSpacing = 45.0f;
+
+    if (menuTex.id != 0) {
+        // Draw banner logo from mainmenu.png based on assets/textures/readme.md:
+        // Position: (233, 28) -> (424, 115)
+        Rectangle source = { 233.0f, 28.0f, 192.0f, 88.0f };
+        float scale = 2.0f;
+        float destWidth = source.width * scale;
+        float destHeight = source.height * scale;
+        float destX = (GetScreenWidth() - destWidth) / 2.0f;
+        float destY = 20.0f;
+        Rectangle dest = { destX, destY, destWidth, destHeight };
+        DrawTexturePro(menuTex, source, dest, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
+
+        menuStartY = destY + destHeight + 20.0f;
+        optionSpacing = 42.0f;
+    } else {
+        // Fallback title
+        DrawText("SUPER MARIO OOP", 150, 35, 46, MAROON);
+        DrawText("C++ & Raylib Project", 250, 85, 20, DARKGRAY);
+    }
 
     for (size_t i = 0; i < mainOptions.size(); ++i) {
         Color color = (i == (size_t)selectedIndex) ? RED : BLACK;
         std::string prefix = (i == (size_t)selectedIndex) ? "> " : "  ";
-        DrawText((prefix + mainOptions[i]).c_str(), 230, 140 + i * 45, 26, color);
+        DrawText((prefix + mainOptions[i]).c_str(), 230, (int)(menuStartY + i * optionSpacing), 26, color);
     }
+
+    const char* hint = "Use UP/DOWN to navigate  |  ENTER to select";
+    int hintWidth = MeasureText(hint, 18);
+    DrawText(hint, (GetScreenWidth() - hintWidth) / 2, 545, 18, DARKGRAY);
 }
 
 void MainMenuState::onBack() {

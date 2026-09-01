@@ -437,7 +437,7 @@ KEY <actionName> <keyCode>
 ## 17. Asset Manifest
 
 ### Textures (`assets/textures/`)
-`mario.png`, `luigi.png`, `goomba.png`, `koopa.png`, `koopa_shell.png`, `piranha.png`, `thwomp.png`, `solid.png`, `brick.png`, `question.png`, `mushroom.png`, `flower.png`, `star.png`, `coin.png`, `fireball.png`.
+`mario.png`, `luigi.png`, `goomba.png`, `koopa.png`, `koopa_shell.png`, `piranha.png`, `thwomp.png`, `solid.png`, `brick.png`, `question.png`, `mushroom.png`, `flower.png`, `star.png`, `coin.png`, `fireball.png`, `mainmenu.png`.
 
 ### Audio (`assets/audio/`)
 `jump.wav`, `stomp.wav`, `coin.wav`, `hurt.wav`, `die.wav`, `break.wav`, `menu_theme.wav`, `level_theme.wav`.
