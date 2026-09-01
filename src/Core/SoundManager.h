@@ -15,6 +15,10 @@ private:
     std::string currentMusicId; // Track which music is currently playing
     bool musicIsPlaying;        // Renamed to avoid conflict with isMusicPlaying(id) method
     bool isInitialized;
+    float masterVolume;
+    float musicVolume;
+    float soundVolume;
+    bool isAudioMuted;
 
     SoundManager();
 
@@ -41,6 +45,24 @@ public:
     void stopMusic();
     bool isMusicPlaying(const std::string &id) const; // Check if a specific music is playing
     void update();                                    // Needs to be called every frame to update music buffer streams
+
+    // Volume and audio adjustment
+    void setMasterVolume(float volume);
+    float getMasterVolume() const;
+
+    void setMusicVolume(float volume);
+    float getMusicVolume() const;
+
+    void setSoundVolume(float volume);
+    float getSoundVolume() const;
+
+    void setMuted(bool mute);
+    bool isMuted() const;
+    void toggleMute();
+
+    void applyVolumes();
+    void saveAudioSettings();
+    void loadAudioSettings();
 
     // Observer event callback
     void onEvent(EventType type, void *data = nullptr) override;

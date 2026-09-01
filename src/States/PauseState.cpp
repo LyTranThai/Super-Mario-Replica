@@ -1,25 +1,28 @@
 #include "PauseState.h"
 #include "MainMenuState.h"
+#include "AudioSettingsState.h"
 #include "Core/GameEngine.h"
 #include "raylib.h"
 
 PauseState::PauseState() : selectedIndex(0) {}
 
 void PauseState::init() {
-    options = { "CONTINUE", "QUIT TO LEVEL SELECT" };
+    options = { "CONTINUE", "AUDIO SETTINGS", "QUIT TO LEVEL SELECT" };
 }
 
 void PauseState::handleInput(const InputManager& input) {
-    if (input.isActionJustPressed(Action::MenuUp) || IsKeyPressed(KEY_UP)) {
+    if (input.isActionJustPressed(Action::MenuUp) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) {
         selectedIndex = (selectedIndex - 1 + options.size()) % options.size();
     }
-    if (input.isActionJustPressed(Action::MenuDown) || IsKeyPressed(KEY_DOWN)) {
+    if (input.isActionJustPressed(Action::MenuDown) || IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) {
         selectedIndex = (selectedIndex + 1) % options.size();
     }
-    if (input.isActionJustPressed(Action::MenuConfirm)) {
+    if (input.isActionJustPressed(Action::MenuConfirm) || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE)) {
         if (selectedIndex == 0) {
             GameEngine::getInstance().getStateManager().popState();
         } else if (selectedIndex == 1) {
+            GameEngine::getInstance().getStateManager().pushState(new AudioSettingsState());
+        } else if (selectedIndex == 2) {
             GameStateManager& gsm = GameEngine::getInstance().getStateManager();
             gsm.popState();
             gsm.popState();
@@ -41,7 +44,7 @@ void PauseState::draw() {
     
     // Centered smaller window
     int boxW = 400;
-    int boxH = 260;
+    int boxH = 280;
     int boxX = (GetScreenWidth() - boxW) / 2; 
     int boxY = (GetScreenHeight() - boxH) / 2; 
 
@@ -58,8 +61,8 @@ void PauseState::draw() {
     for (size_t i = 0; i < options.size(); ++i) {
         Color color = (i == (size_t)selectedIndex) ? RED : WHITE;
         std::string prefix = (i == (size_t)selectedIndex) ? "> " : "  ";
-        DrawText((prefix + options[i]).c_str(), boxX + 60, boxY + 110 + i * 40, 20, color);
+        DrawText((prefix + options[i]).c_str(), boxX + 60, boxY + 95 + (int)i * 40, 20, color);
     }
 
-    DrawText("Press [ESC] or choose CONTINUE to resume", boxX + 30, boxY + 210, 16, LIGHTGRAY);
+    DrawText("Press [ESC] or choose CONTINUE to resume", boxX + 30, boxY + 235, 16, LIGHTGRAY);
 }

@@ -13,6 +13,8 @@ private:
     Account activeAccount;
     float animTime;
 
+    void updateMenuOptionTexts();
+
 public:
     MainMenuState();
     ~MainMenuState() override = default;

@@ -8,31 +8,83 @@
 #include "States/LoginState.h"
 #include "States/RegisterState.h"
 #include "States/SettingsState.h"
+#include "States/AudioSettingsState.h"
 #include "Persistence/SaveManager.h"
 #include "Core/AssetManager.h"
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 
 MainMenuState::MainMenuState() 
     : selectedIndex(0), animTime(0.0f) {}
 
-void MainMenuState::init() {
+void MainMenuState::updateMenuOptionTexts() {
     activeAccount = GameEngine::getInstance().getActiveAccount();
     std::string charText = "CHARACTER: " + (activeAccount.getSelectedCharacter().empty() ? "MARIO" : activeAccount.getSelectedCharacter());
+    if (mainOptions.size() > 1) {
+        mainOptions[1] = charText;
+    }
+
+    SoundManager& sm = SoundManager::getInstance();
+    std::string audioText;
+    if (sm.isMuted()) {
+        audioText = "AUDIO SETTINGS: [MUTED]";
+    } else {
+        int volPercent = (int)std::round(sm.getMasterVolume() * 100.0f);
+        audioText = "AUDIO SETTINGS: < " + std::to_string(volPercent) + "% >";
+    }
+    if (mainOptions.size() > 3) {
+        mainOptions[3] = audioText;
+    }
+}
+
+void MainMenuState::init() {
+    activeAccount = GameEngine::getInstance().getActiveAccount();
     
-    mainOptions = { "PLAY GAME", charText, "LEVEL EDITOR", "LOGIN TO ACCOUNT", "REGISTER NEW ACCOUNT", "CUSTOM KEY SETTINGS", "QUIT" };
-    
+    mainOptions = {
+        "PLAY GAME",
+        "CHARACTER: MARIO",
+        "LEVEL EDITOR",
+        "AUDIO SETTINGS",
+        "CUSTOM KEY SETTINGS",
+        "LOGIN TO ACCOUNT",
+        "REGISTER NEW ACCOUNT",
+        "QUIT"
+    };
+
+    updateMenuOptionTexts();
     SoundManager::getInstance().playMusic("menu_theme"); // Will play if loaded
 }
 
 void MainMenuState::handleInput(const InputManager& input) {
-    if (input.isActionJustPressed(Action::MenuUp)) {
-        selectedIndex = (selectedIndex - 1 + mainOptions.size()) % mainOptions.size();
+    if (input.isActionJustPressed(Action::MenuUp) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) {
+        selectedIndex = (selectedIndex - 1 + (int)mainOptions.size()) % (int)mainOptions.size();
     }
-    if (input.isActionJustPressed(Action::MenuDown)) {
-        selectedIndex = (selectedIndex + 1) % mainOptions.size();
+    if (input.isActionJustPressed(Action::MenuDown) || IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) {
+        selectedIndex = (selectedIndex + 1) % (int)mainOptions.size();
     }
-    if (input.isActionJustPressed(Action::MenuConfirm)) {
+
+    // Quick volume adjustment right from the main menu when highlighting Audio Settings
+    if (selectedIndex == 3) {
+        if (input.isActionJustPressed(Action::MoveLeft) || IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A)) {
+            SoundManager& sm = SoundManager::getInstance();
+            if (sm.isMuted()) sm.setMuted(false);
+            float newVol = std::max(0.0f, sm.getMasterVolume() - 0.10f);
+            sm.setMasterVolume(newVol);
+            updateMenuOptionTexts();
+            sm.playSound("coin");
+        }
+        else if (input.isActionJustPressed(Action::MoveRight) || IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D)) {
+            SoundManager& sm = SoundManager::getInstance();
+            if (sm.isMuted()) sm.setMuted(false);
+            float newVol = std::min(1.0f, sm.getMasterVolume() + 0.10f);
+            sm.setMasterVolume(newVol);
+            updateMenuOptionTexts();
+            sm.playSound("coin");
+        }
+    }
+
+    if (input.isActionJustPressed(Action::MenuConfirm) || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE)) {
         if (selectedIndex == 0) {
             // Play Game
             Account& currentAcc = GameEngine::getInstance().getActiveAccount();
@@ -54,7 +106,7 @@ void MainMenuState::handleInput(const InputManager& input) {
             SaveManager saveMgr;
             saveMgr.saveAccount(currentAcc);
 
-            mainOptions[1] = "CHARACTER: " + newChar;
+            updateMenuOptionTexts();
             SoundManager::getInstance().playSound("coin");
         }
         else if (selectedIndex == 2) {
@@ -62,15 +114,23 @@ void MainMenuState::handleInput(const InputManager& input) {
             GameEngine::getInstance().getStateManager().pushState(new LevelEditorState());
         }
         else if (selectedIndex == 3) {
-            GameEngine::getInstance().getStateManager().pushState(new LoginState());
-        } 
+            // Audio Settings State
+            GameEngine::getInstance().getStateManager().pushState(new AudioSettingsState());
+        }
         else if (selectedIndex == 4) {
-            GameEngine::getInstance().getStateManager().pushState(new RegisterState());
-        } 
-        else if (selectedIndex == 5) {
+            // Custom Key Settings
             GameEngine::getInstance().getStateManager().pushState(new SettingsState());
         } 
+        else if (selectedIndex == 5) {
+            // Login
+            GameEngine::getInstance().getStateManager().pushState(new LoginState());
+        } 
         else if (selectedIndex == 6) {
+            // Register
+            GameEngine::getInstance().getStateManager().pushState(new RegisterState());
+        } 
+        else if (selectedIndex == 7) {
+            // Quit
             GameEngine::getInstance().exitGame();
         }
     }
@@ -78,6 +138,7 @@ void MainMenuState::handleInput(const InputManager& input) {
 
 void MainMenuState::update(float dt) {
     animTime += dt;
+    updateMenuOptionTexts();
 }
 
 void MainMenuState::draw() {
@@ -153,15 +214,16 @@ void MainMenuState::draw() {
     }
 
     // 7. Menu Options Box & Text
-    float menuBoxX = 70.0f;
-    float menuBoxY = 205.0f;
-    float menuBoxW = 400.0f;
-    float optionSpacing = 42.0f;
-    float menuBoxH = (float)mainOptions.size() * optionSpacing + 15.0f;
+    float menuBoxX = 65.0f;
+    float menuBoxY = 200.0f;
+    float menuBoxW = 420.0f;
+    float optionSpacing = 37.0f;
+    float menuBoxH = (float)mainOptions.size() * optionSpacing + 14.0f;
 
     // Elegant semi-transparent frosted card backdrop
-    DrawRectangleRounded(Rectangle{ menuBoxX, menuBoxY, menuBoxW, menuBoxH }, 0.08f, 8, Fade(BLACK, 0.55f));
-    DrawRectangleRoundedLines(Rectangle{ menuBoxX, menuBoxY, menuBoxW, menuBoxH }, 0.08f, 8, 2.0f, Fade(GOLD, 0.5f));
+    DrawRectangleRounded(Rectangle{ menuBoxX + 4.0f, menuBoxY + 4.0f, menuBoxW, menuBoxH }, 0.07f, 8, Fade(BLACK, 0.45f));
+    DrawRectangleRounded(Rectangle{ menuBoxX, menuBoxY, menuBoxW, menuBoxH }, 0.07f, 8, Fade(BLACK, 0.60f));
+    DrawRectangleRoundedLines(Rectangle{ menuBoxX, menuBoxY, menuBoxW, menuBoxH }, 0.07f, 8, 2.0f, Fade(GOLD, 0.55f));
 
     for (size_t i = 0; i < mainOptions.size(); ++i) {
         bool selected = (i == (size_t)selectedIndex);
@@ -169,19 +231,26 @@ void MainMenuState::draw() {
         std::string prefix = selected ? "> " : "  ";
         std::string text = prefix + mainOptions[i];
         
-        int textY = (int)(menuBoxY + 12.0f + (float)i * optionSpacing);
+        int textY = (int)(menuBoxY + 10.0f + (float)i * optionSpacing);
+
+        if (selected) {
+            DrawRectangleRounded(Rectangle{ menuBoxX + 8.0f, (float)textY - 2.0f, menuBoxW - 16.0f, 28.0f }, 0.3f, 4, Fade(GOLD, 0.15f));
+        }
 
         // Subtle drop shadow for crisp readability
-        DrawText(text.c_str(), (int)(menuBoxX + 22.0f), textY + 2, 22, Fade(BLACK, 0.8f));
-        DrawText(text.c_str(), (int)(menuBoxX + 20.0f), textY, 22, textColor);
+        DrawText(text.c_str(), (int)(menuBoxX + 22.0f), textY + 2, 20, Fade(BLACK, 0.8f));
+        DrawText(text.c_str(), (int)(menuBoxX + 20.0f), textY, 20, textColor);
     }
 
     // 8. Navigation Hint at the bottom on the ground
-    const char* hint = "Use UP/DOWN to navigate  |  ENTER to select";
-    int hintWidth = MeasureText(hint, 18);
+    std::string hint = "Use UP/DOWN to navigate  |  ENTER to select";
+    if (selectedIndex == 3) {
+        hint = "UP/DOWN: Navigate  |  LEFT/RIGHT: Quick Volume  |  ENTER: Audio Settings";
+    }
+    int hintWidth = MeasureText(hint.c_str(), 17);
     int hintX = (GetScreenWidth() - hintWidth) / 2;
-    DrawText(hint, hintX + 1, (int)(groundY + 22.0f) + 1, 18, Fade(BLACK, 0.8f));
-    DrawText(hint, hintX, (int)(groundY + 22.0f), 18, WHITE);
+    DrawText(hint.c_str(), hintX + 1, (int)(groundY + 22.0f) + 1, 17, Fade(BLACK, 0.8f));
+    DrawText(hint.c_str(), hintX, (int)(groundY + 22.0f), 17, WHITE);
 }
 
 void MainMenuState::onBack() {
