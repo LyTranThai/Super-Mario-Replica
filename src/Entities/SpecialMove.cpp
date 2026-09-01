@@ -7,7 +7,7 @@
 
 void FireballMove::execute(Player& player) {
     if (auto* fbPlayer = dynamic_cast<FireballPlayer*>(&player)) {
-        fbPlayer->resetPowerMoveCooldown(2.0f); // 2 seconds cooldown
+        fbPlayer->resetPowerMoveCooldown(0.35f); // Smooth, responsive cooldown
     }
     std::cout << "[DEBUG] " << player.getTextureID() << " shoot fireball from SpecialMove" << std::endl;
     
@@ -30,6 +30,6 @@ void FireballMove::execute(Player& player) {
     }
     spawnPos.y = position.y + hitboxOffset.y + (hitboxSize.y / 2.0f) - (fbHeight / 2.0f);
 
-    FireballSpawnData data = {spawnPos, facingRight, FireballType::Fireball1};
+    FireballSpawnData data = {spawnPos, facingRight};
     EventManager::getInstance().broadcast(EventType::FireballShot, &data);
 }

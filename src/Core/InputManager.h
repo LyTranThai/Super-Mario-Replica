@@ -12,8 +12,6 @@ enum class Action {
     Crouch,
     Run, // Shift key
     Shoot, // Shoot fireballs / kick / grab
-    ShootFireball1, // Key T
-    ShootFireball2, // Key Y
     Pause,
     MenuUp,
     MenuDown,

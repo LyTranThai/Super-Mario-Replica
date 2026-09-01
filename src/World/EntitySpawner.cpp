@@ -31,6 +31,6 @@ void EntitySpawner::onEvent(EventType type, void* data) {
         }
     } else if (type == EventType::FireballShot) {
         FireballSpawnData* spawn = static_cast<FireballSpawnData*>(data);
-        currentLevel->spawnEntity(std::make_unique<Fireball>(spawn->position, spawn->facingRight, spawn->type));
+        currentLevel->spawnEntity(std::make_unique<Fireball>(spawn->position, spawn->facingRight));
     }
 }
