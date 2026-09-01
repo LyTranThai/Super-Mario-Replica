@@ -170,9 +170,11 @@ These items appear after Mario hits the flying mystery block.
 
 # 5. Main Menu
 
-- Super mario board (233,28) -> (424,115) : **Fill color:** (0,165,165)
+- Super mario board (mainmenu.png) : (233,28) -> (424,115) : **Fill color:** (0,165,165)
 - Castle (overworld1.png) : (3233,128) -> (3326,207)
-- 
+- Ground floor (#) (overworld1.png) : (0,208) -> (1103,239)
+- Background (background.png) : (18,18) -> (3089,256)
+- Clouds (nobackgroundcloud.png) : (388,16) -> (496,92) ; (830,16) -> (913,82)
 
 ### Note
 

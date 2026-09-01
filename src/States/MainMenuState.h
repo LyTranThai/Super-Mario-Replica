@@ -11,6 +11,7 @@ private:
     int selectedIndex;
     std::vector<std::string> mainOptions;
     Account activeAccount;
+    float animTime;
 
 public:
     MainMenuState();
