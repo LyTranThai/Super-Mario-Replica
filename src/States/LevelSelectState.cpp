@@ -157,7 +157,10 @@ void LevelSelectState::draw()
         }
         else if (isRandom)
         {
-            DrawText("INFINITE", cardX + 30, cardY + 110, 16, Color{40, 200, 120, 255});
+            int tWidth1 = MeasureText("MULTIPLAYER-", 13);
+            int tWidth2 = MeasureText("INFINITE", 13);
+            DrawText("MULTIPLAYER-", cardX + (cardW - tWidth1) / 2, cardY + 102, 13, Color{40, 200, 120, 255});
+            DrawText("INFINITE", cardX + (cardW - tWidth2) / 2, cardY + 120, 13, Color{40, 200, 120, 255});
             DrawText("Procedural Map", cardX + 8, cardY + 170, 12, LIGHTGRAY);
             DrawText("Random Seed!", cardX + 10, cardY + 195, 12, GREEN);
             DrawText("(Play)", cardX + 48, cardY + 280, 14, GOLD);
