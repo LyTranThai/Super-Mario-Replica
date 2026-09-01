@@ -274,11 +274,14 @@ void Player::changePowerState(PlayerPowerState *newState)
 
     // Resize hitbox and graphics boundaries dynamically
     Vector2 oldSize = hitboxSize;
+    Vector2 oldOffset = hitboxOffset;
     applyHitboxDimensions();
     configureAnimations(); // Reconfigure animation frames for the new power state
 
-    // Adjust position vertically to prevent clipping into the ground when growing
-    position.y -= (hitboxSize.y - oldSize.y);
+    // Adjust position vertically to prevent clipping into the ground when growing or floating when shrinking
+    float oldBottomRel = oldOffset.y + oldSize.y;
+    float newBottomRel = hitboxOffset.y + hitboxSize.y;
+    position.y -= (newBottomRel - oldBottomRel);
 }
 
 void Player::setSpecialMove(std::unique_ptr<SpecialMove> move)
