@@ -21,7 +21,7 @@ public:
     virtual void onCollision(Entity& other, CollisionSide side) = 0;
     virtual void resolveOverlap(Entity& other, float overlap, CollisionSide side);
     
-    void applyGravity(float dt);
+    virtual void applyGravity(float dt);
 
     Vector2 getVelocity() const { return velocity; }
     void setVelocity(Vector2 vel) { velocity = vel; }

@@ -27,6 +27,7 @@ void RockHead::update(float dt) {
     switch (rockState) {
         case RockState::Idle:
             velocity = Vector2{ 0.0f, 0.0f };
+            position.y = spawnPosition.y; // Ensure rockhead stays firmly anchored at its sky position
             break;
         case RockState::Slamming:
             // Accelerate down rapidly
@@ -52,12 +53,23 @@ void RockHead::update(float dt) {
             break;
     }
 
+    // Safety: deactivate if fell deep into a pit
+    if (position.y > 1000.0f) {
+        active = false;
+    }
+
     if (rockState == RockState::Slamming) {
         animator.setState(AnimState::Fall);
     } else {
         animator.setState(AnimState::Idle);
     }
     animator.update(dt);
+}
+
+void RockHead::applyGravity(float dt) {
+    // RockHead manages its own kinematics (stationary hover in Idle, rapid drop in Slamming,
+    // and steady ascent in Rising). General physics gravity must NOT be applied.
+    (void)dt;
 }
 
 void RockHead::checkTrigger(Vector2 playerPos) {
@@ -75,7 +87,6 @@ void RockHead::checkTrigger(Vector2 playerPos) {
 void RockHead::onCollision(Entity& other, CollisionSide side) {
     if (!other.isActive()) return;
 
-    
     Player* player = dynamic_cast<Player*>(&other);
     if (player) {
         std::cout << "[DEBUG]   -> Case: Player touched RockHead. Player taking damage." << std::endl;
@@ -83,9 +94,13 @@ void RockHead::onCollision(Entity& other, CollisionSide side) {
     } 
     else if (other.isSolid()) {
         if (side == CollisionSide::Bottom && rockState == RockState::Slamming) {
-            //std::cout << "[DEBUG]   -> Case: Slamming hit bottom solid block. Transitioning to Waiting state." << std::endl;
             rockState = RockState::Waiting;
             timer = 1.0f; // Stay down for 1 second
+            velocity.y = 0.0f;
+        } else if (side == CollisionSide::Top && rockState == RockState::Rising) {
+            // Hit a ceiling or solid block above while rising
+            rockState = RockState::Idle;
+            spawnPosition.y = position.y;
             velocity.y = 0.0f;
         }
     }

@@ -432,11 +432,7 @@ void Level::update(float dt) {
     }
 
     // 3. Evaluate and resolve AABB collisions
-    for (auto& p : players) {
-        if (p && p->isActive()) {
-            collisionChecker.updatePhysics(entities, *p, dt);
-        }
-    }
+    collisionChecker.updatePhysics(entities, players, dt);
 
     // Pairwise player-to-player collision (boost bounce on head)
     for (size_t i = 0; i < players.size(); ++i) {

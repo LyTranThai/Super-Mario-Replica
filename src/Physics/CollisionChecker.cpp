@@ -159,6 +159,198 @@ void CollisionChecker::sweepEntity(DynamicEntity* dyn, const std::vector<std::un
     if (player) processOverlap(player, false);
 }
 
+void CollisionChecker::sweepEntity(DynamicEntity* dyn, const std::vector<std::unique_ptr<Entity>>& entities, const std::vector<std::unique_ptr<Player>>& players, float dt) {
+    if (!dyn || !dyn->isActive() || dyn->isCarried()) return;
+    
+    dyn->applyGravity(dt);
+
+    Vector2 pos = dyn->getPosition();
+    Vector2 vel = dyn->getVelocity();
+
+    auto processOverlap = [&](Entity* other, bool isHorizontal) {
+        if (!other || !other->isActive() || other == dyn) return;
+        
+        Rectangle dBox = dyn->getBoundingBox();
+        Rectangle oBox = other->getBoundingBox();
+        
+        if (isHorizontal) {
+            if (checkAABB(dBox, oBox)) {
+                float overlapX = getOverlapX(dBox, oBox);
+                float overlapY = getOverlapY(dBox, oBox);
+                
+                if (!other->isSolidFrom(CollisionSide::Right, dyn) && !other->isSolidFrom(CollisionSide::Left, dyn)) {
+                    CollisionSide hitSide = (vel.x > 0.0f) ? CollisionSide::Right : (vel.x < 0.0f ? CollisionSide::Left : CollisionSide::None);
+                    dyn->resolveOverlap(*other, overlapX, hitSide);
+                } else if (std::abs(vel.x) > 0.001f && overlapY > 4.0f) {
+                    float dCenterX = dBox.x + dBox.width / 2.0f;
+                    float oCenterX = oBox.x + oBox.width / 2.0f;
+                    if (vel.x > 0.0f && dCenterX < oCenterX) {
+                        dyn->resolveOverlap(*other, overlapX, CollisionSide::Right);
+                        vel = dyn->getVelocity();
+                        pos = dyn->getPosition();
+                    } else if (vel.x < 0.0f && dCenterX > oCenterX) {
+                        dyn->resolveOverlap(*other, overlapX, CollisionSide::Left);
+                        vel = dyn->getVelocity();
+                        pos = dyn->getPosition();
+                    }
+                }
+            }
+        } else {
+            Rectangle dBoxDown = dBox;
+            dBoxDown.height += 1.0f;
+            
+            if (checkAABB(dBoxDown, oBox)) {
+                float overlapY = getOverlapY(dBox, oBox);
+                float overlapX = getOverlapX(dBoxDown, oBox);
+                
+                if (overlapX > 0.1f) {
+                    if (vel.y >= 0.0f) {
+                        if (dBox.y + dBox.height / 2.0f < oBox.y + oBox.height / 2.0f) {
+                            dyn->resolveOverlap(*other, overlapY, CollisionSide::Bottom);
+                        }
+                    } else if (vel.y < 0.0f) {
+                        if (checkAABB(dBox, oBox)) {
+                            if (dBox.y + dBox.height / 2.0f > oBox.y + oBox.height / 2.0f) {
+                                dyn->resolveOverlap(*other, overlapY, CollisionSide::Top);
+                                InteractiveBlock* block = dynamic_cast<InteractiveBlock*>(other);
+                                Player* p = dynamic_cast<Player*>(dyn);
+                                if (block && p) {
+                                    block->onInteract(*p);
+                                }
+                            }
+                        }
+                    }
+                    vel = dyn->getVelocity();
+                    pos = dyn->getPosition();
+                }
+            }
+        }
+    };
+
+    // --- Move horizontally ---
+    pos.x += vel.x * dt;
+    dyn->setPosition(pos);
+    
+    for (auto const& other : entities) processOverlap(other.get(), true);
+    for (auto const& p : players) {
+        if (p && p->isActive()) processOverlap(p.get(), true);
+    }
+
+    // --- Ledge detection ---
+    if (dyn->avoidsCliffs() && dyn->isOnGround()) {
+        Rectangle dBox = dyn->getBoundingBox();
+        vel = dyn->getVelocity();
+        
+        Rectangle ledgeBox;
+        ledgeBox.width = 2.0f;
+        ledgeBox.height = 2.0f;
+        ledgeBox.y = dBox.y + dBox.height + 1.0f;
+        
+        if (vel.x > 0) {
+            ledgeBox.x = dBox.x + dBox.width - 2.0f;
+        } else if (vel.x < 0) {
+            ledgeBox.x = dBox.x;
+        } else {
+            ledgeBox.width = 0;
+        }
+        
+        if (ledgeBox.width > 0) {
+            bool hasGround = false;
+            for (auto const& other : entities) {
+                if (other.get() != dyn && other->isSolidFrom(CollisionSide::Top, dyn)) {
+                    if (checkAABB(ledgeBox, other->getBoundingBox())) {
+                        hasGround = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (!hasGround) {
+                pos = dyn->getPosition();
+                pos.x -= vel.x * dt;
+                dyn->setPosition(pos);
+                vel.x = -vel.x;
+                dyn->setVelocity(vel);
+                dyn->setFacingRight(vel.x > 0);
+            }
+        }
+    }
+
+    // --- Move vertically ---
+    pos.y += vel.y * dt;
+    dyn->setPosition(pos);
+    dyn->setOnGround(false);
+    
+    for (auto const& other : entities) processOverlap(other.get(), false);
+    for (auto const& p : players) {
+        if (p && p->isActive()) processOverlap(p.get(), false);
+    }
+}
+
+void CollisionChecker::updatePhysics(std::vector<std::unique_ptr<Entity>>& entities, std::vector<std::unique_ptr<Player>>& players, float dt) {
+    // 1. Process active players
+    for (auto const& p : players) {
+        if (!p || !p->isActive()) continue;
+        Player& player = *p;
+
+        if (player.getVelocity().y >= 0.0f) {
+            Rectangle playerBounds = player.getBoundingBox();
+            for (auto const& entity : entities) {
+                MovingPlatform* platform = dynamic_cast<MovingPlatform*>(entity.get());
+                if (!platform || !platform->isActive()) continue;
+
+                if (platform->wasStandingOn(playerBounds)) {
+                    Vector2 playerPosition = player.getPosition();
+                    Vector2 platformMovement = platform->getFrameMovement();
+                    playerPosition.x += platformMovement.x;
+                    playerPosition.y += platformMovement.y;
+                    player.setPosition(playerPosition);
+                    break;
+                }
+            }
+        }
+
+        if (player.getWantToStandUp()) {
+            Vector2 baseSpriteSize, baseHitboxSize, baseHitboxOffset;
+            player.getPowerStateDimensions(baseSpriteSize, baseHitboxSize, baseHitboxOffset);
+            
+            Rectangle stoodUpBox = {
+                player.getPosition().x + baseHitboxOffset.x,
+                player.getPosition().y + baseHitboxOffset.y,
+                baseHitboxSize.x,
+                baseHitboxSize.y
+            };
+            
+            bool ceilingBlocked = false;
+            for (auto const& other : entities) {
+                if (!other->isActive() || other.get() == &player) continue;
+                if (other->isSolidFrom(CollisionSide::Top, &player) && checkAABB(stoodUpBox, other->getBoundingBox())) {
+                    ceilingBlocked = true;
+                    break;
+                }
+            }
+            
+            if (!ceilingBlocked) {
+                player.setCrouching(false);
+                player.applyHitboxDimensions();
+            }
+            player.setWantToStandUp(false);
+        }
+
+        if (!player.isPiping()) {
+            sweepEntity(&player, entities, nullptr, dt);
+        }
+    }
+
+    // 2. Sweep all other DynamicEntities ONCE per frame
+    for (auto& entity : entities) {
+        DynamicEntity* dyn = dynamic_cast<DynamicEntity*>(entity.get());
+        if (dyn) {
+            sweepEntity(dyn, entities, players, dt);
+        }
+    }
+}
+
 void CollisionChecker::updatePhysics(std::vector<std::unique_ptr<Entity>>& entities, Player& player, float dt) {
     // Platforms update before physics. Carry a rider by the exact distance the
     // platform moved this frame, using its previous bounds for contact.

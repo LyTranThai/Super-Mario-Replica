@@ -23,6 +23,7 @@ public:
     ~RockHead() override = default;
 
     void update(float dt) override;
+    void applyGravity(float dt) override;
     void draw() override;
     void onCollision(Entity& other, CollisionSide side) override;
     void checkTrigger(Vector2 playerPos);
