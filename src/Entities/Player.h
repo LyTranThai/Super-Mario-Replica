@@ -33,6 +33,8 @@ protected:
     float speed = 250.0f;
     float jumpForce = 420.0f;
 
+    int playerIndex = 0;
+
 public:
     Player(Vector2 pos, const std::string& textureId, Color debugColor);
     virtual ~Player() override;
@@ -48,6 +50,9 @@ public:
     virtual void takeDamage();
     virtual void powerUp(PowerStateType type);
     void throwCarriedEntity();
+
+    int getPlayerIndex() const { return playerIndex; }
+    void setPlayerIndex(int idx) { playerIndex = idx; }
 
     // Accessors
     void setCarriedEntity(DynamicEntity *entity) { carriedEntity = entity; }

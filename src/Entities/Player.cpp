@@ -142,12 +142,12 @@ void Player::handleInput(const InputManager &input)
         return;
 
     // Throw the carried entity if the player releases the Run button
-    if (carriedEntity != nullptr && !input.isActionPressed(Action::Run))
+    if (carriedEntity != nullptr && !input.isActionPressed(Action::Run, playerIndex))
     {
         throwCarriedEntity();
     }
 
-    if (input.isActionJustPressed(Action::Crouch))
+    if (input.isActionJustPressed(Action::Crouch, playerIndex))
     {
         if (isCrouching)
         {
@@ -159,14 +159,14 @@ void Player::handleInput(const InputManager &input)
             wantToStandUp = false;
         }
     }
-    if (input.isActionJustPressed(Action::Jump))
+    if (input.isActionJustPressed(Action::Jump, playerIndex))
     {
         if (isCrouching)
         {
             wantToStandUp = true;
         }
     }
-    if (input.isActionJustPressed(Action::Shoot))
+    if (input.isActionJustPressed(Action::Shoot, playerIndex))
     {
         if (carriedEntity != nullptr)
         {
@@ -176,20 +176,20 @@ void Player::handleInput(const InputManager &input)
 
     // Common movement logic
     Vector2 vel = getVelocity();
-    float curSpeed = input.isActionPressed(Action::Run) ? 350.0f : speed;
+    float curSpeed = input.isActionPressed(Action::Run, playerIndex) ? 350.0f : speed;
     float speedMult = isPlayerCrouching() ? 0.4f : 1.0f;
 
-    if (input.isActionPressed(Action::MoveLeft)) {
+    if (input.isActionPressed(Action::MoveLeft, playerIndex)) {
         vel.x = -curSpeed * speedMult;
         setFacingRight(false);
-    } else if (input.isActionPressed(Action::MoveRight)) {
+    } else if (input.isActionPressed(Action::MoveRight, playerIndex)) {
         vel.x = curSpeed * speedMult;
         setFacingRight(true);
     } else {
         vel.x = 0.0f;
     }
 
-    if (input.isActionJustPressed(Action::Jump)) {
+    if (input.isActionJustPressed(Action::Jump, playerIndex)) {
         jump();
         vel.y = getVelocity().y; // Sync jump velocity change to prevent copy overwrite
     }

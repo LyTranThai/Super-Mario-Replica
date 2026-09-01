@@ -46,7 +46,7 @@ void SuperState::onDamage(Player& player) {
 
 // --- FireState ---
 void FireState::handleInput(Player& player, const InputManager& input) {
-    if (input.isActionJustPressed(Action::Shoot)) {
+    if (input.isActionJustPressed(Action::Shoot, player.getPlayerIndex())) {
         if (player.getCarriedEntity() != nullptr) {
             return;
         }

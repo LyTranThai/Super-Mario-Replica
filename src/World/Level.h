@@ -14,6 +14,9 @@ private:
     std::vector<std::unique_ptr<Entity>> entities;
     std::vector<std::unique_ptr<Entity>> pendingEntities;
     std::unique_ptr<Player> player;
+    std::unique_ptr<Player> player2;
+    float p1RespawnTimer = 0.0f;
+    float p2RespawnTimer = 0.0f;
     GameCamera camera;
     CollisionChecker collisionChecker;
     
@@ -50,6 +53,7 @@ public:
 
     void spawnEntity(std::unique_ptr<Entity> newEntity);
     Player* getPlayer() const { return player.get(); }
+    Player* getPlayer2() const { return player2.get(); }
     GameCamera& getCamera() { return camera; }
 
     bool isLevelCompleted() const { return isCompleted; }

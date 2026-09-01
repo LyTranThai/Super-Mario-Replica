@@ -19,6 +19,7 @@ public:
     static float getOverlapY(Rectangle r1, Rectangle r2);
 
     void updatePhysics(std::vector<std::unique_ptr<Entity>>& entities, Player& player, float dt);
+    static void checkPlayerPlayerCollision(Player& p1, Player& p2);
 
 private:
     void sweepEntity(DynamicEntity* dyn, const std::vector<std::unique_ptr<Entity>>& entities, Player* player, float dt);

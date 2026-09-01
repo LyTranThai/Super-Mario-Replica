@@ -3,6 +3,7 @@
 #include "Entities/MovingPlatform.h"
 #include "Entities/Player.h"
 #include "Entities/InteractiveBlock.h"
+#include "Core/EventSystem.h"
 #include <cmath>
 
 bool CollisionChecker::checkAABB(Rectangle r1, Rectangle r2) {
@@ -219,5 +220,36 @@ void CollisionChecker::updatePhysics(std::vector<std::unique_ptr<Entity>>& entit
         if (dyn) {
             sweepEntity(dyn, entities, &player, dt);
         }
+    }
+}
+
+void CollisionChecker::checkPlayerPlayerCollision(Player& p1, Player& p2) {
+    if (!p1.isActive() || !p2.isActive() || p1.isPiping() || p2.isPiping()) return;
+
+    Rectangle r1 = p1.getBoundingBox();
+    Rectangle r2 = p2.getBoundingBox();
+
+    if (!checkAABB(r1, r2)) return;
+
+    // Check if P1 is landing on P2's head
+    float p1Bottom = r1.y + r1.height;
+    float p2Top = r2.y;
+    float p2Bottom = r2.y + r2.height;
+    float p1Top = r1.y;
+
+    if (p1.getVelocity().y > 0.0f && p1Bottom >= p2Top && p1Bottom <= p2Top + 14.0f) {
+        // P1 bounces off P2's head!
+        Vector2 v = p1.getVelocity();
+        v.y = -460.0f; // Boost jump!
+        p1.setVelocity(v);
+        p1.setjumpCount(1);
+        EventManager::getInstance().broadcast(EventType::EnemyStomped);
+    } else if (p2.getVelocity().y > 0.0f && p2Bottom >= p1Top && p2Bottom <= p1Top + 14.0f) {
+        // P2 bounces off P1's head!
+        Vector2 v = p2.getVelocity();
+        v.y = -460.0f; // Boost jump!
+        p2.setVelocity(v);
+        p2.setjumpCount(1);
+        EventManager::getInstance().broadcast(EventType::EnemyStomped);
     }
 }

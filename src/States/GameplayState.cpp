@@ -57,9 +57,16 @@ void GameplayState::handleInput(const InputManager &input)
     }
     else
     {
-        if (level && level->getPlayer())
+        if (level)
         {
-            level->getPlayer()->handleInput(input);
+            if (level->getPlayer())
+            {
+                level->getPlayer()->handleInput(input);
+            }
+            if (level->getPlayer2())
+            {
+                level->getPlayer2()->handleInput(input);
+            }
         }
     }
 }

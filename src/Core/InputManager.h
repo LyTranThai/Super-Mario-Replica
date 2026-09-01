@@ -21,21 +21,22 @@ enum class Action {
 class InputManager {
 private:
     std::vector<std::pair<Action, int>> bindings;
+    std::vector<std::pair<Action, int>> bindingsP2;
     std::map<Action, bool> actionStates;
     std::map<Action, bool> prevActionStates;
 
 public:
     InputManager();
 
-    bool bindKey(int key, Action action);
+    bool bindKey(int key, Action action, int playerIndex = 0);
     void update(); // Queries Raylib input states
 
-    bool isActionPressed(Action action) const;
-    bool isActionJustPressed(Action action) const;
-    bool isActionReleased(Action action) const;
+    bool isActionPressed(Action action, int playerIndex = 0) const;
+    bool isActionJustPressed(Action action, int playerIndex = 0) const;
+    bool isActionReleased(Action action, int playerIndex = 0) const;
 
     // Helper to get raw key code currently bound to an action
-    int getBoundKey(Action action) const;
+    int getBoundKey(Action action, int playerIndex = 0) const;
 };
 
 #endif // INPUT_MANAGER_H
