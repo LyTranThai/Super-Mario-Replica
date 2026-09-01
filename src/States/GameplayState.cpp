@@ -10,11 +10,6 @@
 #include "Persistence/SaveManager.h"
 #include <iostream>
 
-struct FireballSpawnData
-{
-    Vector2 position;
-    bool facingRight;
-};
 
 struct ItemSpawnData
 {
@@ -142,7 +137,7 @@ void GameplayState::onEvent(EventType type, void *data)
         FireballSpawnData *spawn = static_cast<FireballSpawnData *>(data);
         if (spawn)
         {
-            level->spawnEntity(std::make_unique<Fireball>(spawn->position, spawn->facingRight));
+            level->spawnEntity(std::make_unique<Fireball>(spawn->position, spawn->facingRight, spawn->type));
         }
         break;
     }

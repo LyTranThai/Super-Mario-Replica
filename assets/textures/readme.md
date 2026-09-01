@@ -64,6 +64,18 @@ Fill color: (255,255,255)
 | Jump | `(215,132) -> (246,163)` |
 | Pipe | `(215,176) -> (246,207)` |
 | Crouch | `(252,88) -> (283,119)` |
+### Fireballs (Loaded from player.png)
+
+1) fireball1 - Key T
+- `(152,183) -> (159,190)` ; `(162,183) -> (169,190)`
+(alternating between the two)
+
+2) fireball2 - Key Y
+- `(146,192) -> (161,207)` state 1. this state exists for 0.7 seconds
+- `(163,192) -> (178,207)` state 2. this state exists for 1 second
+- `(180,192) -> (195,207)` state 3. this state exists for 1.5 seconds
+
+Both of these fireballs shoot out from the direction Mario is facing. Apply the same acceleration constant for gravity. Both of them kill monsters in their hitbox.
 
 ---
 

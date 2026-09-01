@@ -5,6 +5,7 @@
 #include "PlayerPowerState.h"
 #include "SpriteAnimator.h"
 #include "SpecialMove.h"
+#include "Fireball.h"
 #include "Core/EventSystem.h"
 #include <memory>
 #include <iostream>
@@ -58,7 +59,8 @@ public:
     void setjumpCount(int s) { jumpCount = s < 0 ? 1 : std::min(s, jumpCount); };
     void takeDamage();
     void powerUp(PowerStateType type);
-    void shootFireball();
+    bool canShootFireballs() const;
+    void shootFireball(FireballType type = FireballType::Fireball1);
 
     void setSpecialMove(std::unique_ptr<SpecialMove> move);
     void throwCarriedEntity();
