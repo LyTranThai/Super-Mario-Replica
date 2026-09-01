@@ -9,6 +9,8 @@ InputManager::InputManager() {
     bindKey(KEY_S, Action::Crouch);     // S for crouch
     bindKey(KEY_LEFT_SHIFT, Action::Run);
     bindKey(KEY_J, Action::Shoot);
+    bindKey(KEY_T, Action::ShootFireball1);
+    bindKey(KEY_Y, Action::ShootFireball2);
     bindKey(KEY_P, Action::Pause);
 
     // Menu switch keys default to arrow keys to avoid sharing W/S initially

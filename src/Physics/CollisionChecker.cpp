@@ -52,11 +52,21 @@ void CollisionChecker::sweepEntity(DynamicEntity* dyn, const std::vector<std::un
                 float overlapX = getOverlapX(dBox, oBox);
                 float overlapY = getOverlapY(dBox, oBox);
                 
-                if (overlapY > 0.1f) {
-                    CollisionSide hitSide = (vel.x > 0.0f) ? CollisionSide::Right : CollisionSide::Left;
+                if (!other->isSolidFrom(CollisionSide::Right, dyn) && !other->isSolidFrom(CollisionSide::Left, dyn)) {
+                    CollisionSide hitSide = (vel.x > 0.0f) ? CollisionSide::Right : (vel.x < 0.0f ? CollisionSide::Left : CollisionSide::None);
                     dyn->resolveOverlap(*other, overlapX, hitSide);
-                    vel = dyn->getVelocity();
-                    pos = dyn->getPosition();
+                } else if (std::abs(vel.x) > 0.001f && overlapY > 4.0f) {
+                    float dCenterX = dBox.x + dBox.width / 2.0f;
+                    float oCenterX = oBox.x + oBox.width / 2.0f;
+                    if (vel.x > 0.0f && dCenterX < oCenterX) {
+                        dyn->resolveOverlap(*other, overlapX, CollisionSide::Right);
+                        vel = dyn->getVelocity();
+                        pos = dyn->getPosition();
+                    } else if (vel.x < 0.0f && dCenterX > oCenterX) {
+                        dyn->resolveOverlap(*other, overlapX, CollisionSide::Left);
+                        vel = dyn->getVelocity();
+                        pos = dyn->getPosition();
+                    }
                 }
             }
         } else {

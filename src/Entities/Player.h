@@ -5,6 +5,7 @@
 #include "PlayerPowerState.h"
 #include "SpriteAnimator.h"
 #include "SpecialMove.h"
+#include "Fireball.h"
 #include "Core/EventSystem.h"
 #include <memory>
 #include <iostream>
@@ -26,6 +27,7 @@ private:
     int coins;
     int jumpCount;
     float invincibilityTimer;
+    float fireballCooldownTimer = 0.0f;
     PlayerPowerState *powerState;
     std::unique_ptr<SpecialMove> specialMove;
     DynamicEntity *carriedEntity = nullptr;
@@ -58,7 +60,8 @@ public:
     void setjumpCount(int s) { jumpCount = s < 0 ? 1 : std::min(s, jumpCount); };
     void takeDamage();
     void powerUp(PowerStateType type);
-    void shootFireball();
+    bool canShootFireballs() const;
+    void shootFireball(FireballType type = FireballType::Fireball1);
 
     void setSpecialMove(std::unique_ptr<SpecialMove> move);
     void throwCarriedEntity();
@@ -85,6 +88,7 @@ public:
     }
 
     bool isInvincible() const { return invincibilityTimer > 0.0f; }
+    float getFireballCooldown() const { return fireballCooldownTimer; }
     PowerStateType getPowerType() const { return powerState->getType(); }
     void changePowerState(PlayerPowerState *newState);
     void setOnGround(bool state) override;
