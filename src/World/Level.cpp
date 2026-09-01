@@ -5,6 +5,9 @@
 #include "Core/InputManager.h"
 
 #include "EntityFactory.h"
+#include "Entities/Player.h"
+#include "Entities/Mario.h"
+#include "Entities/Luigi.h"
 #include "Entities/Block.h"
 #include "Entities/RockHead.h"
 #include "Core/EventSystem.h"
@@ -168,6 +171,15 @@ void Level::generateChunk(float startX, float endX) {
     }
 }
 
+std::unique_ptr<Player> Level::createPlayer(Vector2 pos) {
+    std::string selChar = GameEngine::getInstance().getActiveAccount().getSelectedCharacter();
+    if (selChar == "Luigi") {
+        return std::make_unique<Luigi>(pos);
+    } else {
+        return std::make_unique<Mario>(pos);
+    }
+}
+
 void Level::loadFromFile(const std::string& filePath) {
     entities.clear();
     player.reset();
@@ -194,9 +206,7 @@ void Level::loadFromFile(const std::string& filePath) {
         camera.setBoundaries(0.0f, 999999.0f);
         camera.setLeftLocked(true);
         
-        std::string selChar = GameEngine::getInstance().getActiveAccount().getSelectedCharacter();
-        CharacterType cType = (selChar == "Luigi") ? CharacterType::Luigi : CharacterType::Mario;
-        player = std::make_unique<Player>(Vector2{ 100.0f, 100.0f }, cType);
+        player = createPlayer(Vector2{ 100.0f, 100.0f });
         
         generateChunk(0.0f, 1600.0f);
         currentGenerationX = 1600.0f;
@@ -243,9 +253,10 @@ void Level::loadFromFile(const std::string& filePath) {
             float y = row * TILE_SIZE;
 
             if (type == 'P') {
-                std::string selChar = GameEngine::getInstance().getActiveAccount().getSelectedCharacter();
-                CharacterType cType = (selChar == "Luigi") ? CharacterType::Luigi : CharacterType::Mario;
-                player = std::make_unique<Player>(Vector2{ x, y }, cType);
+                player = createPlayer(Vector2{ x, y });
+                if (filePath == "assets/levels/level1.txt") {
+                    player->powerUp(PowerStateType::Fire);
+                }
             } else if (type != ' ' && type != '\n') {
                 auto ent = EntityFactory::createEntity(type, x, y);
                 if (ent) {
@@ -324,9 +335,7 @@ void Level::loadFromFile(const std::string& filePath) {
     }
 
     if (!player) {
-        std::string selChar = GameEngine::getInstance().getActiveAccount().getSelectedCharacter();
-        CharacterType cType = (selChar == "Luigi") ? CharacterType::Luigi : CharacterType::Mario;
-        player = std::make_unique<Player>(Vector2{ 100.0f, 100.0f }, cType);
+        player = createPlayer(Vector2{ 100.0f, 100.0f });
     }
 }
 
