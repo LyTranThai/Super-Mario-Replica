@@ -4,32 +4,21 @@
 #include "DynamicEntity.h"
 #include "PlayerPowerState.h"
 #include "SpriteAnimator.h"
-#include "SpecialMove.h"
-#include "Fireball.h"
 #include "Core/EventSystem.h"
 #include <memory>
 #include <iostream>
 
 class InputManager;
 
-enum class CharacterType
-{
-    Mario,
-    Luigi
-};
-
 class Player : public DynamicEntity
 {
-private:
-    CharacterType charType;
+protected:
     int lives;
     int score;
     int coins;
     int jumpCount;
     float invincibilityTimer;
-    float fireballCooldownTimer = 0.0f;
     PlayerPowerState *powerState;
-    std::unique_ptr<SpecialMove> specialMove;
     DynamicEntity *carriedEntity = nullptr;
     bool isCrouching;
     bool wantToStandUp;
@@ -45,25 +34,19 @@ private:
     float jumpForce = 420.0f;
 
 public:
-    Player(Vector2 pos, CharacterType type = CharacterType::Mario);
-    ~Player() override;
+    Player(Vector2 pos, const std::string& textureId, Color debugColor);
+    virtual ~Player() override;
 
-    CharacterType getCharacterType() const { return charType; }
+    virtual void update(float dt) override;
+    virtual void draw() override;
+    virtual void onCollision(Entity &other, CollisionSide side) override;
 
-    void update(float dt) override;
-    void draw() override;
-    void onCollision(Entity &other, CollisionSide side) override;
-
-    void handleInput(const InputManager &input);
-    void jump();
+    virtual void handleInput(const InputManager &input);
+    virtual void jump();
     int getjumpCount() const { return jumpCount; };
     void setjumpCount(int s) { jumpCount = s < 0 ? 1 : std::min(s, jumpCount); };
-    void takeDamage();
-    void powerUp(PowerStateType type);
-    bool canShootFireballs() const;
-    void shootFireball(FireballType type = FireballType::Fireball1);
-
-    void setSpecialMove(std::unique_ptr<SpecialMove> move);
+    virtual void takeDamage();
+    virtual void powerUp(PowerStateType type);
     void throwCarriedEntity();
 
     // Accessors
@@ -88,9 +71,9 @@ public:
     }
 
     bool isInvincible() const { return invincibilityTimer > 0.0f; }
-    float getFireballCooldown() const { return fireballCooldownTimer; }
+    Vector2 getHitboxOffset() const { return hitboxOffset; }
     PowerStateType getPowerType() const { return powerState->getType(); }
-    void changePowerState(PlayerPowerState *newState);
+    virtual void changePowerState(PlayerPowerState *newState);
     void setOnGround(bool state) override;
 
     bool isPlayerCrouching() const { return isCrouching; }
@@ -101,7 +84,6 @@ public:
     bool isPiping() const { return isPipingFlag; }
     void startPiping(Vector2 target, bool isExit)
     {
-
         if (isPipingFlag)
             return;
         isPipingFlag = true;
@@ -116,9 +98,12 @@ public:
 
     void getPowerStateDimensions(Vector2 &outSpriteSize, Vector2 &outHitboxSize, Vector2 &outHitboxOffset) const;
     void applyHitboxDimensions();
-    void configureAnimations();  // Setup spritesheet frames for current power state
+    virtual void configureAnimations() = 0;  // Setup spritesheet frames for current power state
     void updateAnimationState(); // Pick animation based on physics state
     Rectangle getSpriteBox() const override;
+    
+    virtual Texture2D getSpriteTexture() const;
+    virtual Color getSpriteTint() const { return WHITE; }
 };
 
 #endif // PLAYER_H

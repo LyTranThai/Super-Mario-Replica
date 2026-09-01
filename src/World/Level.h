@@ -27,6 +27,7 @@ private:
     int lastSegmentY;
 
     void generateChunk(float startX, float endX);
+    std::unique_ptr<Player> createPlayer(Vector2 pos);
 
     std::vector<Vector2> sceneryBigHills;
     std::vector<Vector2> scenerySmallHills;

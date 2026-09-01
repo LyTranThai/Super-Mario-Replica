@@ -29,6 +29,7 @@ void SoundManager::init()
     EventManager::getInstance().subscribe(EventType::PowerUpCollected, this);
     EventManager::getInstance().subscribe(EventType::EnemyStomped, this);
     EventManager::getInstance().subscribe(EventType::BrickBroken, this);
+    EventManager::getInstance().subscribe(EventType::FireballShot, this);
     EventManager::getInstance().subscribe(EventType::KoopaKicked, this);
     EventManager::getInstance().subscribe(EventType::PipeWarp, this);
     isInitialized = true;
@@ -46,6 +47,7 @@ void SoundManager::cleanup()
     EventManager::getInstance().unsubscribe(EventType::PowerUpCollected, this);
     EventManager::getInstance().unsubscribe(EventType::EnemyStomped, this);
     EventManager::getInstance().unsubscribe(EventType::BrickBroken, this);
+    EventManager::getInstance().unsubscribe(EventType::FireballShot, this);
     EventManager::getInstance().unsubscribe(EventType::KoopaKicked, this);
     EventManager::getInstance().unsubscribe(EventType::PipeWarp, this);
 
@@ -188,6 +190,9 @@ void SoundManager::onEvent(EventType type, void *data)
         break;
     case EventType::BrickBroken:
         playSound("break");
+        break;
+    case EventType::FireballShot:
+        playSound("fireball");
         break;
     case EventType::KoopaKicked:
         playSound("koopa_kicked");
