@@ -27,6 +27,7 @@ private:
     int coins;
     int jumpCount;
     float invincibilityTimer;
+    float fireballCooldownTimer = 0.0f;
     PlayerPowerState *powerState;
     std::unique_ptr<SpecialMove> specialMove;
     DynamicEntity *carriedEntity = nullptr;
@@ -87,6 +88,7 @@ public:
     }
 
     bool isInvincible() const { return invincibilityTimer > 0.0f; }
+    float getFireballCooldown() const { return fireballCooldownTimer; }
     PowerStateType getPowerType() const { return powerState->getType(); }
     void changePowerState(PlayerPowerState *newState);
     void setOnGround(bool state) override;
