@@ -8,12 +8,6 @@
 #include <cmath>
 #include <algorithm>
 
-struct FireballSpawnData
-{
-    Vector2 position;
-    bool facingRight;
-};
-
 Player::Player(Vector2 pos, CharacterType type)
     : DynamicEntity(pos, Vector2{32.0f, 32.0f}, Vector2{20.0f, 26.0f}, Vector2{6.0f, 6.0f}, (type == CharacterType::Luigi ? "luigi" : "mario"), (type == CharacterType::Luigi ? GREEN : RED)),
       charType(type), lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false)
@@ -31,7 +25,7 @@ Player::Player(Vector2 pos, CharacterType type)
     }
 
     powerState = new SmallState();
-    specialMove = std::make_unique<FireballMove>();
+    specialMove = std::make_unique<NoneMove>();
     applyHitboxDimensions();
     configureAnimations();
 }
@@ -197,9 +191,23 @@ void Player::handleInput(const InputManager &input)
         {
             throwCarriedEntity();
         }
-        else if (specialMove)
+        else if (canShootFireballs())
         {
-            specialMove->execute(*this);
+            shootFireball(FireballType::Fireball1);
+        }
+    }
+    if (input.isActionJustPressed(Action::ShootFireball1) || IsKeyPressed(KEY_T))
+    {
+        if (canShootFireballs())
+        {
+            shootFireball(FireballType::Fireball1);
+        }
+    }
+    if (input.isActionJustPressed(Action::ShootFireball2) || IsKeyPressed(KEY_Y))
+    {
+        if (canShootFireballs())
+        {
+            shootFireball(FireballType::Fireball2);
         }
     }
 
@@ -263,7 +271,7 @@ void Player::changePowerState(PlayerPowerState *newState)
     delete powerState;
     powerState = newState;
 
-    if (powerState->getType() == PowerStateType::Fire)
+    if (powerState->getType() == PowerStateType::Fire || powerState->getType() == PowerStateType::Super)
     {
         setSpecialMove(std::make_unique<FireballMove>());
     }
@@ -317,21 +325,31 @@ void Player::throwCarriedEntity()
     }
 }
 
-void Player::shootFireball()
+bool Player::canShootFireballs() const
 {
-    std::cout << "[DEBUG]" << textureID << " shoot fireball" << std::endl;
+    if (!powerState)
+        return false;
+    return (powerState->getType() == PowerStateType::Super || powerState->getType() == PowerStateType::Fire);
+}
+
+void Player::shootFireball(FireballType type)
+{
+    std::cout << "[DEBUG] " << textureID << " shoot fireball " << (type == FireballType::Fireball1 ? "1 (Key T)" : "2 (Key Y)") << std::endl;
     Vector2 spawnPos;
+    float fbWidth = (type == FireballType::Fireball2) ? 32.0f : 16.0f;
+    float fbHeight = (type == FireballType::Fireball2) ? 32.0f : 16.0f;
+
     if (facingRight)
     {
-        spawnPos.x = position.x + spriteSize.x;
+        spawnPos.x = position.x + hitboxOffset.x + hitboxSize.x + 2.0f;
     }
     else
     {
-        spawnPos.x = position.x - 16.0f;
+        spawnPos.x = position.x + hitboxOffset.x - fbWidth - 2.0f;
     }
-    spawnPos.y = position.y + spriteSize.y / 2.0f - 8.0f;
+    spawnPos.y = position.y + hitboxOffset.y + (hitboxSize.y / 2.0f) - (fbHeight / 2.0f);
 
-    FireballSpawnData data = {spawnPos, facingRight};
+    FireballSpawnData data = {spawnPos, facingRight, type};
     EventManager::getInstance().broadcast(EventType::FireballShot, &data);
 }
 
