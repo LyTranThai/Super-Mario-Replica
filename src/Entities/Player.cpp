@@ -10,7 +10,7 @@
 
 Player::Player(Vector2 pos, CharacterType type)
     : DynamicEntity(pos, Vector2{32.0f, 32.0f}, Vector2{20.0f, 26.0f}, Vector2{6.0f, 6.0f}, (type == CharacterType::Luigi ? "luigi" : "mario"), (type == CharacterType::Luigi ? GREEN : RED)),
-      charType(type), lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), isCrouching(false), wantToStandUp(false)
+      charType(type), lives(3), score(0), coins(0), jumpCount(0), invincibilityTimer(0.0f), fireballCooldownTimer(0.0f), isCrouching(false), wantToStandUp(false)
 {
 
     if (charType == CharacterType::Luigi)
@@ -70,6 +70,15 @@ void Player::update(float dt)
     if (invincibilityTimer > 0.0f)
     {
         invincibilityTimer -= dt;
+    }
+
+    if (fireballCooldownTimer > 0.0f)
+    {
+        fireballCooldownTimer -= dt;
+        if (fireballCooldownTimer < 0.0f)
+        {
+            fireballCooldownTimer = 0.0f;
+        }
     }
 
     powerState->update(*this, dt);
@@ -329,11 +338,14 @@ bool Player::canShootFireballs() const
 {
     if (!powerState)
         return false;
+    if (fireballCooldownTimer > 0.0f)
+        return false;
     return (powerState->getType() == PowerStateType::Super || powerState->getType() == PowerStateType::Fire);
 }
 
 void Player::shootFireball(FireballType type)
 {
+    fireballCooldownTimer = 2.0f; // 2 seconds cooldown regardless of T or Y
     std::cout << "[DEBUG] " << textureID << " shoot fireball " << (type == FireballType::Fireball1 ? "1 (Key T)" : "2 (Key Y)") << std::endl;
     Vector2 spawnPos;
     float fbWidth = (type == FireballType::Fireball2) ? 32.0f : 16.0f;
