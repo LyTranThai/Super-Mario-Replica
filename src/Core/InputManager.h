@@ -20,8 +20,7 @@ enum class Action {
 
 class InputManager {
 private:
-    std::vector<std::pair<Action, int>> bindings;
-    std::vector<std::pair<Action, int>> bindingsP2;
+    std::vector<std::vector<std::pair<Action, int>>> bindingsPerPlayer;
     std::map<Action, bool> actionStates;
     std::map<Action, bool> prevActionStates;
 

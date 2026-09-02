@@ -2,6 +2,8 @@
 #include "raylib.h"
 
 InputManager::InputManager() {
+    bindingsPerPlayer.resize(2);
+
     // Set up default action bindings for Player 1 (Left side of keyboard / WASD)
     bindKey(KEY_A, Action::MoveLeft, 0);
     bindKey(KEY_D, Action::MoveRight, 0);
@@ -27,7 +29,7 @@ InputManager::InputManager() {
 }
 
 bool InputManager::bindKey(int key, Action action, int playerIndex) {
-    auto& list = (playerIndex == 1) ? bindingsP2 : bindings;
+    auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
     // Check if this key is already bound to any OTHER action for this player
     for (auto const& binding : list) {
         if (binding.second == key && binding.first != action) {
@@ -51,7 +53,7 @@ void InputManager::update() {
 }
 
 bool InputManager::isActionPressed(Action action, int playerIndex) const {
-    const auto& list = (playerIndex == 1) ? bindingsP2 : bindings;
+    const auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
     for (auto const& binding : list) {
         if (binding.first == action) {
             if (IsKeyDown(binding.second)) {
@@ -68,7 +70,7 @@ bool InputManager::isActionPressed(Action action, int playerIndex) const {
 }
 
 bool InputManager::isActionJustPressed(Action action, int playerIndex) const {
-    const auto& list = (playerIndex == 1) ? bindingsP2 : bindings;
+    const auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
     for (auto const& binding : list) {
         if (binding.first == action) {
             if (IsKeyPressed(binding.second)) {
@@ -84,7 +86,7 @@ bool InputManager::isActionJustPressed(Action action, int playerIndex) const {
 }
 
 bool InputManager::isActionReleased(Action action, int playerIndex) const {
-    const auto& list = (playerIndex == 1) ? bindingsP2 : bindings;
+    const auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
     for (auto const& binding : list) {
         if (binding.first == action) {
             if (IsKeyReleased(binding.second)) {
@@ -100,7 +102,7 @@ bool InputManager::isActionReleased(Action action, int playerIndex) const {
 }
 
 int InputManager::getBoundKey(Action action, int playerIndex) const {
-    const auto& list = (playerIndex == 1) ? bindingsP2 : bindings;
+    const auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
     for (auto const& binding : list) {
         if (binding.first == action) {
             return binding.second;
