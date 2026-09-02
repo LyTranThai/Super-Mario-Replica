@@ -274,7 +274,7 @@ void Player::throwCarriedEntity()
 {
     if (carriedEntity)
     {
-        bool drop = GameEngine::getInstance().getInputManager().isActionPressed(Action::Crouch);
+        bool drop = GameEngine::getInstance().getInputManager().isActionPressed(Action::Crouch, playerIndex);
 
         if (!drop && dynamic_cast<Koopa *>(carriedEntity))
         {

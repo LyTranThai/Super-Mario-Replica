@@ -45,8 +45,8 @@ void Koopa::update(float dt)
     else if (currentState == KoopaState::PickedUp)
     {
         // Player holds run to carry. If released, Player drops it or throws it.
-        bool isHolding = GameEngine::getInstance().getInputManager().isActionPressed(Action::Run) ||
-                         GameEngine::getInstance().getInputManager().isActionPressed(Action::Shoot);
+        bool isHolding = GameEngine::getInstance().getInputManager().isActionPressed(Action::Run, carrierPlayerIndex) ||
+                         GameEngine::getInstance().getInputManager().isActionPressed(Action::Shoot, carrierPlayerIndex);
 
         if (!isHolding)
         {
@@ -112,10 +112,12 @@ void Koopa::onCollision(Entity &other, CollisionSide side)
     {
         if (currentState == KoopaState::Shell)
         {
-            bool isHoldingRun = GameEngine::getInstance().getInputManager().isActionPressed(Action::Run);
+            int pIdx = player->getPlayerIndex();
+            bool isHoldingRun = GameEngine::getInstance().getInputManager().isActionPressed(Action::Run, pIdx);
 
             if (isHoldingRun)
             {
+                carrierPlayerIndex = pIdx;
                 player->setCarriedEntity(this);
                 currentState = KoopaState::PickedUp;
             }

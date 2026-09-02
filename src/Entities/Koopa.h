@@ -32,9 +32,13 @@ public:
         return currentState == KoopaState::MovingShell; 
     }
 
+    void setCarrierPlayerIndex(int idx) { carrierPlayerIndex = idx; }
+    int getCarrierPlayerIndex() const { return carrierPlayerIndex; }
+
 private:
     KoopaState currentState;
     SpriteAnimator animator;
+    int carrierPlayerIndex = 0;
 };
 
 #endif // KOOPA_H
