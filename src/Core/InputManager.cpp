@@ -107,6 +107,17 @@ bool InputManager::bindKey(int key, Action action, int playerIndex) {
         }
     }
 
+    // Check if this key is bound to any action for any other player (cross-player conflict)
+    for (size_t p = 0; p < bindingsPerPlayer.size(); ++p) {
+        if ((int)p != playerIndex) {
+            for (auto const& binding : bindingsPerPlayer[p]) {
+                if (binding.second == key) {
+                    return false; // Key is already used by another player!
+                }
+            }
+        }
+    }
+
     // Find the first binding for this action and update it
     for (auto& binding : list) {
         if (binding.first == action) {
@@ -126,6 +137,15 @@ bool InputManager::addKeyBinding(int key, Action action, int playerIndex) {
         }
         if (binding.second == key && binding.first == action) {
             return true; // Already bound to this action
+        }
+    }
+    for (size_t p = 0; p < bindingsPerPlayer.size(); ++p) {
+        if ((int)p != playerIndex) {
+            for (auto const& binding : bindingsPerPlayer[p]) {
+                if (binding.second == key) {
+                    return false; // Key is already used by another player!
+                }
+            }
         }
     }
     list.push_back({action, key});
