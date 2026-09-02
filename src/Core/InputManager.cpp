@@ -98,21 +98,37 @@ bool InputManager::isGamepadAvailable(int playerIndex) const {
     return IsGamepadAvailable(playerIndex);
 }
 
+static bool isGameplayAction(Action action) {
+    return action == Action::MoveLeft ||
+           action == Action::MoveRight ||
+           action == Action::Jump ||
+           action == Action::Crouch ||
+           action == Action::Run ||
+           action == Action::Shoot;
+}
+
 bool InputManager::bindKey(int key, Action action, int playerIndex) {
     auto& list = getPlayerBindings(playerIndex);
-    // Check if this key is already bound to any OTHER action for this player
+    // Check if this key is already bound to any OTHER action in the same category for this player
     for (auto const& binding : list) {
         if (binding.second == key && binding.first != action) {
-            return false; // Key exists for another action, reject!
+            if (isGameplayAction(action) && isGameplayAction(binding.first)) {
+                return false; // Key exists for another gameplay action for this player
+            }
+            if (!isGameplayAction(action) && !isGameplayAction(binding.first)) {
+                return false; // Key exists for another menu action for this player
+            }
         }
     }
 
-    // Check if this key is bound to any action for any other player (cross-player conflict)
-    for (size_t p = 0; p < bindingsPerPlayer.size(); ++p) {
-        if ((int)p != playerIndex) {
-            for (auto const& binding : bindingsPerPlayer[p]) {
-                if (binding.second == key) {
-                    return false; // Key is already used by another player!
+    // Check if this key is bound to a gameplay action for any other player (cross-player conflict)
+    if (isGameplayAction(action)) {
+        for (size_t p = 0; p < bindingsPerPlayer.size(); ++p) {
+            if ((int)p != playerIndex) {
+                for (auto const& binding : bindingsPerPlayer[p]) {
+                    if (binding.second == key && isGameplayAction(binding.first)) {
+                        return false; // Key is already used by another player for gameplay!
+                    }
                 }
             }
         }
@@ -133,17 +149,24 @@ bool InputManager::addKeyBinding(int key, Action action, int playerIndex) {
     auto& list = getPlayerBindings(playerIndex);
     for (auto const& binding : list) {
         if (binding.second == key && binding.first != action) {
-            return false; // Key exists for another action, reject!
+            if (isGameplayAction(action) && isGameplayAction(binding.first)) {
+                return false;
+            }
+            if (!isGameplayAction(action) && !isGameplayAction(binding.first)) {
+                return false;
+            }
         }
         if (binding.second == key && binding.first == action) {
             return true; // Already bound to this action
         }
     }
-    for (size_t p = 0; p < bindingsPerPlayer.size(); ++p) {
-        if ((int)p != playerIndex) {
-            for (auto const& binding : bindingsPerPlayer[p]) {
-                if (binding.second == key) {
-                    return false; // Key is already used by another player!
+    if (isGameplayAction(action)) {
+        for (size_t p = 0; p < bindingsPerPlayer.size(); ++p) {
+            if ((int)p != playerIndex) {
+                for (auto const& binding : bindingsPerPlayer[p]) {
+                    if (binding.second == key && isGameplayAction(binding.first)) {
+                        return false; // Key is already used by another player for gameplay!
+                    }
                 }
             }
         }
