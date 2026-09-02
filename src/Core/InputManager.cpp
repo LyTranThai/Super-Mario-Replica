@@ -28,8 +28,24 @@ InputManager::InputManager() {
     bindKey(KEY_P, Action::Pause, 1);
 }
 
+std::vector<std::pair<Action, int>>& InputManager::getPlayerBindings(int playerIndex) {
+    if (playerIndex < 0) playerIndex = 0;
+    if (playerIndex >= (int)bindingsPerPlayer.size()) {
+        bindingsPerPlayer.resize(playerIndex + 1);
+    }
+    return bindingsPerPlayer[playerIndex];
+}
+
+const std::vector<std::pair<Action, int>>& InputManager::getPlayerBindings(int playerIndex) const {
+    static const std::vector<std::pair<Action, int>> emptyBindings;
+    if (playerIndex < 0 || playerIndex >= (int)bindingsPerPlayer.size()) {
+        return emptyBindings;
+    }
+    return bindingsPerPlayer[playerIndex];
+}
+
 bool InputManager::bindKey(int key, Action action, int playerIndex) {
-    auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
+    auto& list = getPlayerBindings(playerIndex);
     // Check if this key is already bound to any OTHER action for this player
     for (auto const& binding : list) {
         if (binding.second == key && binding.first != action) {
@@ -53,7 +69,7 @@ void InputManager::update() {
 }
 
 bool InputManager::isActionPressed(Action action, int playerIndex) const {
-    const auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
+    const auto& list = getPlayerBindings(playerIndex);
     for (auto const& binding : list) {
         if (binding.first == action) {
             if (IsKeyDown(binding.second)) {
@@ -70,7 +86,7 @@ bool InputManager::isActionPressed(Action action, int playerIndex) const {
 }
 
 bool InputManager::isActionJustPressed(Action action, int playerIndex) const {
-    const auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
+    const auto& list = getPlayerBindings(playerIndex);
     for (auto const& binding : list) {
         if (binding.first == action) {
             if (IsKeyPressed(binding.second)) {
@@ -86,7 +102,7 @@ bool InputManager::isActionJustPressed(Action action, int playerIndex) const {
 }
 
 bool InputManager::isActionReleased(Action action, int playerIndex) const {
-    const auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
+    const auto& list = getPlayerBindings(playerIndex);
     for (auto const& binding : list) {
         if (binding.first == action) {
             if (IsKeyReleased(binding.second)) {
@@ -102,7 +118,7 @@ bool InputManager::isActionReleased(Action action, int playerIndex) const {
 }
 
 int InputManager::getBoundKey(Action action, int playerIndex) const {
-    const auto& list = (playerIndex == 1) ? bindingsPerPlayer[1] : bindingsPerPlayer[0];
+    const auto& list = getPlayerBindings(playerIndex);
     for (auto const& binding : list) {
         if (binding.first == action) {
             return binding.second;

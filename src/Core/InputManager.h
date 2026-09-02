@@ -24,6 +24,9 @@ private:
     std::map<Action, bool> actionStates;
     std::map<Action, bool> prevActionStates;
 
+    std::vector<std::pair<Action, int>>& getPlayerBindings(int playerIndex);
+    const std::vector<std::pair<Action, int>>& getPlayerBindings(int playerIndex) const;
+
 public:
     InputManager();
 
