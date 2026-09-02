@@ -5,22 +5,26 @@
 #include "InteractiveBlock.h"
 #include "SpriteAnimator.h"
 
+class Player;
+
 class Item : public DynamicEntity {
 protected:
-    ItemType itemType;
-    float spawnRiseTimer; // Visual effect popping out of block
+    float spawnRiseTimer;
     Vector2 targetSpawnPosition;
+    float riseSpeed;
     SpriteAnimator animator;
 
 public:
-    Item(Vector2 pos, ItemType type, const std::string& texID, Color dbgColor);
+    Item(Vector2 pos, const std::string& texID, Color dbgColor);
     virtual ~Item() override = default;
 
     void update(float dt) override;
     void draw() override;
     void onCollision(Entity& other, CollisionSide side) override;
 
-    ItemType getItemType() const { return itemType; }
+    virtual void onSpawnComplete() {}
+    virtual void updateBehavior(float dt) {}
+    virtual void applyEffect(Player* player) = 0;
 };
 
 #endif // ITEM_H

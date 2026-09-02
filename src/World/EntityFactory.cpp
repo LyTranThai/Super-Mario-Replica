@@ -1,6 +1,9 @@
 #include "EntityFactory.h"
 #include "Entities/Block.h"
 #include "Entities/InteractiveBlock.h"
+#include "Entities/QuestionBlock.h"
+#include "Entities/CoinBlock.h"
+#include "Entities/BreakableBlock.h"
 #include "Entities/Goomba.h"
 #include "Entities/Koopa.h"
 #include "Entities/PiranhaPlant.h"
@@ -19,16 +22,22 @@ std::unique_ptr<Entity> EntityFactory::createEntity(char type, float x, float y)
             return std::make_unique<Block>(pos, Block::Type::Brick, true, "world", WHITE);
         
         case 'B': // Breakable brick block
-            return std::make_unique<InteractiveBlock>(pos, InteractiveBlockType::Brick);
+            return std::make_unique<BreakableBlock>(pos);
         
         case '?': // Question Block with Coin
-            return std::make_unique<InteractiveBlock>(pos, InteractiveBlockType::Question, ItemType::Coin);
+            return std::make_unique<CoinBlock>(pos, 1);
         
         case 'M': // Question Block with Mushroom
-            return std::make_unique<InteractiveBlock>(pos, InteractiveBlockType::Question, ItemType::Mushroom);
+            return std::make_unique<QuestionBlock>(pos, ItemType::Mushroom);
         
         case 'F': // Question Block with FireFlower
-            return std::make_unique<InteractiveBlock>(pos, InteractiveBlockType::Question, ItemType::FireFlower);
+            return std::make_unique<QuestionBlock>(pos, ItemType::FireFlower);
+        
+        case 'L': // Question Block with Heart (L for Life)
+            return std::make_unique<QuestionBlock>(pos, ItemType::Heart);
+            
+        case 'S': // Question Block with Star
+            return std::make_unique<QuestionBlock>(pos, ItemType::Star);
         
                 
         case 'G': // Goomba Enemy

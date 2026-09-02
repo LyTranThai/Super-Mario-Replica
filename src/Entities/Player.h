@@ -59,6 +59,9 @@ public:
     int getScore() const { return score; }
     void addScore(int s) { score += s; }
 
+    void addLives(int l) { lives += l; }
+    void addInvincibility(float time) { invincibilityTimer += time; }
+
     int getCoins() const { return coins; }
     void addCoin()
     {

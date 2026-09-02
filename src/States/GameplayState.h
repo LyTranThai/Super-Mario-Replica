@@ -3,6 +3,7 @@
 
 #include "Core/GameState.h"
 #include "Core/EventSystem.h"
+#include "World/EntitySpawner.h"
 #include <memory>
 #include <string>
 
@@ -11,6 +12,7 @@ class Level;
 class GameplayState : public GameState, public EventListener {
 private:
     std::unique_ptr<Level> level;
+    std::unique_ptr<EntitySpawner> spawner;
     int currentLevelIndex;
     std::vector<std::string> levelFiles;
 

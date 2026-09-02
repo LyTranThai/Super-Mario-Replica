@@ -1,22 +1,16 @@
 #ifndef MUSHROOM_H
 #define MUSHROOM_H
 
-#include "DynamicEntity.h"
-#include "SpriteAnimator.h"
+#include "Item.h"
 
-class Mushroom : public DynamicEntity {
-private:
-    float spawnRiseTimer;
-    Vector2 targetSpawnPosition;
-    SpriteAnimator animator;
-
+class Mushroom : public Item {
 public:
     Mushroom(Vector2 pos);
     ~Mushroom() override = default;
 
-    void update(float dt) override;
-    void draw() override;
-    void onCollision(Entity& other, CollisionSide side) override;
+    void onSpawnComplete() override;
+    void updateBehavior(float dt) override;
+    void applyEffect(Player* player) override;
 };
 
 #endif // MUSHROOM_H

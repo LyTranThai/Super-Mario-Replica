@@ -4,28 +4,14 @@
 #include "Core/AssetManager.h"
 #include <iostream>
 
-Item::Item(Vector2 pos, ItemType type, const std::string &texID, Color dbgColor)
+Item::Item(Vector2 pos, const std::string& texID, Color dbgColor)
     : DynamicEntity(pos, Vector2{32.0f, 32.0f}, Vector2{24.0f, 24.0f}, Vector2{4.0f, 4.0f}, texID, dbgColor),
-      itemType(type), spawnRiseTimer(0.5f), targetSpawnPosition(pos)
+      spawnRiseTimer(1.0f), targetSpawnPosition({pos.x, pos.y - 32.0f})
 {
-
-    // Slide up starting position slightly hidden inside the block
-    position.y += 16.0f;
+    position = pos;
     velocity = Vector2{0.0f, 0.0f};
     onGround = true; // Stay stationary during spawn rising
-
-    if (itemType == ItemType::Mushroom)
-    {
-        textureID = "coin"; // Uses coinblockreward.png
-        animator.addAnimation(AnimState::Idle, {Rectangle{0.0f, 176.0f, 16.0f, 16.0f}, Rectangle{16.0f, 176.0f, 16.0f, 16.0f}}, 0.2f);
-        animator.setState(AnimState::Idle);
-    }
-    else if (itemType == ItemType::Coin)
-    {
-        textureID = "coin"; // Uses coinblockreward.png
-        animator.addAnimation(AnimState::Idle, {Rectangle{243.0f, 66.0f, 10.0f, 15.0f}}, 1.0f);
-        animator.setState(AnimState::Idle);
-    }
+    riseSpeed = 16.0f / 1;
 }
 
 void Item::update(float dt)
@@ -35,36 +21,18 @@ void Item::update(float dt)
     {
         spawnRiseTimer -= dt;
         // Slowly rise out of block
-        position.y -= 32.0f * dt / 0.5f;
+        position.y -= riseSpeed * dt;
         if (spawnRiseTimer <= 0.0f)
         {
-            position.y = targetSpawnPosition.y - 32.0f; // Snap to top of block
+            // position.y = targetSpawnPosition.y; // Snap exactly to target
             onGround = false;
-            if (itemType == ItemType::Mushroom)
-            {
-                velocity.x = 80.0f;
-                facingRight = true;
-            }
-            else if (itemType == ItemType::Coin)
-            {
-                // Coin disappears after popping up
-                active = false;
-            }
+            //velocity.y = -150.0f; // Small pop out hop!
+            onSpawnComplete();
         }
     }
     else
     {
-        // Post spawn behaviors
-        if (itemType == ItemType::Mushroom)
-        {
-            velocity.x = facingRight ? 80.0f : -80.0f;
-            // Let gravity apply
-        }
-        else if (itemType == ItemType::FireFlower)
-        {
-            velocity = Vector2{0.0f, 0.0f};
-            onGround = true; // No physics
-        }
+        updateBehavior(dt);
     }
 }
 
@@ -78,16 +46,7 @@ void Item::onCollision(Entity &other, CollisionSide side)
     {
         // Collected by player!
         active = false;
-        if (itemType == ItemType::Mushroom)
-        {
-            player->powerUp(PowerStateType::Super);
-            EventManager::getInstance().broadcast(EventType::PowerUpCollected);
-        }
-        else if (itemType == ItemType::FireFlower)
-        {
-            player->powerUp(PowerStateType::Fire);
-            EventManager::getInstance().broadcast(EventType::PowerUpCollected);
-        }
+        applyEffect(player);
     }
     else if (other.isSolid())
     {
@@ -101,18 +60,16 @@ void Item::onCollision(Entity &other, CollisionSide side)
 
 void Item::draw()
 {
-    if (itemType == ItemType::Mushroom || itemType == ItemType::Coin)
+    Texture2D tex = AssetManager::getInstance().getTexture(textureID);
+    if (tex.id != 0)
     {
-        Texture2D tex = AssetManager::getInstance().getTexture(textureID);
-        if (tex.id != 0)
-        {
-            Rectangle source = animator.getCurrentFrame();
+        Rectangle source = animator.getCurrentFrame();
+        // If the item doesn't have animation frames (like static texture), just draw it
+        if (source.width == 0) {
+            DynamicEntity::draw();
+        } else {
             Rectangle dest = getSpriteBox();
             DrawTexturePro(tex, source, dest, Vector2{0.0f, 0.0f}, 0.0f, WHITE);
-        }
-        else
-        {
-            DynamicEntity::draw();
         }
     }
     else
