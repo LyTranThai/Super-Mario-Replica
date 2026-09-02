@@ -2,7 +2,7 @@
 #include "Core/AssetManager.h"
 
 Luigi::Luigi(Vector2 pos) : FireballPlayer(pos, "luigi", GREEN) {
-    jumpForce = 480.0f; // Luigi jumps higher!
+    jumpForce = 440.0f; // Slightly higher than Mario (420.0f)
     speed = 230.0f;     // Slightly slower speed
     configureAnimations();
 }
