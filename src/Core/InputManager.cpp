@@ -31,6 +31,23 @@ InputManager::InputManager() {
     addKeyBinding(KEY_SLASH, Action::Shoot, 1); // Alternate shoot key
     addKeyBinding(KEY_ENTER, Action::Shoot, 1); // Alternate shoot key
     bindKey(KEY_P, Action::Pause, 1);
+
+    // Set up default gamepad bindings for players
+    gamepadBindingsPerPlayer.resize(2);
+    for (int p = 0; p < 2; ++p) {
+        bindGamepadButton(GAMEPAD_BUTTON_LEFT_FACE_LEFT, Action::MoveLeft, p);
+        bindGamepadButton(GAMEPAD_BUTTON_LEFT_FACE_RIGHT, Action::MoveRight, p);
+        bindGamepadButton(GAMEPAD_BUTTON_LEFT_FACE_UP, Action::Jump, p);
+        bindGamepadButton(GAMEPAD_BUTTON_LEFT_FACE_DOWN, Action::Crouch, p);
+        bindGamepadButton(GAMEPAD_BUTTON_RIGHT_FACE_DOWN, Action::Jump, p);     // A / Cross button to jump
+        bindGamepadButton(GAMEPAD_BUTTON_RIGHT_FACE_RIGHT, Action::Run, p);     // B / Circle button to run
+        bindGamepadButton(GAMEPAD_BUTTON_RIGHT_FACE_LEFT, Action::Shoot, p);    // X / Square button to shoot
+        bindGamepadButton(GAMEPAD_BUTTON_RIGHT_TRIGGER_1, Action::Run, p);      // RB / R1 to run
+        bindGamepadButton(GAMEPAD_BUTTON_MIDDLE_RIGHT, Action::Pause, p);       // Start button to pause
+        bindGamepadButton(GAMEPAD_BUTTON_LEFT_FACE_UP, Action::MenuUp, p);
+        bindGamepadButton(GAMEPAD_BUTTON_LEFT_FACE_DOWN, Action::MenuDown, p);
+        bindGamepadButton(GAMEPAD_BUTTON_RIGHT_FACE_DOWN, Action::MenuConfirm, p);
+    }
 }
 
 std::vector<std::pair<Action, int>>& InputManager::getPlayerBindings(int playerIndex) {
@@ -47,6 +64,38 @@ const std::vector<std::pair<Action, int>>& InputManager::getPlayerBindings(int p
         return emptyBindings;
     }
     return bindingsPerPlayer[playerIndex];
+}
+
+std::vector<std::pair<Action, int>>& InputManager::getPlayerGamepadBindings(int playerIndex) {
+    if (playerIndex < 0) playerIndex = 0;
+    if (playerIndex >= (int)gamepadBindingsPerPlayer.size()) {
+        gamepadBindingsPerPlayer.resize(playerIndex + 1);
+    }
+    return gamepadBindingsPerPlayer[playerIndex];
+}
+
+const std::vector<std::pair<Action, int>>& InputManager::getPlayerGamepadBindings(int playerIndex) const {
+    static const std::vector<std::pair<Action, int>> emptyBindings;
+    if (playerIndex < 0 || playerIndex >= (int)gamepadBindingsPerPlayer.size()) {
+        return emptyBindings;
+    }
+    return gamepadBindingsPerPlayer[playerIndex];
+}
+
+bool InputManager::bindGamepadButton(int button, Action action, int playerIndex) {
+    auto& list = getPlayerGamepadBindings(playerIndex);
+    for (auto& b : list) {
+        if (b.first == action) {
+            b.second = button;
+            return true;
+        }
+    }
+    list.push_back({action, button});
+    return true;
+}
+
+bool InputManager::isGamepadAvailable(int playerIndex) const {
+    return IsGamepadAvailable(playerIndex);
 }
 
 bool InputManager::bindKey(int key, Action action, int playerIndex) {
@@ -84,20 +133,39 @@ bool InputManager::addKeyBinding(int key, Action action, int playerIndex) {
 }
 
 void InputManager::update() {
-    if (actionStates.size() < bindingsPerPlayer.size()) {
-        actionStates.resize(bindingsPerPlayer.size());
+    size_t maxPlayers = std::max(bindingsPerPlayer.size(), gamepadBindingsPerPlayer.size());
+    if (actionStates.size() < maxPlayers) {
+        actionStates.resize(maxPlayers);
     }
-    if (prevActionStates.size() < bindingsPerPlayer.size()) {
-        prevActionStates.resize(bindingsPerPlayer.size());
+    if (prevActionStates.size() < maxPlayers) {
+        prevActionStates.resize(maxPlayers);
     }
 
-    for (size_t p = 0; p < bindingsPerPlayer.size(); ++p) {
+    for (size_t p = 0; p < maxPlayers; ++p) {
         prevActionStates[p] = actionStates[p];
         actionStates[p].clear();
-        for (auto const& binding : bindingsPerPlayer[p]) {
-            if (IsKeyDown(binding.second)) {
-                actionStates[p][binding.first] = true;
+        if (p < bindingsPerPlayer.size()) {
+            for (auto const& binding : bindingsPerPlayer[p]) {
+                if (IsKeyDown(binding.second)) {
+                    actionStates[p][binding.first] = true;
+                }
             }
+        }
+        if (IsGamepadAvailable((int)p) && p < gamepadBindingsPerPlayer.size()) {
+            for (auto const& gb : gamepadBindingsPerPlayer[p]) {
+                if (IsGamepadButtonDown((int)p, gb.second)) {
+                    actionStates[p][gb.first] = true;
+                }
+            }
+            float axisX = GetGamepadAxisMovement((int)p, GAMEPAD_AXIS_LEFT_X);
+            float axisY = GetGamepadAxisMovement((int)p, GAMEPAD_AXIS_LEFT_Y);
+            if (axisX < -0.3f) actionStates[p][Action::MoveLeft] = true;
+            if (axisX > 0.3f) actionStates[p][Action::MoveRight] = true;
+            if (axisY > 0.5f) {
+                actionStates[p][Action::Crouch] = true;
+                actionStates[p][Action::MenuDown] = true;
+            }
+            if (axisY < -0.5f) actionStates[p][Action::MenuUp] = true;
         }
     }
 }
@@ -111,6 +179,19 @@ bool InputManager::isActionPressed(Action action, int playerIndex) const {
             }
         }
     }
+    if (IsGamepadAvailable(playerIndex)) {
+        const auto& gList = getPlayerGamepadBindings(playerIndex);
+        for (auto const& gb : gList) {
+            if (gb.first == action && IsGamepadButtonDown(playerIndex, gb.second)) {
+                return true;
+            }
+        }
+        if (action == Action::MoveLeft && GetGamepadAxisMovement(playerIndex, GAMEPAD_AXIS_LEFT_X) < -0.3f) return true;
+        if (action == Action::MoveRight && GetGamepadAxisMovement(playerIndex, GAMEPAD_AXIS_LEFT_X) > 0.3f) return true;
+        if (action == Action::Crouch && GetGamepadAxisMovement(playerIndex, GAMEPAD_AXIS_LEFT_Y) > 0.5f) return true;
+        if (action == Action::MenuDown && GetGamepadAxisMovement(playerIndex, GAMEPAD_AXIS_LEFT_Y) > 0.5f) return true;
+        if (action == Action::MenuUp && GetGamepadAxisMovement(playerIndex, GAMEPAD_AXIS_LEFT_Y) < -0.5f) return true;
+    }
     return false;
 }
 
@@ -123,6 +204,14 @@ bool InputManager::isActionJustPressed(Action action, int playerIndex) const {
             }
         }
     }
+    if (IsGamepadAvailable(playerIndex)) {
+        const auto& gList = getPlayerGamepadBindings(playerIndex);
+        for (auto const& gb : gList) {
+            if (gb.first == action && IsGamepadButtonPressed(playerIndex, gb.second)) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -131,6 +220,14 @@ bool InputManager::isActionReleased(Action action, int playerIndex) const {
     for (auto const& binding : list) {
         if (binding.first == action) {
             if (IsKeyReleased(binding.second)) {
+                return true;
+            }
+        }
+    }
+    if (IsGamepadAvailable(playerIndex)) {
+        const auto& gList = getPlayerGamepadBindings(playerIndex);
+        for (auto const& gb : gList) {
+            if (gb.first == action && IsGamepadButtonReleased(playerIndex, gb.second)) {
                 return true;
             }
         }

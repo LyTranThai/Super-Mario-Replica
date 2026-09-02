@@ -21,17 +21,21 @@ enum class Action {
 class InputManager {
 private:
     std::vector<std::vector<std::pair<Action, int>>> bindingsPerPlayer;
+    std::vector<std::vector<std::pair<Action, int>>> gamepadBindingsPerPlayer;
     std::vector<std::map<Action, bool>> actionStates;
     std::vector<std::map<Action, bool>> prevActionStates;
 
     std::vector<std::pair<Action, int>>& getPlayerBindings(int playerIndex);
     const std::vector<std::pair<Action, int>>& getPlayerBindings(int playerIndex) const;
+    std::vector<std::pair<Action, int>>& getPlayerGamepadBindings(int playerIndex);
+    const std::vector<std::pair<Action, int>>& getPlayerGamepadBindings(int playerIndex) const;
 
 public:
     InputManager();
 
     bool bindKey(int key, Action action, int playerIndex = 0);
     bool addKeyBinding(int key, Action action, int playerIndex = 0);
+    bool bindGamepadButton(int button, Action action, int playerIndex = 0);
     void update(); // Queries Raylib input states
 
     bool isActionPressed(Action action, int playerIndex = 0) const;
@@ -40,6 +44,9 @@ public:
 
     // Helper to get raw key code currently bound to an action
     int getBoundKey(Action action, int playerIndex = 0) const;
+
+    // Gamepad support helper
+    bool isGamepadAvailable(int playerIndex = 0) const;
 
     // State tracking query helpers per player
     bool getActionState(Action action, int playerIndex = 0) const;
