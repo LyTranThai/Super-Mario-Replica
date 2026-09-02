@@ -46,9 +46,18 @@ void LoginState::handleInput(const InputManager& input) {
             GameEngine::getInstance().setActiveAccount(loaded);
             
             for (auto const& [actName, keyCode] : loaded.getKeySettings()) {
-                if (!InputManager::isValidActionString(actName)) continue;
-                Action act = InputManager::stringToAction(actName);
-                GameEngine::getInstance().getInputManager().bindKey(keyCode, act);
+                int playerIndex = 0;
+                std::string actualAction = actName;
+                if (actName.rfind("P2_", 0) == 0) {
+                    playerIndex = 1;
+                    actualAction = actName.substr(3);
+                } else if (actName.rfind("P1_", 0) == 0) {
+                    playerIndex = 0;
+                    actualAction = actName.substr(3);
+                }
+                if (!InputManager::isValidActionString(actualAction)) continue;
+                Action act = InputManager::stringToAction(actualAction);
+                GameEngine::getInstance().getInputManager().bindKey(keyCode, act, playerIndex);
             }
 
             // After login, push LevelSelectState

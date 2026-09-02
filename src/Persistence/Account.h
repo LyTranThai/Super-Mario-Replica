@@ -44,8 +44,8 @@ public:
     const std::map<int, int>& getLevelHighScores() const { return levelHighScores; }
     void setLevelHighScores(const std::map<int, int>& scores) { levelHighScores = scores; }
 
-    void setKeySetting(const std::string& actionName, int keyCode);
-    int getKeySetting(const std::string& actionName) const;
+    void setKeySetting(const std::string& actionName, int keyCode, int playerIndex = 0);
+    int getKeySetting(const std::string& actionName, int playerIndex = 0) const;
     const std::map<std::string, int>& getKeySettings() const { return keySettings; }
     void loadKeySettings(const std::map<std::string, int>& settings);
 };
