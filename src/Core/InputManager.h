@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include <utility>
+#include <string>
 
 enum class Action {
     MoveLeft,
@@ -51,6 +52,11 @@ public:
     // State tracking query helpers per player
     bool getActionState(Action action, int playerIndex = 0) const;
     bool getPrevActionState(Action action, int playerIndex = 0) const;
+
+    // Static action conversion helpers
+    static std::string actionToString(Action action);
+    static Action stringToAction(const std::string& str);
+    static bool isValidActionString(const std::string& str);
 };
 
 #endif // INPUT_MANAGER_H

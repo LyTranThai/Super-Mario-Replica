@@ -256,3 +256,40 @@ bool InputManager::getPrevActionState(Action action, int playerIndex) const {
     auto it = prevActionStates[playerIndex].find(action);
     return it != prevActionStates[playerIndex].end() && it->second;
 }
+
+std::string InputManager::actionToString(Action action) {
+    switch (action) {
+        case Action::MoveLeft: return "MoveLeft";
+        case Action::MoveRight: return "MoveRight";
+        case Action::Jump: return "Jump";
+        case Action::Crouch: return "Crouch";
+        case Action::Run: return "Run";
+        case Action::Shoot: return "Shoot";
+        case Action::Pause: return "Pause";
+        case Action::MenuUp: return "MenuUp";
+        case Action::MenuDown: return "MenuDown";
+        case Action::MenuConfirm: return "MenuConfirm";
+        default: return "Unknown";
+    }
+}
+
+Action InputManager::stringToAction(const std::string& str) {
+    if (str == "MoveLeft") return Action::MoveLeft;
+    if (str == "MoveRight") return Action::MoveRight;
+    if (str == "Jump") return Action::Jump;
+    if (str == "Crouch") return Action::Crouch;
+    if (str == "Run") return Action::Run;
+    if (str == "Shoot") return Action::Shoot;
+    if (str == "Pause") return Action::Pause;
+    if (str == "MenuUp") return Action::MenuUp;
+    if (str == "MenuDown") return Action::MenuDown;
+    if (str == "MenuConfirm") return Action::MenuConfirm;
+    return Action::Jump;
+}
+
+bool InputManager::isValidActionString(const std::string& str) {
+    return (str == "MoveLeft" || str == "MoveRight" || str == "Jump" ||
+            str == "Crouch" || str == "Run" || str == "Shoot" ||
+            str == "Pause" || str == "MenuUp" || str == "MenuDown" ||
+            str == "MenuConfirm");
+}

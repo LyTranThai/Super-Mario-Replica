@@ -45,19 +45,9 @@ void LoginState::handleInput(const InputManager& input) {
             saveManager.loadAccount(inputUsername, loaded);
             GameEngine::getInstance().setActiveAccount(loaded);
             
-            // Rebind keys in engine key bindings
             for (auto const& [actName, keyCode] : loaded.getKeySettings()) {
-                Action act;
-                if (actName == "MoveLeft") act = Action::MoveLeft;
-                else if (actName == "MoveRight") act = Action::MoveRight;
-                else if (actName == "Jump") act = Action::Jump;
-                else if (actName == "Crouch") act = Action::Crouch;
-                else if (actName == "Run") act = Action::Run;
-                else if (actName == "Shoot") act = Action::Shoot;
-                else if (actName == "Pause") act = Action::Pause;
-                else if (actName == "MenuUp") act = Action::MenuUp;
-                else if (actName == "MenuDown") act = Action::MenuDown;
-                else continue;
+                if (!InputManager::isValidActionString(actName)) continue;
+                Action act = InputManager::stringToAction(actName);
                 GameEngine::getInstance().getInputManager().bindKey(keyCode, act);
             }
 

@@ -49,18 +49,8 @@ void SettingsState::handleInput(const InputManager& input) {
                 return;
             }
 
-            // Map action enum
-            Action act;
-            if (activeActionToRebind == "MoveLeft") act = Action::MoveLeft;
-            else if (activeActionToRebind == "MoveRight") act = Action::MoveRight;
-            else if (activeActionToRebind == "Jump") act = Action::Jump;
-            else if (activeActionToRebind == "Crouch") act = Action::Crouch;
-            else if (activeActionToRebind == "Run") act = Action::Run;
-            else if (activeActionToRebind == "Shoot") act = Action::Shoot;
-            else if (activeActionToRebind == "Pause") act = Action::Pause;
-            else if (activeActionToRebind == "MenuUp") act = Action::MenuUp;
-            else if (activeActionToRebind == "MenuDown") act = Action::MenuDown;
-            else return;
+            if (!InputManager::isValidActionString(activeActionToRebind)) return;
+            Action act = InputManager::stringToAction(activeActionToRebind);
 
             bool success = GameEngine::getInstance().getInputManager().bindKey(key, act);
             if (success) {
