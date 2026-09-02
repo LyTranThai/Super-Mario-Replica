@@ -11,6 +11,7 @@ InputManager::InputManager() {
     bindKey(KEY_S, Action::Crouch, 0);     // S for crouch
     bindKey(KEY_LEFT_SHIFT, Action::Run, 0);
     bindKey(KEY_J, Action::Shoot, 0);
+    addKeyBinding(KEY_F, Action::Shoot, 0); // Alternate shoot key
     bindKey(KEY_P, Action::Pause, 0);
 
     // Menu switch keys default to arrow keys to avoid sharing W/S initially
@@ -25,6 +26,8 @@ InputManager::InputManager() {
     bindKey(KEY_DOWN, Action::Crouch, 1);  // DOWN for crouch
     bindKey(KEY_RIGHT_SHIFT, Action::Run, 1);
     bindKey(KEY_L, Action::Shoot, 1);      // L for shoot
+    addKeyBinding(KEY_SLASH, Action::Shoot, 1); // Alternate shoot key
+    addKeyBinding(KEY_ENTER, Action::Shoot, 1); // Alternate shoot key
     bindKey(KEY_P, Action::Pause, 1);
 }
 
@@ -64,6 +67,20 @@ bool InputManager::bindKey(int key, Action action, int playerIndex) {
     return true;
 }
 
+bool InputManager::addKeyBinding(int key, Action action, int playerIndex) {
+    auto& list = getPlayerBindings(playerIndex);
+    for (auto const& binding : list) {
+        if (binding.second == key && binding.first != action) {
+            return false; // Key exists for another action, reject!
+        }
+        if (binding.second == key && binding.first == action) {
+            return true; // Already bound to this action
+        }
+    }
+    list.push_back({action, key});
+    return true;
+}
+
 void InputManager::update() {
     // No-op: Native Raylib queries are used directly in action checkers
 }
@@ -77,11 +94,6 @@ bool InputManager::isActionPressed(Action action, int playerIndex) const {
             }
         }
     }
-    // Alternative keys for comfortable co-op
-    if (action == Action::Shoot) {
-        if (playerIndex == 0 && IsKeyDown(KEY_F)) return true;
-        if (playerIndex == 1 && (IsKeyDown(KEY_SLASH) || IsKeyDown(KEY_ENTER))) return true;
-    }
     return false;
 }
 
@@ -94,10 +106,6 @@ bool InputManager::isActionJustPressed(Action action, int playerIndex) const {
             }
         }
     }
-    if (action == Action::Shoot) {
-        if (playerIndex == 0 && IsKeyPressed(KEY_F)) return true;
-        if (playerIndex == 1 && (IsKeyPressed(KEY_SLASH) || IsKeyPressed(KEY_ENTER))) return true;
-    }
     return false;
 }
 
@@ -109,10 +117,6 @@ bool InputManager::isActionReleased(Action action, int playerIndex) const {
                 return true;
             }
         }
-    }
-    if (action == Action::Shoot) {
-        if (playerIndex == 0 && IsKeyReleased(KEY_F)) return true;
-        if (playerIndex == 1 && (IsKeyReleased(KEY_SLASH) || IsKeyReleased(KEY_ENTER))) return true;
     }
     return false;
 }

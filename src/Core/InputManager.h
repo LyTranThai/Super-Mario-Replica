@@ -31,6 +31,7 @@ public:
     InputManager();
 
     bool bindKey(int key, Action action, int playerIndex = 0);
+    bool addKeyBinding(int key, Action action, int playerIndex = 0);
     void update(); // Queries Raylib input states
 
     bool isActionPressed(Action action, int playerIndex = 0) const;
