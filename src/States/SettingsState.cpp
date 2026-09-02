@@ -10,10 +10,15 @@ static std::string getKeyNameForSettings(int key) {
     if (key >= KEY_ZERO && key <= KEY_NINE) {
         return std::string(1, (char)('0' + (key - KEY_ZERO)));
     }
+    if (key >= KEY_KP_0 && key <= KEY_KP_9) {
+        return "NUM_" + std::to_string(key - KEY_KP_0);
+    }
     switch (key) {
         case KEY_SPACE: return "SPACE";
         case KEY_ESCAPE: return "ESCAPE";
         case KEY_ENTER: return "ENTER";
+        case KEY_TAB: return "TAB";
+        case KEY_BACKSPACE: return "BACKSPACE";
         case KEY_LEFT_SHIFT: return "L_SHIFT";
         case KEY_RIGHT_SHIFT: return "R_SHIFT";
         case KEY_LEFT_CONTROL: return "L_CTRL";
@@ -24,9 +29,23 @@ static std::string getKeyNameForSettings(int key) {
         case KEY_DOWN: return "DOWN";
         case KEY_LEFT: return "LEFT";
         case KEY_RIGHT: return "RIGHT";
-        case KEY_J: return "J";
-        case KEY_K: return "K";
-        case KEY_L: return "L";
+        case KEY_SLASH: return "/";
+        case KEY_BACKSLASH: return "\\";
+        case KEY_SEMICOLON: return ";";
+        case KEY_COMMA: return ",";
+        case KEY_PERIOD: return ".";
+        case KEY_MINUS: return "-";
+        case KEY_EQUAL: return "=";
+        case KEY_GRAVE: return "`";
+        case KEY_LEFT_BRACKET: return "[";
+        case KEY_RIGHT_BRACKET: return "]";
+        case KEY_KP_DIVIDE: return "NUM_/";
+        case KEY_KP_MULTIPLY: return "NUM_*";
+        case KEY_KP_SUBTRACT: return "NUM_-";
+        case KEY_KP_ADD: return "NUM_+";
+        case KEY_KP_DECIMAL: return "NUM_.";
+        case KEY_KP_ENTER: return "NUM_ENTER";
+        case KEY_KP_EQUAL: return "NUM_=";
         default: return "KEY_" + std::to_string(key);
     }
 }
