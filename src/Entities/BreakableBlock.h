@@ -8,7 +8,7 @@ private:
     bool isBroken;
 
 public:
-    BreakableBlock(Vector2 pos, ItemType item = ItemType::None);
+    BreakableBlock(Vector2 pos);
     ~BreakableBlock() override = default;
 
     // Override logic khi bị Mario húc

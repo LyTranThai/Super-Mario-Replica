@@ -254,9 +254,6 @@ void Level::loadFromFile(const std::string& filePath) {
 
             if (type == 'P') {
                 player = createPlayer(Vector2{ x, y });
-                if (filePath == "assets/levels/level1.txt") {
-                    player->powerUp(PowerStateType::Fire);
-                }
             } else if (type != ' ' && type != '\n') {
                 auto ent = EntityFactory::createEntity(type, x, y);
                 if (ent) {

@@ -2,13 +2,9 @@
 #include "Core/EventSystem.h"
 #include "Player.h"
 
-struct ItemSpawnData {
-    Vector2 position;
-    ItemType type;
-};
 
 CoinBlock::CoinBlock(Vector2 pos, int coins)
-    : InteractiveBlock(pos, InteractiveBlockType::Question, ItemType::Coin), coinAmount(coins) {}
+    : InteractiveBlock(pos, InteractiveBlockType::Question), coinAmount(coins) {}
 
 void CoinBlock::hit(Player& player) {
     if (isUsedUp()) return;
@@ -23,9 +19,11 @@ void CoinBlock::hit(Player& player) {
 
         spawnCoinAnimation(); // Hiện hiệu ứng đồng xu nảy lên
         
+        bounceTimer = 0.15f;
+
         if (coinAmount == 0) {
             // Đánh dấu khối đã dùng hết -> đổi sprite sang khối xám rỗng (Empty/Used Block)
-            InteractiveBlock::hit(player); 
+            isUsed = true;
         }
     }
 }

@@ -4,18 +4,8 @@
 #include "Core/GameEngine.h"
 #include "Core/SoundManager.h"
 #include "World/Level.h"
-#include "Entities/Fireball.h"
-#include "Entities/Item.h"
-#include "Entities/Mushroom.h"
 #include "Persistence/SaveManager.h"
 #include <iostream>
-
-
-struct ItemSpawnData
-{
-    Vector2 position;
-    ItemType type;
-};
 
 GameplayState::GameplayState() : GameplayState(0) {}
 
@@ -23,12 +13,11 @@ GameplayState::GameplayState(int startLevelIndex) : currentLevelIndex(startLevel
 {
     // Setup list of standard + custom + random levels
     levelFiles = {"assets/levels/level1.txt", "assets/levels/level2.txt", "assets/levels/level3.txt", "assets/levels/custom_level.txt", "RANDOM"};
+    spawner = std::make_unique<EntitySpawner>();
 }
 
 GameplayState::~GameplayState()
 {
-    EventManager::getInstance().unsubscribe(EventType::FireballShot, this);
-    EventManager::getInstance().unsubscribe(EventType::ItemSpawned, this);
     EventManager::getInstance().unsubscribe(EventType::LevelCompleted, this);
     EventManager::getInstance().unsubscribe(EventType::PlayerDied, this);
 
@@ -46,8 +35,6 @@ void GameplayState::init()
     loadLevel(currentLevelIndex);
 
     // Subscribe to gameplay spawning events
-    EventManager::getInstance().subscribe(EventType::FireballShot, this);
-    EventManager::getInstance().subscribe(EventType::ItemSpawned, this);
     EventManager::getInstance().subscribe(EventType::LevelCompleted, this);
     EventManager::getInstance().subscribe(EventType::PlayerDied, this);
 }
@@ -55,6 +42,7 @@ void GameplayState::init()
 void GameplayState::loadLevel(int index)
 {
     level = std::make_unique<Level>(levelFiles[index]);
+    spawner->setLevel(level.get());
 
     // Stop background music during gameplay (avoid audio mixing with SFX)
     SoundManager::getInstance().stopMusic();
@@ -132,43 +120,7 @@ void GameplayState::onEvent(EventType type, void *data)
 
     switch (type)
     {
-    case EventType::FireballShot:
-    {
-        FireballSpawnData *spawn = static_cast<FireballSpawnData *>(data);
-        if (spawn)
-        {
-            level->spawnEntity(std::make_unique<Fireball>(spawn->position, spawn->facingRight, spawn->type));
-        }
-        break;
-    }
-    case EventType::ItemSpawned:
-    {
-        ItemSpawnData *spawn = static_cast<ItemSpawnData *>(data);
-        if (spawn)
-        {
-            if (spawn->type == ItemType::Mushroom)
-            {
-                level->spawnEntity(std::make_unique<Mushroom>(spawn->position));
-            }
-            else
-            {
-                std::string tex = "mushroom";
-                Color dbgCol = RED;
-                if (spawn->type == ItemType::FireFlower)
-                {
-                    tex = "flower";
-                    dbgCol = ORANGE;
-                }
-                else if (spawn->type == ItemType::Coin)
-                {
-                    tex = "coin";
-                    dbgCol = YELLOW;
-                }
-                level->spawnEntity(std::make_unique<Item>(spawn->position, spawn->type, tex, dbgCol));
-            }
-        }
-        break;
-    }
+
     case EventType::LevelCompleted:
     {
         currentLevelIndex++;

@@ -84,6 +84,7 @@ void GameEngine::init()
     AssetManager::getInstance().loadTexture("coin", "assets/textures/coinblockreward.png", whiteKey);
     AssetManager::getInstance().loadTexture("fireball", "assets/textures/fireball.png");
     AssetManager::getInstance().loadTexture("world11", "assets/textures/world11.png");
+    AssetManager::getInstance().loadTexture("Item", "assets/textures/Item.png");
 
     std::vector<Color> menuKey = {Color{0, 165, 165, 255}};
     AssetManager::getInstance().loadTexture("mainmenu", "assets/textures/mainmenu.png", menuKey);

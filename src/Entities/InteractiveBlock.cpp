@@ -5,16 +5,11 @@
 #include <iostream>
 #include <cmath>
 
-struct ItemSpawnData {
-    Vector2 position;
-    ItemType type;
-};
-
-InteractiveBlock::InteractiveBlock(Vector2 pos, InteractiveBlockType type, ItemType item)
+InteractiveBlock::InteractiveBlock(Vector2 pos, InteractiveBlockType type)
     : StaticEntity(pos, Vector2{ 32.0f, 32.0f }, Vector2{ 32.0f, 32.0f }, Vector2{ 0.0f, 0.0f }, 
                    (type == InteractiveBlockType::Question) ? "question" : "brick", 
                    (type == InteractiveBlockType::Question) ? GOLD : ORANGE),
-      blockType(type), hiddenItem(item), isUsed(false), bounceTimer(0.0f), originalPosition(pos) {}
+      blockType(type), isUsed(false), bounceTimer(0.0f), originalPosition(pos) {}
 
 void InteractiveBlock::update(float dt) {
     
@@ -65,46 +60,4 @@ void InteractiveBlock::draw() {
 
 void InteractiveBlock::onInteract(Player& player) {
     hit(player);
-}
-
-void InteractiveBlock::hit(Player& player) {
-    if (blockType == InteractiveBlockType::Brick) {
-        if (player.getPowerType() != PowerStateType::Small) {
-            // Shatter brick block
-            active = false;
-            EventManager::getInstance().broadcast(EventType::BrickBroken);
-        } else {
-            // Bounce brick block without breaking
-            if (bounceTimer <= 0.0f) {
-                bounceTimer = 0.15f;
-            }
-        }
-    } 
-    else if (blockType == InteractiveBlockType::Question) {
-        if (!isUsed) {
-            isUsed = true;
-            bounceTimer = 0.15f;
-
-            if (hiddenItem == ItemType::Coin) {
-                player.addCoin();
-                player.addScore(200);
-                EventManager::getInstance().broadcast(EventType::CoinCollected);
-
-                // Spawn visual coin popping out upward
-                Vector2 spawnPos = { originalPosition.x, originalPosition.y - 32.0f };
-                ItemSpawnData spawnData = { spawnPos, ItemType::Coin };
-                EventManager::getInstance().broadcast(EventType::ItemSpawned, &spawnData);
-            } 
-            else if (hiddenItem != ItemType::None) {
-                // Spawn item popping out upward
-                Vector2 spawnPos = { originalPosition.x, originalPosition.y - 32.0f };
-                if (hiddenItem == ItemType::Mushroom) {
-                    spawnPos.x += 16.0f;
-                    spawnPos.y -= 16.0f;
-                }
-                ItemSpawnData spawnData = { spawnPos, hiddenItem };
-                EventManager::getInstance().broadcast(EventType::ItemSpawned, &spawnData);
-            }
-        }
-    }
 }
