@@ -21,8 +21,8 @@ enum class Action {
 class InputManager {
 private:
     std::vector<std::vector<std::pair<Action, int>>> bindingsPerPlayer;
-    std::map<Action, bool> actionStates;
-    std::map<Action, bool> prevActionStates;
+    std::vector<std::map<Action, bool>> actionStates;
+    std::vector<std::map<Action, bool>> prevActionStates;
 
     std::vector<std::pair<Action, int>>& getPlayerBindings(int playerIndex);
     const std::vector<std::pair<Action, int>>& getPlayerBindings(int playerIndex) const;
@@ -40,6 +40,10 @@ public:
 
     // Helper to get raw key code currently bound to an action
     int getBoundKey(Action action, int playerIndex = 0) const;
+
+    // State tracking query helpers per player
+    bool getActionState(Action action, int playerIndex = 0) const;
+    bool getPrevActionState(Action action, int playerIndex = 0) const;
 };
 
 #endif // INPUT_MANAGER_H

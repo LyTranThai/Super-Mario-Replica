@@ -3,6 +3,8 @@
 
 InputManager::InputManager() {
     bindingsPerPlayer.resize(2);
+    actionStates.resize(2);
+    prevActionStates.resize(2);
 
     // Set up default action bindings for Player 1 (Left side of keyboard / WASD)
     bindKey(KEY_A, Action::MoveLeft, 0);
@@ -82,7 +84,22 @@ bool InputManager::addKeyBinding(int key, Action action, int playerIndex) {
 }
 
 void InputManager::update() {
-    // No-op: Native Raylib queries are used directly in action checkers
+    if (actionStates.size() < bindingsPerPlayer.size()) {
+        actionStates.resize(bindingsPerPlayer.size());
+    }
+    if (prevActionStates.size() < bindingsPerPlayer.size()) {
+        prevActionStates.resize(bindingsPerPlayer.size());
+    }
+
+    for (size_t p = 0; p < bindingsPerPlayer.size(); ++p) {
+        prevActionStates[p] = actionStates[p];
+        actionStates[p].clear();
+        for (auto const& binding : bindingsPerPlayer[p]) {
+            if (IsKeyDown(binding.second)) {
+                actionStates[p][binding.first] = true;
+            }
+        }
+    }
 }
 
 bool InputManager::isActionPressed(Action action, int playerIndex) const {
@@ -129,4 +146,16 @@ int InputManager::getBoundKey(Action action, int playerIndex) const {
         }
     }
     return 0; // Return 0 (KEY_NULL) if not bound
+}
+
+bool InputManager::getActionState(Action action, int playerIndex) const {
+    if (playerIndex < 0 || playerIndex >= (int)actionStates.size()) return false;
+    auto it = actionStates[playerIndex].find(action);
+    return it != actionStates[playerIndex].end() && it->second;
+}
+
+bool InputManager::getPrevActionState(Action action, int playerIndex) const {
+    if (playerIndex < 0 || playerIndex >= (int)prevActionStates.size()) return false;
+    auto it = prevActionStates[playerIndex].find(action);
+    return it != prevActionStates[playerIndex].end() && it->second;
 }
