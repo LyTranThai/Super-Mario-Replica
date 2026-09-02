@@ -10,6 +10,7 @@
 class SettingsState : public GameState {
 private:
     int selectedIndex;
+    int selectedPlayerIndex;
     std::vector<std::string> settingsOptions;
 
     bool isRebinding;

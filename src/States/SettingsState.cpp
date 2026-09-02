@@ -51,7 +51,7 @@ static std::string getKeyNameForSettings(int key) {
 }
 
 SettingsState::SettingsState()
-    : selectedIndex(0), isRebinding(false), errorMessage("") {}
+    : selectedIndex(0), selectedPlayerIndex(0), isRebinding(false), errorMessage("") {}
 
 void SettingsState::init() {
     settingsOptions = { "MoveLeft", "MoveRight", "Jump", "Crouch", "Run", "Shoot", "Pause", "MenuUp", "MenuDown" };
@@ -71,15 +71,15 @@ void SettingsState::handleInput(const InputManager& input) {
             if (!InputManager::isValidActionString(activeActionToRebind)) return;
             Action act = InputManager::stringToAction(activeActionToRebind);
 
-            bool success = GameEngine::getInstance().getInputManager().bindKey(key, act);
+            bool success = GameEngine::getInstance().getInputManager().bindKey(key, act, selectedPlayerIndex);
             if (success) {
-                activeAccount.setKeySetting(activeActionToRebind, key);
+                activeAccount.setKeySetting(activeActionToRebind, key, selectedPlayerIndex);
                 GameEngine::getInstance().setActiveAccount(activeAccount);
                 saveManager.saveAccount(activeAccount); // Persist updated key configurations
                 isRebinding = false;
                 errorMessage = "";
             } else {
-                errorMessage = "Key already bound to another action!";
+                errorMessage = "Key already bound to another action or player!";
             }
         }
     } else {
@@ -88,6 +88,10 @@ void SettingsState::handleInput(const InputManager& input) {
         }
         if (input.isActionJustPressed(Action::MenuDown)) {
             selectedIndex = (selectedIndex + 1) % settingsOptions.size();
+        }
+        if (IsKeyPressed(KEY_TAB) || input.isActionJustPressed(Action::MoveLeft) || input.isActionJustPressed(Action::MoveRight)) {
+            selectedPlayerIndex = 1 - selectedPlayerIndex;
+            errorMessage = "";
         }
         if (input.isActionJustPressed(Action::MenuConfirm)) {
             activeActionToRebind = settingsOptions[selectedIndex];
@@ -104,30 +108,38 @@ void SettingsState::update(float dt) {
 void SettingsState::draw() {
     ClearBackground(RAYWHITE);
     
-    DrawText("SUPER MARIO OOP", 150, 50, 50, MAROON);
-    DrawText("C++ & Raylib Project", 250, 110, 20, DARKGRAY);
+    DrawText("SUPER MARIO OOP", 150, 40, 46, MAROON);
+    DrawText("KEYBOARD SETTINGS", 280, 95, 20, DARKGRAY);
 
     if (isRebinding) {
-        DrawText("REBINDING KEY...", 250, 200, 30, MAROON);
+        std::string pName = (selectedPlayerIndex == 0) ? "PLAYER 1 (MARIO)" : "PLAYER 2 (LUIGI)";
+        DrawText(("REBINDING FOR " + pName).c_str(), 200, 180, 24, MAROON);
         std::string msg = "Press any key to bind to: " + activeActionToRebind;
-        DrawText(msg.c_str(), 150, 280, 25, BLACK);
-        DrawText("Press [ESC] to Cancel", 280, 340, 20, DARKGRAY);
+        DrawText(msg.c_str(), 160, 260, 22, BLACK);
+        DrawText("Press [ESC] to Cancel", 280, 330, 20, DARKGRAY);
         if (!errorMessage.empty()) {
-            DrawText(errorMessage.c_str(), 180, 400, 20, RED);
+            DrawText(errorMessage.c_str(), 130, 400, 20, RED);
         }
     } else {
-        DrawText("CUSTOM KEY BINDINGS", 250, 150, 25, DARKGRAY);
+        std::string tabHeader = (selectedPlayerIndex == 0) ? "< [TAB] PLAYER 1 (MARIO) >" : "< [TAB] PLAYER 2 (LUIGI) >";
+        Color headerColor = (selectedPlayerIndex == 0) ? RED : GREEN;
+        DrawText(tabHeader.c_str(), 240, 140, 24, headerColor);
+
         for (size_t i = 0; i < settingsOptions.size(); ++i) {
-            Color color = (i == (size_t)selectedIndex) ? RED : BLACK;
+            Color color = (i == (size_t)selectedIndex) ? headerColor : BLACK;
             std::string label = settingsOptions[i];
-            int keyCode = activeAccount.getKeySetting(label);
+            Action act = InputManager::stringToAction(label);
+            int keyCode = GameEngine::getInstance().getInputManager().getBoundKey(act, selectedPlayerIndex);
+            if (keyCode == 0) {
+                keyCode = activeAccount.getKeySetting(label, selectedPlayerIndex);
+            }
             label = label + " : [" + getKeyNameForSettings(keyCode) + "]";
             
             std::string prefix = (i == (size_t)selectedIndex) ? "> " : "  ";
-            DrawText((prefix + label).c_str(), 200, 200 + i * 40, 25, color);
+            DrawText((prefix + label).c_str(), 240, 185 + i * 36, 22, color);
         }
         
-        DrawText("Press [Esc] to Return to Menu", 250, 560, 20, DARKGRAY);
+        DrawText("Press [TAB] or [A/D] to Switch Player | [Esc] to Return", 150, 560, 18, DARKGRAY);
     }
 }
 
